@@ -65,12 +65,12 @@ if minetest.get_modpath("mobs_monster") then
 	mobs:spawn({
 		name = "mobs_monster:dirt_monster",
 		nodes = {"default:dirt_with_grass","naturalbiomes:alpine_litter", "naturalbiomes:alderswamp_litter", "naturalbiomes:heath_litter", "naturalbiomes:heath_litter2", "naturalbiomes:mediterran_litter"},
-		--min_light = 0,
-		--max_light = 7,
-		chance = 600,
+		min_light = 0,
+		max_light = 7,
+		chance = 3000,
 		active_object_count = 2,
 		min_height = 0,
-		--day_toggle = false,
+		day_toggle = false,
 	})
 	minetest.log("ToChat:",	"Ran Mapper code." )
 	-- Dungeon Master
@@ -120,7 +120,7 @@ if minetest.get_modpath("mobs_monster") then
 	mobs:spawn({
 		name = "mobs_monster:sand_monster",
 		nodes = {"default:desert_sand","naturalbiomes:outback_litter"},
-		chance = 700,
+		chance = 3500,
 		active_object_count = 2,
 		min_height = 0,
 	})
