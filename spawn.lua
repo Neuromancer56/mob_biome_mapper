@@ -84,6 +84,8 @@ addGroupToNode("ethereal", "gray_dirt", "dirt")
 addGroupToNode("ethereal", "dry_dirt", "dirt")
 addGroupToNode("naturalbiomes", "outback_litter", "desert_surface")
 addGroupToNode("caverealms", "stone_with_salt", "cave_floor")
+addGroupToNode("caverealms", "stone_with_moss", "cave_floor")
+addGroupToNode("caverealms", "stone_with_lichen", "cave_floor")
 -- Check if a mod named "mobs" is enabled
 local spawn_chance_multiplier = 2
 if minetest.get_modpath("mobs_monster") then
@@ -106,8 +108,8 @@ if minetest.get_modpath("mobs_monster") then
 	mobs:spawn({
 		name = "mobs_monster:dungeon_master",
 		nodes = {"default:stone", "group:cave_floor"},
-		max_light = 5,
-		chance = 9000,
+		max_light = 7,  --5
+		chance = 9000/spawn_chance_multiplier,
 		active_object_count = 1,
 		max_height = -70,
 	})
@@ -127,8 +129,8 @@ if minetest.get_modpath("mobs_monster") then
 	mobs:spawn({
 		name = "mobs_monster:mese_monster",
 		nodes = {"default:stone", "group:cave_floor"},
-		max_light = 7,
-		chance = 5000,
+		max_light = 9,  --7
+		chance = 5000/spawn_chance_multiplier,
 		active_object_count = 1,
 		max_height = -20,
 	})
@@ -138,8 +140,8 @@ if minetest.get_modpath("mobs_monster") then
 	mobs:spawn({
 		name = "mobs_monster:oerkki",
 		nodes = {"default:stone", "group:cave_floor"},
-		max_light = 7,
-		chance = 7000,
+		max_light = 9,  --7
+		chance = 7000/spawn_chance_multiplier,
 		max_height = -10,
 	})
 
@@ -174,8 +176,8 @@ if minetest.get_modpath("mobs_monster") then
 		name = "mobs_monster:spider",
 		nodes = {"default:stone_with_mese", "default:mese", "default:stone", "group:cave_floor"},
 		min_light = 0,
-		max_light = 7,
-		chance = 7000,
+		max_light = 9, --7
+		chance = 7000/spawn_chance_multiplier,
 		active_object_count = 1,
 		min_height = -31000,
 		max_height = -40,
@@ -186,8 +188,8 @@ if minetest.get_modpath("mobs_monster") then
 	mobs:spawn({
 		name = "mobs_monster:stone_monster",
 		nodes = {"default:stone", "default:desert_stone", "default:sandstone", "group:cave_floor"},
-		max_light = 7,
-		chance = 7000,
+		max_light = 9, --7
+		chance = 7000/spawn_chance_multiplier,
 		max_height = 0,
 	})
 
