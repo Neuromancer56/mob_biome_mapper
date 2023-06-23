@@ -1,2 +1,4 @@
 mobs
 mobs_monster?
+caverealms?
+naturalbiomes?
