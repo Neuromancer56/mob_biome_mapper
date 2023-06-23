@@ -57,27 +57,55 @@ mobs:spawn({
 })
 ]]--
 
+local function addGroupToNode(modname, nodename, groupname)
+    if minetest.get_modpath(modname) then
+        local node_def = minetest.registered_nodes[modname .. ":" .. nodename]
+        if node_def then
+            node_def.groups[groupname] = 1
+            minetest.override_item(modname .. ":" .. nodename, { groups = node_def.groups })
+        end
+		--*********Log info about groups node belongs to. COMMENT THIS OUT **********
+		-- minetest.log("nodeinfo:", "nodeinfo:" .. nodename)
+		-- for group, value in pairs(node_def.groups) do
+		-- -- Log each item using minetest.log()
+		-- minetest.log("groups:", "group: " .. group .. ", value: " .. value)
+		-- end
+			--*********************************************************  
+	end
+end
+
+addGroupToNode("naturalbiomes", "alpine_litter", "dirt")
+addGroupToNode("naturalbiomes", "alderswamp_litter", "dirt")
+addGroupToNode("naturalbiomes", "heath_litter", "dirt")
+addGroupToNode("naturalbiomes", "heath_litter2", "dirt")
+addGroupToNode("naturalbiomes", "mediterran_litter", "dirt")
+addGroupToNode("default", "dry_dirt_with_dry_grass", "dirt")
+addGroupToNode("ethereal", "gray_dirt", "dirt")
+addGroupToNode("ethereal", "dry_dirt", "dirt")
+addGroupToNode("naturalbiomes", "outback_litter", "desert_surface")
+addGroupToNode("caverealms", "stone_with_salt", "cave_floor")
 -- Check if a mod named "mobs" is enabled
+local spawn_chance_multiplier = 2
 if minetest.get_modpath("mobs_monster") then
     -- The "mobs_monster" mod is enabled, execute your code here
--- Dirt Monster
 
+	-- Dirt Monster
 	mobs:spawn({
 		name = "mobs_monster:dirt_monster",
-		nodes = {"default:dirt_with_grass","naturalbiomes:alpine_litter", "naturalbiomes:alderswamp_litter", "naturalbiomes:heath_litter", "naturalbiomes:heath_litter2", "naturalbiomes:mediterran_litter"},
+		nodes = {"default:dirt_with_grass","group:dirt"},
 		min_light = 0,
 		max_light = 7,
-		chance = 3000,
+		chance = 6000/spawn_chance_multiplier,
 		active_object_count = 2,
 		min_height = 0,
 		day_toggle = false,
 	})
-	minetest.log("ToChat:",	"Ran Mapper code." )
+	-- minetest.log("ToChat:",	"Ran Mapper code." )   -- COMMENT THIS OUT **********
 	-- Dungeon Master
 
 	mobs:spawn({
 		name = "mobs_monster:dungeon_master",
-		nodes = {"default:stone"},
+		nodes = {"default:stone", "group:cave_floor"},
 		max_light = 5,
 		chance = 9000,
 		active_object_count = 1,
@@ -98,7 +126,7 @@ if minetest.get_modpath("mobs_monster") then
 
 	mobs:spawn({
 		name = "mobs_monster:mese_monster",
-		nodes = {"default:stone"},
+		nodes = {"default:stone", "group:cave_floor"},
 		max_light = 7,
 		chance = 5000,
 		active_object_count = 1,
@@ -109,7 +137,7 @@ if minetest.get_modpath("mobs_monster") then
 
 	mobs:spawn({
 		name = "mobs_monster:oerkki",
-		nodes = {"default:stone"},
+		nodes = {"default:stone", "group:cave_floor"},
 		max_light = 7,
 		chance = 7000,
 		max_height = -10,
@@ -119,8 +147,8 @@ if minetest.get_modpath("mobs_monster") then
 
 	mobs:spawn({
 		name = "mobs_monster:sand_monster",
-		nodes = {"default:desert_sand","naturalbiomes:outback_litter"},
-		chance = 3500,
+		nodes = {"default:desert_sand","group:desert_surface"},
+		chance = 7000/spawn_chance_multiplier,
 		active_object_count = 2,
 		min_height = 0,
 	})
@@ -144,7 +172,7 @@ if minetest.get_modpath("mobs_monster") then
 	-- Spider (below ground)
 	mobs:spawn({
 		name = "mobs_monster:spider",
-		nodes = {"default:stone_with_mese", "default:mese", "default:stone"},
+		nodes = {"default:stone_with_mese", "default:mese", "default:stone", "group:cave_floor"},
 		min_light = 0,
 		max_light = 7,
 		chance = 7000,
@@ -157,7 +185,7 @@ if minetest.get_modpath("mobs_monster") then
 
 	mobs:spawn({
 		name = "mobs_monster:stone_monster",
-		nodes = {"default:stone", "default:desert_stone", "default:sandstone"},
+		nodes = {"default:stone", "default:desert_stone", "default:sandstone", "group:cave_floor"},
 		max_light = 7,
 		chance = 7000,
 		max_height = 0,
