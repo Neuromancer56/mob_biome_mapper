@@ -58,21 +58,40 @@ mobs:spawn({
 ]]--
 
 local function addGroupToNode(modname, nodename, groupname)
+
     if minetest.get_modpath(modname) then
         local node_def = minetest.registered_nodes[modname .. ":" .. nodename]
+
         if node_def then
             node_def.groups[groupname] = 1
             minetest.override_item(modname .. ":" .. nodename, { groups = node_def.groups })
-        end
-		--*********Log info about groups node belongs to. COMMENT THIS OUT **********
-		-- minetest.log("nodeinfo:", "nodeinfo:" .. nodename)
-		-- for group, value in pairs(node_def.groups) do
-		-- -- Log each item using minetest.log()
-		-- minetest.log("groups:", "group: " .. group .. ", value: " .. value)
-		-- end
+			--*********Log info about groups node belongs to. COMMENT THIS OUT **********
+			-- minetest.log("nodeinfo:", "nodeinfo:" .. nodename)
+			-- for group, value in pairs(node_def.groups) do
+			-- -- Log each item using minetest.log()
+			-- minetest.log("groups:", "group: " .. group .. ", value: " .. value)
+			-- end
 			--*********************************************************  
+        end
+
 	end
 end
+
+function getNodesByGroup(group)
+    --local nodes = {}
+    for name, def in pairs(minetest.registered_nodes) do
+        if def.groups and def.groups[group] then
+           -- table.insert(nodes, name)
+		   minetest.log("ToChat:", "group:" ..group .. " nodename:".. name)
+        end
+    end
+    return nodes
+end
+
+--******************COMMENT THIS OUT **********
+--getNodesByGroup("tree")
+--getNodesByGroup("flora")
+--*********************************************************  
 
 addGroupToNode("naturalbiomes", "alpine_litter", "dirt")
 addGroupToNode("naturalbiomes", "alderswamp_litter", "dirt")
@@ -88,6 +107,21 @@ addGroupToNode("caverealms", "stone_with_moss", "cave_floor")
 addGroupToNode("caverealms", "stone_with_lichen", "cave_floor")
 -- Check if a mod named "mobs" is enabled
 local spawn_chance_multiplier = 2
+if minetest.get_modpath("dmobs") then
+	mobs:spawn({name = "dmobs:gnorm", nodes = {"default:dirt_with_grass", "ethereal:bamboo_dirt","group:dirt"}, neighbor = {},
+	min_light = 10, max_light = 15, interval = 300, chance = 32000, active_object_count = 2, min_height = -100, max_height = 0})
+	mobs:spawn({name = "dmobs:elephant", nodes = {"default:dirt_with_dry_grass", "ethereal:grove_dirt"}, neighbor = {},
+	min_light = 10, max_light = 15, interval = 300, chance = 16000, active_object_count = 2, min_height = 0, max_height = 2000})
+	mobs:spawn({name = "dmobs:pig_evil", nodes = {"group:leave", "ethereal:bamboo_leaves", "group:leaves"}, neighbor = {},
+	min_light = 10, max_light = 15, interval = 300, chance = 54000/spawn_chance_multiplier, active_object_count = 2, min_height = 0, max_height = 2000})
+	mobs:spawn({name = "dmobs:skeleton", nodes = {"group:stone","default:desert_sand","group:cave_floor"}, neighbor = {},
+	min_light = 0, max_light = 10, interval = 300, chance = 16000/spawn_chance_multiplier, active_object_count = 2, min_height = -31000, max_height = -1000})
+	if dmobs.dragons then  --just divided chance by 4.
+		mobs:spawn({name = "dmobs:dragon1", nodes = {"ethereal:fiery_dirt", "default:desert_sand", "group.desert_surface"}, neighbor = {},
+			min_light = 5, max_light = 15, interval = 300, chance = 6000, active_object_count = 2, min_height = 0, max_height = 30000})
+	end
+end
+
 if minetest.get_modpath("mobs_monster") then
     -- The "mobs_monster" mod is enabled, execute your code here
 
