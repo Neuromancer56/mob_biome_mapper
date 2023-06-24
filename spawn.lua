@@ -110,8 +110,10 @@ addGroupToNode("caverealms", "stone_with_salt", "cave_floor")
 addGroupToNode("caverealms", "stone_with_moss", "cave_floor")
 addGroupToNode("caverealms", "stone_with_lichen", "cave_floor")
 addGroupToNode("ethereal", "crystal_dirt", "frozen_surface")
+addGroupToNode("ethereal", "cold_dirt", "frozen_surface")
 addGroupToNode("default", "permafrost", "frozen_surface")
 addGroupToNode("default", "permafrost_with_moss", "frozen_surface")
+addGroupToNode("default", "permafrost_with_stone", "frozen_surface")
 addGroupToNode("default", "snowblock", "frozen_surface")
 addGroupToNode("default", "snow", "frozen_surface")
 
@@ -124,11 +126,23 @@ if minetest.get_modpath("dmobs") then
 	min_light = 10, max_light = 15, interval = 300, chance = 16000, active_object_count = 2, min_height = 0, max_height = 2000})
 	mobs:spawn({name = "dmobs:pig_evil", nodes = {"group:leave", "ethereal:bamboo_leaves", "group:leaves"}, neighbor = {},
 	min_light = 10, max_light = 15, interval = 300, chance = 54000/spawn_chance_multiplier, active_object_count = 2, min_height = 0, max_height = 2000})
-	mobs:spawn({name = "dmobs:skeleton", nodes = {"group:stone","default:desert_sand","group:cave_floor"}, neighbor = {},
+	mobs:spawn({name = "dmobs:skeleton", nodes = {"group:stone","group:desert_surface","group:cave_floor"}, neighbor = {},
 	min_light = 0, max_light = 10, interval = 300, chance = 16000/spawn_chance_multiplier, active_object_count = 2, min_height = -31000, max_height = -1000})
 	if dmobs.dragons then  --just divided chance by 4.
 		mobs:spawn({name = "dmobs:dragon1", nodes = {"ethereal:fiery_dirt", "default:desert_sand", "group.desert_surface"}, neighbor = {},
 			min_light = 5, max_light = 15, interval = 300, chance = 6000, active_object_count = 2, min_height = 0, max_height = 30000})
+			mobs:spawn({
+				name = "dmobs:dragon4",
+				nodes = {
+					"group:frozen_surface"
+				},
+				min_light = 5,
+				interval = 300,
+				chance = 24000,
+				active_object_count = 2,
+				min_height = 0
+			})
+		
 	end
 end
 
@@ -204,8 +218,7 @@ if minetest.get_modpath("mobs_monster") then
 	mobs:spawn({
 		name = "mobs_monster:spider",
 		nodes = {
-			"default:dirt_with_rainforest_litter", "default:snowblock",
-			"default:snow", "ethereal:crystal_dirt", "ethereal:cold_dirt"
+			"default:dirt_with_rainforest_litter", "group.frozen_surface"
 		},
 		min_light = 0,
 		max_light = 8,
