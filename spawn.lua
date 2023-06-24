@@ -101,10 +101,20 @@ addGroupToNode("naturalbiomes", "mediterran_litter", "dirt")
 addGroupToNode("default", "dry_dirt_with_dry_grass", "dirt")
 addGroupToNode("ethereal", "gray_dirt", "dirt")
 addGroupToNode("ethereal", "dry_dirt", "dirt")
+addGroupToNode("ethereal", "prairie_dirt", "dirt")
+addGroupToNode("ethereal", "bamboo_dirt", "dirt")
+addGroupToNode("ethereal", "mushroom_dirt", "dirt")
 addGroupToNode("naturalbiomes", "outback_litter", "desert_surface")
+addGroupToNode("ethereal", "fiery_dirt", "desert_surface")
 addGroupToNode("caverealms", "stone_with_salt", "cave_floor")
 addGroupToNode("caverealms", "stone_with_moss", "cave_floor")
 addGroupToNode("caverealms", "stone_with_lichen", "cave_floor")
+addGroupToNode("ethereal", "crystal_dirt", "frozen_surface")
+addGroupToNode("default", "permafrost", "frozen_surface")
+addGroupToNode("default", "permafrost_with_moss", "frozen_surface")
+addGroupToNode("default", "snowblock", "frozen_surface")
+addGroupToNode("default", "snow", "frozen_surface")
+
 -- Check if a mod named "mobs" is enabled
 local spawn_chance_multiplier = 2
 if minetest.get_modpath("dmobs") then
@@ -131,7 +141,7 @@ if minetest.get_modpath("mobs_monster") then
 		nodes = {"default:dirt_with_grass","group:dirt"},
 		min_light = 0,
 		max_light = 7,
-		chance = 6000/spawn_chance_multiplier,
+		chance = 6000,
 		active_object_count = 2,
 		min_height = 0,
 		day_toggle = false,

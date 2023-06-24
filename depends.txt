@@ -3,3 +3,4 @@ mobs_monster?
 caverealms?
 naturalbiomes?
 dmobs?
+ethereal?
