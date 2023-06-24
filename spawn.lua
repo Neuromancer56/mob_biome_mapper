@@ -99,11 +99,17 @@ addGroupToNode("naturalbiomes", "heath_litter", "dirt")
 addGroupToNode("naturalbiomes", "heath_litter2", "dirt")
 addGroupToNode("naturalbiomes", "mediterran_litter", "dirt")
 addGroupToNode("default", "dry_dirt_with_dry_grass", "dirt")
+addGroupToNode("default", "dry_dirt_with_dry_grass", "savanna_dirt")
 addGroupToNode("ethereal", "gray_dirt", "dirt")
 addGroupToNode("ethereal", "dry_dirt", "dirt")
 addGroupToNode("ethereal", "prairie_dirt", "dirt")
 addGroupToNode("ethereal", "bamboo_dirt", "dirt")
+addGroupToNode("ethereal", "grove_dirt", "dirt")
+addGroupToNode("ethereal", "grove_dirt", "savanna_dirt")
 addGroupToNode("ethereal", "mushroom_dirt", "dirt")
+addGroupToNode("ebiomes", "dirt_with_humid_savanna_grass", "dirt")
+addGroupToNode("ebiomes", "dirt_with_grass_arid", "dirt")
+addGroupToNode("ebiomes", "dirt_with_grass_arid", "savanna_dirt")
 addGroupToNode("naturalbiomes", "outback_litter", "desert_surface")
 addGroupToNode("ethereal", "fiery_dirt", "desert_surface")
 addGroupToNode("caverealms", "stone_with_salt", "cave_floor")
@@ -116,18 +122,45 @@ addGroupToNode("default", "permafrost_with_moss", "frozen_surface")
 addGroupToNode("default", "permafrost_with_stone", "frozen_surface")
 addGroupToNode("default", "snowblock", "frozen_surface")
 addGroupToNode("default", "snow", "frozen_surface")
+addGroupToNode("everness", "dirt_with_crystal_grass", "frozen_surface")
+addGroupToNode("everness", "dirt_with_cursed_grass", "cursed_ground")
 
 -- Check if a mod named "mobs" is enabled
 local spawn_chance_multiplier = 2
 if minetest.get_modpath("dmobs") then
 	mobs:spawn({name = "dmobs:gnorm", nodes = {"default:dirt_with_grass", "ethereal:bamboo_dirt","group:dirt"}, neighbor = {},
 	min_light = 10, max_light = 15, interval = 300, chance = 32000, active_object_count = 2, min_height = -100, max_height = 0})
-	mobs:spawn({name = "dmobs:elephant", nodes = {"default:dirt_with_dry_grass", "ethereal:grove_dirt"}, neighbor = {},
+	mobs:spawn({name = "dmobs:elephant", nodes = {"group:savanna_dirt"}, neighbor = {},
 	min_light = 10, max_light = 15, interval = 300, chance = 16000, active_object_count = 2, min_height = 0, max_height = 2000})
 	mobs:spawn({name = "dmobs:pig_evil", nodes = {"group:leave", "ethereal:bamboo_leaves", "group:leaves"}, neighbor = {},
 	min_light = 10, max_light = 15, interval = 300, chance = 54000/spawn_chance_multiplier, active_object_count = 2, min_height = 0, max_height = 2000})
-	mobs:spawn({name = "dmobs:skeleton", nodes = {"group:stone","group:desert_surface","group:cave_floor"}, neighbor = {},
+	mobs:spawn({name = "dmobs:skeleton", nodes = {"group:stone","group:desert_surface","group:cave_floor","group:cursed_ground"}, neighbor = {},
 	min_light = 0, max_light = 10, interval = 300, chance = 16000/spawn_chance_multiplier, active_object_count = 2, min_height = -31000, max_height = -1000})
+	mobs:spawn({
+		name = "dmobs:orc",
+		nodes = {
+			"group:cursed_ground"
+		},
+		max_light = 10,
+		interval = 300,
+		chance = dmobs.dragons and 8000 or 6000,
+		active_object_count = 2,
+		min_height = 0,
+		max_height = 2000
+	})
+
+	mobs:spawn({
+		name = "dmobs:ogre",
+		nodes = {
+			"group:cursed_ground"
+		},
+		max_light = 10,
+		interval = 300,
+		chance = dmobs.dragons and 32000 or 16000,
+		active_object_count = 2,
+		min_height = 0,
+		max_height = 2000
+	})
 	if dmobs.dragons then  --just divided chance by 4.
 		mobs:spawn({name = "dmobs:dragon1", nodes = {"ethereal:fiery_dirt", "default:desert_sand", "group.desert_surface"}, neighbor = {},
 			min_light = 5, max_light = 15, interval = 300, chance = 6000, active_object_count = 2, min_height = 0, max_height = 30000})
@@ -218,7 +251,7 @@ if minetest.get_modpath("mobs_monster") then
 	mobs:spawn({
 		name = "mobs_monster:spider",
 		nodes = {
-			"default:dirt_with_rainforest_litter", "group.frozen_surface"
+			"default:dirt_with_rainforest_litter", "group.frozen_surface", "group:cursed_ground"
 		},
 		min_light = 0,
 		max_light = 8,

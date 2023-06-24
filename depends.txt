@@ -4,3 +4,5 @@ caverealms?
 naturalbiomes?
 dmobs?
 ethereal?
+ebiomes?
+everness?
