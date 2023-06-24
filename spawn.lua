@@ -110,7 +110,7 @@ addGroupToNode("ethereal", "gray_dirt", "dirt")
 addGroupToNode("ethereal", "dry_dirt", "dirt")
 addGroupToNode("ethereal", "prairie_dirt", "dirt")
 addGroupToNode("ethereal", "bamboo_dirt", "dirt")
-addGroupToNode("ethereal", "bamboo_dirt", "bamboo")
+addGroupToNode("ethereal", "bamboo_dirt", "bamboo_ground")
 addGroupToNode("ethereal", "grove_dirt", "dirt")
 addGroupToNode("ethereal", "mushroom_dirt", "dirt")
 addGroupToNode("ethereal", "fiery_dirt", "desert_surface")
@@ -129,22 +129,55 @@ addGroupToNode("everness", "dry_dirt_with_dry_grass", "savanna_dirt")
 addGroupToNode("everness", "forsaken_tundra_dirt_with_grass", "volcanic")
 addGroupToNode("everness", "forsaken_tundra_dirt", "volcanic")
 addGroupToNode("everness", "volcanic_sulfur", "volcanic")
---addGroupToNode("everness", "dirt_with_coral_grass", "unmapped")
-addGroupToNode("everness", "bamboo", "bamboo")
+addGroupToNode("everness", "dirt_with_coral_grass", "coral")
+-- addGroupToNode("everness", "bamboo", "bamboo")
+-- addGroupToNode("everness", "bamboo_1", "bamboo")
+-- addGroupToNode("everness", "bamboo_2", "bamboo")
+-- addGroupToNode("everness", "bamboo_3", "bamboo")
+addGroupToNode("everness", "dirt_with_grass_1", "bamboo_ground")
+addGroupToNode("everness", "dirt_with_grass_extras_1", "bamboo")
+addGroupToNode("everness", "dirt_with_grass_extras_2", "bamboo")
 
 -- Check if a mod named "mobs" is enabled
 local spawn_chance_multiplier = 2
+local ambient_spawn_chance = tonumber(minetest.settings:get("animalia_ambient_chance")) or 6000
+
+if minetest.get_modpath("animalia") then
+creatura.register_abm_spawn("animalia:bat", {
+	chance = ambient_spawn_chance,
+	interval = 30,
+	min_light = 0,
+	min_height = -31000,
+	max_height = 400,
+	min_group = 3,
+	max_group = 5,
+	spawn_cap = 6,
+	nodes = {"group:cursed"; "group:cave_floor"}
+})
+creatura.register_abm_spawn("animalia:frog", {
+	chance = ambient_spawn_chance * 0.75,
+	interval = 60,
+	min_light = 0,
+	min_height = -1,
+	max_height = 8,
+	min_group = 1,
+	max_group = 2,
+	neighbors = {"group:water"},
+	nodes = {"group:dirt"}
+})
+end
+
 if minetest.get_modpath("dmobs") then
 	mobs:spawn({name = "dmobs:gnorm", nodes = {"default:dirt_with_grass", "ethereal:bamboo_dirt","group:dirt"}, neighbor = {},
 	min_light = 10, max_light = 15, interval = 300, chance = 32000, active_object_count = 2, min_height = -100, max_height = 0})
-	mobs:spawn({name = "dmobs:elephant", nodes = {"group:savanna_dirt", "group:bamboo"}, neighbor = {},
-	min_light = 10, max_light = 15, interval = 300, chance = 16000, active_object_count = 2, min_height = 0, max_height = 2000})
+	mobs:spawn({name = "dmobs:elephant", nodes = {"group:savanna_dirt", "group:bamboo_ground"},
+	min_light = 10, max_light = 15, interval = 300, chance = 10000, active_object_count = 2, min_height = 0, max_height = 2000})
 	mobs:spawn({
 		name = "dmobs:panda",
-		nodes = {"group:bamboo"},
-		min_light = 10,
+		nodes = {"group:bamboo_ground"},
+		min_light = 7,
 		interval = 300,
-		chance = 32000,
+		chance = 8000,
 		active_object_count = 2,
 		min_height = 0,
 		max_height = 2000
@@ -158,7 +191,7 @@ if minetest.get_modpath("dmobs") then
 		nodes = {
 			"group:cursed_ground"
 		},
-		max_light = 10,
+		max_light = 7,
 		interval = 300,
 		chance = dmobs.dragons and 8000 or 6000,
 		active_object_count = 2,
@@ -236,11 +269,12 @@ if minetest.get_modpath("mobs_monster") then
 
 	mobs:spawn({
 		name = "mobs_monster:mese_monster",
-		nodes = {"default:stone", "group:cave_floor"},
+		nodes = {"group:coral", "group:cave_floor"},
 		max_light = 9,  --7
 		chance = 5000/spawn_chance_multiplier,
 		active_object_count = 1,
-		max_height = -20,
+		max_height = 2000,
+		day_toggle = false,
 	})
 
 	-- Oerkki
