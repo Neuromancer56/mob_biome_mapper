@@ -124,6 +124,9 @@ addGroupToNode("default", "snowblock", "frozen_surface")
 addGroupToNode("default", "snow", "frozen_surface")
 addGroupToNode("everness", "dirt_with_crystal_grass", "frozen_surface")
 addGroupToNode("everness", "dirt_with_cursed_grass", "cursed_ground")
+addGroupToNode("everness", "forsaken_tundra_dirt_with_grass", "cursed_ground")
+addGroupToNode("everness", "forsaken_tundra_dirt", "cursed_ground")
+addGroupToNode("everness", "volcanic_sulfur", "cursed_ground")
 
 -- Check if a mod named "mobs" is enabled
 local spawn_chance_multiplier = 2
