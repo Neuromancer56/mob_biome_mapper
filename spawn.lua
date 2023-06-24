@@ -98,43 +98,57 @@ addGroupToNode("naturalbiomes", "alderswamp_litter", "dirt")
 addGroupToNode("naturalbiomes", "heath_litter", "dirt")
 addGroupToNode("naturalbiomes", "heath_litter2", "dirt")
 addGroupToNode("naturalbiomes", "mediterran_litter", "dirt")
+addGroupToNode("naturalbiomes", "outback_litter", "desert_surface")
 addGroupToNode("default", "dry_dirt_with_dry_grass", "dirt")
 addGroupToNode("default", "dry_dirt_with_dry_grass", "savanna_dirt")
-addGroupToNode("ethereal", "gray_dirt", "dirt")
-addGroupToNode("ethereal", "dry_dirt", "dirt")
-addGroupToNode("ethereal", "prairie_dirt", "dirt")
-addGroupToNode("ethereal", "bamboo_dirt", "dirt")
-addGroupToNode("ethereal", "grove_dirt", "dirt")
-addGroupToNode("ethereal", "grove_dirt", "savanna_dirt")
-addGroupToNode("ethereal", "mushroom_dirt", "dirt")
-addGroupToNode("ebiomes", "dirt_with_humid_savanna_grass", "dirt")
-addGroupToNode("ebiomes", "dirt_with_grass_arid", "dirt")
-addGroupToNode("ebiomes", "dirt_with_grass_arid", "savanna_dirt")
-addGroupToNode("naturalbiomes", "outback_litter", "desert_surface")
-addGroupToNode("ethereal", "fiery_dirt", "desert_surface")
-addGroupToNode("caverealms", "stone_with_salt", "cave_floor")
-addGroupToNode("caverealms", "stone_with_moss", "cave_floor")
-addGroupToNode("caverealms", "stone_with_lichen", "cave_floor")
-addGroupToNode("ethereal", "crystal_dirt", "frozen_surface")
-addGroupToNode("ethereal", "cold_dirt", "frozen_surface")
 addGroupToNode("default", "permafrost", "frozen_surface")
 addGroupToNode("default", "permafrost_with_moss", "frozen_surface")
 addGroupToNode("default", "permafrost_with_stone", "frozen_surface")
 addGroupToNode("default", "snowblock", "frozen_surface")
 addGroupToNode("default", "snow", "frozen_surface")
+addGroupToNode("ethereal", "gray_dirt", "dirt")
+addGroupToNode("ethereal", "dry_dirt", "dirt")
+addGroupToNode("ethereal", "prairie_dirt", "dirt")
+addGroupToNode("ethereal", "bamboo_dirt", "dirt")
+addGroupToNode("ethereal", "bamboo_dirt", "bamboo")
+addGroupToNode("ethereal", "grove_dirt", "dirt")
+addGroupToNode("ethereal", "mushroom_dirt", "dirt")
+addGroupToNode("ethereal", "fiery_dirt", "desert_surface")
+addGroupToNode("ethereal", "grove_dirt", "savanna_dirt")
+addGroupToNode("ethereal", "crystal_dirt", "frozen_surface")
+addGroupToNode("ethereal", "cold_dirt", "frozen_surface")
+addGroupToNode("ebiomes", "dirt_with_humid_savanna_grass", "dirt")
+addGroupToNode("ebiomes", "dirt_with_grass_arid", "dirt")
+addGroupToNode("ebiomes", "dirt_with_grass_arid", "savanna_dirt")
+addGroupToNode("caverealms", "stone_with_salt", "cave_floor")
+addGroupToNode("caverealms", "stone_with_moss", "cave_floor")
+addGroupToNode("caverealms", "stone_with_lichen", "cave_floor")
 addGroupToNode("everness", "dirt_with_crystal_grass", "frozen_surface")
 addGroupToNode("everness", "dirt_with_cursed_grass", "cursed_ground")
+addGroupToNode("everness", "dry_dirt_with_dry_grass", "savanna_dirt")
 addGroupToNode("everness", "forsaken_tundra_dirt_with_grass", "volcanic")
 addGroupToNode("everness", "forsaken_tundra_dirt", "volcanic")
 addGroupToNode("everness", "volcanic_sulfur", "volcanic")
+--addGroupToNode("everness", "dirt_with_coral_grass", "unmapped")
+addGroupToNode("everness", "bamboo", "bamboo")
 
 -- Check if a mod named "mobs" is enabled
 local spawn_chance_multiplier = 2
 if minetest.get_modpath("dmobs") then
 	mobs:spawn({name = "dmobs:gnorm", nodes = {"default:dirt_with_grass", "ethereal:bamboo_dirt","group:dirt"}, neighbor = {},
 	min_light = 10, max_light = 15, interval = 300, chance = 32000, active_object_count = 2, min_height = -100, max_height = 0})
-	mobs:spawn({name = "dmobs:elephant", nodes = {"group:savanna_dirt"}, neighbor = {},
+	mobs:spawn({name = "dmobs:elephant", nodes = {"group:savanna_dirt", "group:bamboo"}, neighbor = {},
 	min_light = 10, max_light = 15, interval = 300, chance = 16000, active_object_count = 2, min_height = 0, max_height = 2000})
+	mobs:spawn({
+		name = "dmobs:panda",
+		nodes = {"group:bamboo"},
+		min_light = 10,
+		interval = 300,
+		chance = 32000,
+		active_object_count = 2,
+		min_height = 0,
+		max_height = 2000
+	})
 	mobs:spawn({name = "dmobs:pig_evil", nodes = {"group:leave", "ethereal:bamboo_leaves", "group:leaves"}, neighbor = {},
 	min_light = 10, max_light = 15, interval = 300, chance = 54000/spawn_chance_multiplier, active_object_count = 2, min_height = 0, max_height = 2000})
 	mobs:spawn({name = "dmobs:skeleton", nodes = {"group:stone","group:volcanic","group:cave_floor","group:cursed_ground"}, neighbor = {},
@@ -188,7 +202,7 @@ if minetest.get_modpath("mobs_monster") then
 	-- Dirt Monster
 	mobs:spawn({
 		name = "mobs_monster:dirt_monster",
-		nodes = {"default:dirt_with_grass","group:dirt"},
+		nodes = {"group:dirt"},
 		min_light = 0,
 		max_light = 7,
 		chance = 6000,
@@ -213,7 +227,7 @@ if minetest.get_modpath("mobs_monster") then
 	mobs:spawn({
 		name = "mobs_monster:lava_flan",
 		nodes = {"group:volcanic"},
-		chance = 1500,
+		chance = 7000,
 		active_object_count = 1,
 		max_height = 90,
 	})
