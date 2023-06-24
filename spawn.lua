@@ -148,11 +148,12 @@ creatura.register_abm_spawn("animalia:bat", {
 	interval = 30,
 	min_light = 0,
 	min_height = -31000,
-	max_height = 400,
+	max_height = 1000,
 	min_group = 3,
 	max_group = 5,
 	spawn_cap = 6,
-	nodes = {"group:cursed"; "group:cave_floor"}
+	day_toggle = false,
+	nodes = {"group:cursed_ground"; "group:cave_floor"}
 })
 creatura.register_abm_spawn("animalia:frog", {
 	chance = ambient_spawn_chance * 0.75,
@@ -281,7 +282,7 @@ if minetest.get_modpath("mobs_monster") then
 
 	mobs:spawn({
 		name = "mobs_monster:oerkki",
-		nodes = {"group:cursed", "group:cave_floor"},
+		nodes = {"group:cursed_ground", "group:cave_floor"},
 		max_light = 9,  --7
 		chance = 7000/spawn_chance_multiplier,
 		max_height = 2000,
@@ -308,7 +309,7 @@ if minetest.get_modpath("mobs_monster") then
 		max_light = 8,
 		chance = 7000,
 		active_object_count = 1,
-		min_height = 25,
+		min_height = 2000,
 		max_height = 31000,
 	})
 
