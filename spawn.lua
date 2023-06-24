@@ -205,7 +205,7 @@ if minetest.get_modpath("mobs_monster") then
 		max_light = 7,  --5
 		chance = 9000/spawn_chance_multiplier,
 		active_object_count = 1,
-		max_height = -70,
+		max_height = 90,
 	})
 
 	-- Lava Flan
@@ -215,7 +215,7 @@ if minetest.get_modpath("mobs_monster") then
 		nodes = {"group:volcanic"},
 		chance = 1500,
 		active_object_count = 1,
-		max_height = 0,
+		max_height = 90,
 	})
 
 	-- Mese Monster
@@ -236,7 +236,7 @@ if minetest.get_modpath("mobs_monster") then
 		nodes = {"group:cursed", "group:cave_floor"},
 		max_light = 9,  --7
 		chance = 7000/spawn_chance_multiplier,
-		max_height = -10,
+		max_height = 100,
 	})
 
 	-- Sand Monster
