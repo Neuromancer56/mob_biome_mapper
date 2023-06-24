@@ -137,11 +137,221 @@ addGroupToNode("everness", "dirt_with_coral_grass", "coral")
 addGroupToNode("everness", "dirt_with_grass_1", "bamboo_ground")
 addGroupToNode("everness", "dirt_with_grass_extras_1", "bamboo")
 addGroupToNode("everness", "dirt_with_grass_extras_2", "bamboo")
+addGroupToNode("sumpf", "sumpf", "swamp")
+addGroupToNode("swaz", "silt_with_grass", "swamp")
+addGroupToNode("swaz", "mud_with_moss", "swamp")
+addGroupToNode("swaz", "mud", "swamp")
 
 -- Check if a mod named "mobs" is enabled
 local spawn_chance_multiplier = 2
-local ambient_spawn_chance = tonumber(minetest.settings:get("animalia_ambient_chance")) or 6000
 
+
+if minetest.get_modpath("animalworld") then
+
+	mobs:spawn({
+		name = "animalworld:bat",
+		nodes = {"group:cursed_ground","group:cave_floor"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000,  
+		min_height = 0,
+		max_height = 1000,
+		day_toggle = false,
+	})
+	mobs:spawn({
+		name = "animalworld:crocodile",
+		nodes = {"group:swamp"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000,  
+		min_height = 0,
+		max_height = 1000,
+	})
+	mobs:spawn({
+		name = "animalworld:dragonfly",
+		nodes = {"group:swamp"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000,  
+		min_height = 0,
+		max_height = 1000,
+	})
+	mobs:spawn({
+		name = "animalworld:elephant",
+		nodes = {"group:savanna_dirt", "group:bamboo_ground"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000,  
+		min_height = 0,
+		max_height = 1000,
+	})
+	mobs:spawn({
+		name = "animalworld:frog",
+		nodes = {"group:swamp", "group:desert_surface"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000,  
+		min_height = 0,
+		max_height = 1000,
+	})
+	mobs:spawn({
+		name = "animalworld:giraffe",
+		nodes = {"group:savanna_dirt"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000,  
+		min_height = 0,
+		max_height = 1000,
+	})
+	mobs:spawn({
+		name = "animalworld:gnu",
+		nodes = {"group:savanna_dirt"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000,  
+		min_height = 0,
+		max_height = 1000,
+	})
+	mobs:spawn({
+		name = "animalworld:hyena",
+		nodes = {"group:savanna_dirt"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000,  
+		min_height = 0,
+		max_height = 1000,
+	})
+	mobs:spawn({
+		name = "animalworld:ibex",
+		nodes = {"group:savanna_dirt"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000,  
+		min_height = 0,
+		max_height = 1000,
+	})
+	mobs:spawn({
+		name = "animalworld:kangaroo",
+		nodes = {"group:savanna_dirt"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000,  
+		min_height = 0,
+		max_height = 1000,
+	})
+	mobs:spawn({
+		name = "animalworld:koala",
+		nodes = {"group:savanna_dirt"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000,  
+		min_height = 0,
+		max_height = 1000,
+	})
+	mobs:spawn({
+		name = "animalworld:mosquito",
+		nodes = {"group:swamp"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000,  
+		min_height = 0,
+		max_height = 1000,
+	})
+	mobs:spawn({
+		name = "animalworld:orangutan",
+		nodes = {"group:bamboo"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000,  
+		min_height = 0,
+		max_height = 1000,
+	})
+	mobs:spawn({
+		name = "animalworld:panda",
+		nodes = {"group:bamboo"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000,  
+		min_height = 0,
+		max_height = 1000,
+	})
+	mobs:spawn({
+		name = "animalworld:roadrunner",
+		nodes = {"group:desert_surface"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000,  
+		min_height = 0,
+		max_height = 1000,
+	})
+	mobs:spawn({
+		name = "animalworld:scorpion",
+		nodes = {"group:desert_surface"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000,  
+		min_height = 0,
+		max_height = 1000,
+	})
+	mobs:spawn({
+		name = "animalworld:spider",
+		nodes = {"group:cursed_ground"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000,  
+		min_height = 0,
+		max_height = 1000,
+	})
+	mobs:spawn({
+		name = "animalworld:spidermale",
+		nodes = {"group:cursed_ground"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000,  
+		min_height = 0,
+		max_height = 1000,
+	})
+	mobs:spawn({
+		name = "animalworld:tiger",
+		nodes = {"group:bamboo"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000,  
+		min_height = 0,
+		max_height = 1000,
+	})
+	mobs:spawn({
+	name = "animalworld:tortoise",
+	nodes = {"group:swamp", "group:desert_surface"},
+	min_light = 0,
+	interval = 60,
+	chance = 6000,  
+	min_height = 0,
+	max_height = 1000,
+	})
+	mobs:spawn({
+		name = "animalworld:vulture",
+		nodes = {"group:desert_surface"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000,  
+		min_height = 0,
+		max_height = 1000,
+	})
+	mobs:spawn({
+		name = "animalworld:zebra",
+		nodes = {"group:savanna"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000,  
+		min_height = 0,
+		max_height = 1000
+	})
+
+end
+
+
+local ambient_spawn_chance = tonumber(minetest.settings:get("animalia_ambient_chance")) or 6000
 if minetest.get_modpath("animalia") then
 creatura.register_abm_spawn("animalia:bat", {
 	chance = ambient_spawn_chance,
@@ -152,8 +362,17 @@ creatura.register_abm_spawn("animalia:bat", {
 	min_group = 3,
 	max_group = 5,
 	spawn_cap = 6,
-	day_toggle = false,
-	nodes = {"group:cursed_ground"; "group:cave_floor"}
+	nodes = {"group:cursed_ground", "group:cave_floor"}
+})
+creatura.register_abm_spawn("animalia:rat", {
+	chance = ambient_spawn_chance,
+	interval = 60,
+	min_height = -1,
+	max_height = 1024,
+	min_group = 1,
+	max_group = 3,
+	spawn_in_nodes = true,
+	nodes = {"group:cursed_ground","group:swamp"}
 })
 creatura.register_abm_spawn("animalia:frog", {
 	chance = ambient_spawn_chance * 0.75,
@@ -163,8 +382,7 @@ creatura.register_abm_spawn("animalia:frog", {
 	max_height = 8,
 	min_group = 1,
 	max_group = 2,
-	neighbors = {"group:water"},
-	nodes = {"group:dirt"}
+	nodes = {"group:swamp"}
 })
 end
 
@@ -187,6 +405,8 @@ if minetest.get_modpath("dmobs") then
 	min_light = 10, max_light = 15, interval = 300, chance = 54000/spawn_chance_multiplier, active_object_count = 2, min_height = 0, max_height = 2000})
 	mobs:spawn({name = "dmobs:skeleton", nodes = {"group:stone","group:volcanic","group:cave_floor","group:cursed_ground"}, neighbor = {},
 	min_light = 0, max_light = 10, interval = 300, chance = 16000/spawn_chance_multiplier, active_object_count = 2, min_height = -31000, max_height = -1000})
+	mobs:spawn({name = "dmobs:tortoise", nodes = {"group:swamp"}, neighbor = {},
+	min_light = 0, max_light = 15, interval = 100, chance = 6000/spawn_chance_multiplier, active_object_count = 2, min_height = 0, max_height = 100})
 	mobs:spawn({
 		name = "dmobs:orc",
 		nodes = {
