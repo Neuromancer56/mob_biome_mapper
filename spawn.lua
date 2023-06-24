@@ -124,9 +124,9 @@ addGroupToNode("default", "snowblock", "frozen_surface")
 addGroupToNode("default", "snow", "frozen_surface")
 addGroupToNode("everness", "dirt_with_crystal_grass", "frozen_surface")
 addGroupToNode("everness", "dirt_with_cursed_grass", "cursed_ground")
-addGroupToNode("everness", "forsaken_tundra_dirt_with_grass", "cursed_ground")
-addGroupToNode("everness", "forsaken_tundra_dirt", "cursed_ground")
-addGroupToNode("everness", "volcanic_sulfur", "cursed_ground")
+addGroupToNode("everness", "forsaken_tundra_dirt_with_grass", "volcanic")
+addGroupToNode("everness", "forsaken_tundra_dirt", "volcanic")
+addGroupToNode("everness", "volcanic_sulfur", "volcanic")
 
 -- Check if a mod named "mobs" is enabled
 local spawn_chance_multiplier = 2
@@ -137,7 +137,7 @@ if minetest.get_modpath("dmobs") then
 	min_light = 10, max_light = 15, interval = 300, chance = 16000, active_object_count = 2, min_height = 0, max_height = 2000})
 	mobs:spawn({name = "dmobs:pig_evil", nodes = {"group:leave", "ethereal:bamboo_leaves", "group:leaves"}, neighbor = {},
 	min_light = 10, max_light = 15, interval = 300, chance = 54000/spawn_chance_multiplier, active_object_count = 2, min_height = 0, max_height = 2000})
-	mobs:spawn({name = "dmobs:skeleton", nodes = {"group:stone","group:desert_surface","group:cave_floor","group:cursed_ground"}, neighbor = {},
+	mobs:spawn({name = "dmobs:skeleton", nodes = {"group:stone","group:volcanic","group:cave_floor","group:cursed_ground"}, neighbor = {},
 	min_light = 0, max_light = 10, interval = 300, chance = 16000/spawn_chance_multiplier, active_object_count = 2, min_height = -31000, max_height = -1000})
 	mobs:spawn({
 		name = "dmobs:orc",
@@ -165,7 +165,7 @@ if minetest.get_modpath("dmobs") then
 		max_height = 2000
 	})
 	if dmobs.dragons then  --just divided chance by 4.
-		mobs:spawn({name = "dmobs:dragon1", nodes = {"ethereal:fiery_dirt", "default:desert_sand", "group.desert_surface"}, neighbor = {},
+		mobs:spawn({name = "dmobs:dragon1", nodes = {"group.desert_surface", "group:volcanic"}, neighbor = {},
 			min_light = 5, max_light = 15, interval = 300, chance = 6000, active_object_count = 2, min_height = 0, max_height = 30000})
 			mobs:spawn({
 				name = "dmobs:dragon4",
@@ -201,7 +201,7 @@ if minetest.get_modpath("mobs_monster") then
 
 	mobs:spawn({
 		name = "mobs_monster:dungeon_master",
-		nodes = {"default:stone", "group:cave_floor"},
+		nodes = {"group:volcanic", "group:cave_floor"},
 		max_light = 7,  --5
 		chance = 9000/spawn_chance_multiplier,
 		active_object_count = 1,
@@ -212,7 +212,7 @@ if minetest.get_modpath("mobs_monster") then
 
 	mobs:spawn({
 		name = "mobs_monster:lava_flan",
-		nodes = {"default:lava_source"},
+		nodes = {"group:volcanic"},
 		chance = 1500,
 		active_object_count = 1,
 		max_height = 0,
@@ -233,7 +233,7 @@ if minetest.get_modpath("mobs_monster") then
 
 	mobs:spawn({
 		name = "mobs_monster:oerkki",
-		nodes = {"default:stone", "group:cave_floor"},
+		nodes = {"group:cursed", "group:cave_floor"},
 		max_light = 9,  --7
 		chance = 7000/spawn_chance_multiplier,
 		max_height = -10,
@@ -243,7 +243,7 @@ if minetest.get_modpath("mobs_monster") then
 
 	mobs:spawn({
 		name = "mobs_monster:sand_monster",
-		nodes = {"default:desert_sand","group:desert_surface"},
+		nodes = {"group:desert_surface"},
 		chance = 7000/spawn_chance_multiplier,
 		active_object_count = 2,
 		min_height = 0,
