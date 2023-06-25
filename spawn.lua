@@ -265,6 +265,15 @@ if minetest.get_modpath("animalworld") then
 		max_height = 1000,
 	})
 	mobs:spawn({
+		name = "animalworld:clamydosaurus",
+		nodes = {"group:swamp", "group:desert_surface"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000,  
+		min_height = 0,
+		max_height = 1000,
+	})	
+	mobs:spawn({
 		name = "animalworld:crocodile",
 		nodes = {"group:swamp"},
 		min_light = 0,
@@ -464,7 +473,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mobs:spawn({
 		name = "animalworld:spider",
-		nodes = {"group:cursed_ground"},
+		nodes = {"group:cursed_ground", "group:desert_surface"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000,  
@@ -473,7 +482,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mobs:spawn({
 		name = "animalworld:spidermale",
-		nodes = {"group:cursed_ground"},
+		nodes = {"group:cursed_ground", "group:desert_surface"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000,  
@@ -509,7 +518,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mobs:spawn({
 		name = "animalworld:viper",
-		nodes = {"group:desert_surface", "group:mediterranean"},
+		nodes = {"group:desert_surface", "group:mediterranean", "group:swamp"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000,  
