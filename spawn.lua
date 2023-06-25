@@ -88,18 +88,14 @@ function getNodesByGroup(group)
     return nodes
 end
 
+local function groupsToNodes()
 --******************COMMENT THIS OUT **********
 --getNodesByGroup("tree")
 --getNodesByGroup("flora")
 --*********************************************************  
-
-addGroupToNode("naturalbiomes", "alpine_litter", "dirt")
-addGroupToNode("naturalbiomes", "alderswamp_litter", "dirt")
-addGroupToNode("naturalbiomes", "alderswamp_litter", "swamp")
-addGroupToNode("naturalbiomes", "heath_litter", "dirt")
-addGroupToNode("naturalbiomes", "heath_litter2", "dirt")
-addGroupToNode("naturalbiomes", "mediterran_litter", "dirt")
-addGroupToNode("naturalbiomes", "outback_litter", "desert_surface")
+addGroupToNode("caverealms", "stone_with_salt", "cave_floor")
+addGroupToNode("caverealms", "stone_with_moss", "cave_floor")
+addGroupToNode("caverealms", "stone_with_lichen", "cave_floor")
 addGroupToNode("default", "dry_dirt_with_dry_grass", "dirt")
 addGroupToNode("default", "dry_dirt_with_dry_grass", "savanna_dirt")
 addGroupToNode("default", "permafrost", "frozen_surface")
@@ -107,6 +103,9 @@ addGroupToNode("default", "permafrost_with_moss", "frozen_surface")
 addGroupToNode("default", "permafrost_with_stone", "frozen_surface")
 addGroupToNode("default", "snowblock", "frozen_surface")
 addGroupToNode("default", "snow", "frozen_surface")
+addGroupToNode("ebiomes", "dirt_with_humid_savanna_grass", "dirt")
+addGroupToNode("ebiomes", "dirt_with_grass_arid", "dirt")
+addGroupToNode("ebiomes", "dirt_with_grass_arid", "savanna_dirt")
 addGroupToNode("ethereal", "gray_dirt", "dirt")
 addGroupToNode("ethereal", "dry_dirt", "dirt")
 addGroupToNode("ethereal", "prairie_dirt", "dirt")
@@ -119,12 +118,6 @@ addGroupToNode("ethereal", "fiery_dirt", "desert_surface")
 addGroupToNode("ethereal", "grove_dirt", "savanna_dirt")
 addGroupToNode("ethereal", "crystal_dirt", "frozen_surface")
 addGroupToNode("ethereal", "cold_dirt", "frozen_surface")
-addGroupToNode("ebiomes", "dirt_with_humid_savanna_grass", "dirt")
-addGroupToNode("ebiomes", "dirt_with_grass_arid", "dirt")
-addGroupToNode("ebiomes", "dirt_with_grass_arid", "savanna_dirt")
-addGroupToNode("caverealms", "stone_with_salt", "cave_floor")
-addGroupToNode("caverealms", "stone_with_moss", "cave_floor")
-addGroupToNode("caverealms", "stone_with_lichen", "cave_floor")
 addGroupToNode("everness", "dirt_with_crystal_grass", "frozen_surface")
 addGroupToNode("everness", "dirt_with_cursed_grass", "cursed_ground")
 addGroupToNode("everness", "dry_dirt_with_dry_grass", "savanna_dirt")
@@ -139,20 +132,104 @@ addGroupToNode("everness", "dirt_with_coral_grass", "coral")
 addGroupToNode("everness", "dirt_with_grass_1", "bamboo_ground")
 addGroupToNode("everness", "dirt_with_grass_extras_1", "bamboo")
 addGroupToNode("everness", "dirt_with_grass_extras_2", "bamboo")
+addGroupToNode("naturalbiomes", "alpine_litter", "dirt")
+addGroupToNode("naturalbiomes", "alderswamp_litter", "dirt")
+addGroupToNode("naturalbiomes", "alderswamp_litter", "swamp")	
+addGroupToNode("naturalbiomes", "heath_litter", "dirt")
+addGroupToNode("naturalbiomes", "heath_litter2", "dirt")
+addGroupToNode("naturalbiomes", "mediterran_litter", "dirt")
+addGroupToNode("naturalbiomes", "mediterran_litter", "mediterranean")
+addGroupToNode("naturalbiomes", "outback_litter", "desert_surface")
 addGroupToNode("sumpf", "sumpf", "swamp")
 addGroupToNode("swaz", "silt_with_grass", "swamp")
 addGroupToNode("swaz", "mud_with_moss", "swamp")
 addGroupToNode("swaz", "mud", "swamp")
+end
 
+groupsToNodes()
 -- Check if a mod named "mobs" is enabled
 local spawn_chance_multiplier = 2
 
+local ambient_spawn_chance = tonumber(minetest.settings:get("animalia_ambient_chance")) or 6000
+if minetest.get_modpath("animalia") then
+	creatura.register_abm_spawn("animalia:bat", {
+		chance = ambient_spawn_chance,
+		interval = 30,
+		min_light = 0,
+		min_height = -31000,
+		max_height = 1000,
+		min_group = 3,
+		max_group = 5,
+		spawn_cap = 6,
+		nodes = {"group:cursed_ground", "group:cave_floor", "group:banana"}
+	})
+	creatura.register_abm_spawn("animalia:frog", {
+		chance = ambient_spawn_chance * 0.75,
+		interval = 60,
+		min_light = 0,
+		min_height = -1,
+		max_height = 8,
+		min_group = 1,
+		max_group = 2,
+		nodes = {"group:swamp"}
+	})
+	creatura.register_abm_spawn("animalia:owl", {
+		chance = ambient_spawn_chance * 0.75,
+		interval = 60,
+		min_light = 0,
+		min_height = -1,
+		max_height = 8,
+		min_group = 1,
+		max_group = 2,
+		nodes = {"group:mediterranean"}
+	})
+	creatura.register_abm_spawn("animalia:rat", {
+		chance = ambient_spawn_chance,
+		interval = 60,
+		min_height = -1,
+		max_height = 1024,
+		min_group = 1,
+		max_group = 3,
+		spawn_in_nodes = true,
+		nodes = {"group:cursed_ground","group:swamp"}
+	})
+	creatura.register_abm_spawn("animalia:reindeer", {
+		chance = ambient_spawn_chance,
+		interval = 60,
+		min_height = -1,
+		max_height = 1024,
+		min_group = 1,
+		max_group = 3,
+		spawn_in_nodes = true,
+		nodes = {"group:frozen_surface"}
+	})
+	creatura.register_abm_spawn("animalia:turkey", {
+		chance = ambient_spawn_chance,
+		interval = 60,
+		min_height = -1,
+		max_height = 1024,
+		min_group = 1,
+		max_group = 3,
+		spawn_in_nodes = true,
+		nodes = {"group:leaves"}
+	})
+	creatura.register_abm_spawn("animalia:wolf", {
+		chance = ambient_spawn_chance,
+		interval = 60,
+		min_height = -1,
+		max_height = 1024,
+		min_group = 1,
+		max_group = 3,
+		spawn_in_nodes = true,
+		nodes = {"group:leaves","group:mediterranean"}
+	})
+end
 
 if minetest.get_modpath("animalworld") then
 
 	mobs:spawn({
 		name = "animalworld:bat",
-		nodes = {"group:cursed_ground","group:cave_floor", "group:banana"},
+		nodes = {"group:cursed_ground","group:cave_floor", "group:banana","group:mediterranean"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000,  
@@ -160,6 +237,15 @@ if minetest.get_modpath("animalworld") then
 		max_height = 1000,
 		day_toggle = false,
 	})
+	-- mobs:spawn({
+	-- 	name = "animalworld:bear",
+	-- 	nodes = {"group:leaves"},
+	-- 	min_light = 0,
+	-- 	interval = 60,
+	-- 	chance = 6000,  
+	-- 	min_height = 0,
+	-- 	max_height = 1000,
+	-- })
 	mobs:spawn({
 		name = "animalworld:beaver",
 		nodes = {"group:swamp"},
@@ -168,7 +254,15 @@ if minetest.get_modpath("animalworld") then
 		chance = 6000,  
 		min_height = 0,
 		max_height = 1000,
-		day_toggle = false,
+	})
+	mobs:spawn({
+		name = "animalworld:boar",
+		nodes = {"group:leaves","group:mediterranean","group:savanna_dirt"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000,  
+		min_height = 0,
+		max_height = 1000,
 	})
 	mobs:spawn({
 		name = "animalworld:crocodile",
@@ -199,7 +293,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mobs:spawn({
 		name = "animalworld:frog",
-		nodes = {"group:swamp", "group:desert_surface"},
+		nodes = {"group:swamp", "group:mediterranean"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000,  
@@ -244,7 +338,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mobs:spawn({
 		name = "animalworld:iguana",
-		nodes = {"group:banana"},
+		nodes = {"group:banana","group:desert_surface"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000,  
@@ -279,6 +373,15 @@ if minetest.get_modpath("animalworld") then
 		max_height = 1000,
 	})
 	mobs:spawn({
+		name = "animalworld:monitor",
+		nodes = {"group:banana","group:desert_surface"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000,  
+		min_height = 0,
+		max_height = 1000,
+	})
+	mobs:spawn({
 		name = "animalworld:mosquito",
 		nodes = {"group:swamp"},
 		min_light = 0,
@@ -290,6 +393,15 @@ if minetest.get_modpath("animalworld") then
 	mobs:spawn({
 		name = "animalworld:orangutan",
 		nodes = {"group:bamboo","group:banana"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000,  
+		min_height = 0,
+		max_height = 1000,
+	})
+	mobs:spawn({
+		name = "animalworld:otter",
+		nodes = {"group:swamp"; "group:mediterranean"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000,  
@@ -324,6 +436,15 @@ if minetest.get_modpath("animalworld") then
 		max_height = 1000,
 	})
 	mobs:spawn({
+		name = "animalworld:reindeer",
+		nodes = {"group:frozen_surface"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000,  
+		min_height = 0,
+		max_height = 1000,
+	})
+	mobs:spawn({
 		name = "animalworld:roadrunner",
 		nodes = {"group:desert_surface"},
 		min_light = 0,
@@ -334,7 +455,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mobs:spawn({
 		name = "animalworld:scorpion",
-		nodes = {"group:desert_surface"},
+		nodes = {"group:desert_surface","group:mediterranean"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000,  
@@ -387,8 +508,35 @@ if minetest.get_modpath("animalworld") then
 		max_height = 1000,
 	})
 	mobs:spawn({
+		name = "animalworld:viper",
+		nodes = {"group:desert_surface", "group:mediterranean"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000,  
+		min_height = 0,
+		max_height = 1000,
+	})
+	mobs:spawn({
 		name = "animalworld:vulture",
 		nodes = {"group:desert_surface"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000,  
+		min_height = 0,
+		max_height = 1000,
+	})
+	mobs:spawn({
+		name = "animalworld:wolf",
+		nodes = {"group:leaves","group:mediterranean"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000,  
+		min_height = 0,
+		max_height = 1000,
+	})
+	mobs:spawn({
+		name = "animalworld:wildboar",
+		nodes = {"group:leaves","group:mediterranean","group:savanna_dirt"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000,  
@@ -405,42 +553,6 @@ if minetest.get_modpath("animalworld") then
 		max_height = 1000
 	})
 
-end
-
-
-local ambient_spawn_chance = tonumber(minetest.settings:get("animalia_ambient_chance")) or 6000
-if minetest.get_modpath("animalia") then
-creatura.register_abm_spawn("animalia:bat", {
-	chance = ambient_spawn_chance,
-	interval = 30,
-	min_light = 0,
-	min_height = -31000,
-	max_height = 1000,
-	min_group = 3,
-	max_group = 5,
-	spawn_cap = 6,
-	nodes = {"group:cursed_ground", "group:cave_floor", "group:banana"}
-})
-creatura.register_abm_spawn("animalia:rat", {
-	chance = ambient_spawn_chance,
-	interval = 60,
-	min_height = -1,
-	max_height = 1024,
-	min_group = 1,
-	max_group = 3,
-	spawn_in_nodes = true,
-	nodes = {"group:cursed_ground","group:swamp"}
-})
-creatura.register_abm_spawn("animalia:frog", {
-	chance = ambient_spawn_chance * 0.75,
-	interval = 60,
-	min_light = 0,
-	min_height = -1,
-	max_height = 8,
-	min_group = 1,
-	max_group = 2,
-	nodes = {"group:swamp"}
-})
 end
 
 if minetest.get_modpath("dmobs") then
