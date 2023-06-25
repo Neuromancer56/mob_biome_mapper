@@ -95,6 +95,7 @@ end
 
 addGroupToNode("naturalbiomes", "alpine_litter", "dirt")
 addGroupToNode("naturalbiomes", "alderswamp_litter", "dirt")
+addGroupToNode("naturalbiomes", "alderswamp_litter", "swamp")
 addGroupToNode("naturalbiomes", "heath_litter", "dirt")
 addGroupToNode("naturalbiomes", "heath_litter2", "dirt")
 addGroupToNode("naturalbiomes", "mediterran_litter", "dirt")
@@ -112,6 +113,7 @@ addGroupToNode("ethereal", "prairie_dirt", "dirt")
 addGroupToNode("ethereal", "bamboo_dirt", "dirt")
 addGroupToNode("ethereal", "bamboo_dirt", "bamboo_ground")
 addGroupToNode("ethereal", "grove_dirt", "dirt")
+addGroupToNode("ethereal", "grove_dirt", "banana")
 addGroupToNode("ethereal", "mushroom_dirt", "dirt")
 addGroupToNode("ethereal", "fiery_dirt", "desert_surface")
 addGroupToNode("ethereal", "grove_dirt", "savanna_dirt")
@@ -150,7 +152,17 @@ if minetest.get_modpath("animalworld") then
 
 	mobs:spawn({
 		name = "animalworld:bat",
-		nodes = {"group:cursed_ground","group:cave_floor"},
+		nodes = {"group:cursed_ground","group:cave_floor", "group:banana"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000,  
+		min_height = 0,
+		max_height = 1000,
+		day_toggle = false,
+	})
+	mobs:spawn({
+		name = "animalworld:beaver",
+		nodes = {"group:swamp"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000,  
@@ -178,7 +190,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mobs:spawn({
 		name = "animalworld:elephant",
-		nodes = {"group:savanna_dirt", "group:bamboo_ground"},
+		nodes = {"group:savanna_dirt", "group:bamboo_ground", "group:banana"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000,  
@@ -231,6 +243,15 @@ if minetest.get_modpath("animalworld") then
 		max_height = 1000,
 	})
 	mobs:spawn({
+		name = "animalworld:iguana",
+		nodes = {"group:banana"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000,  
+		min_height = 0,
+		max_height = 1000,
+	})
+	mobs:spawn({
 		name = "animalworld:kangaroo",
 		nodes = {"group:savanna_dirt"},
 		min_light = 0,
@@ -249,6 +270,15 @@ if minetest.get_modpath("animalworld") then
 		max_height = 1000,
 	})
 	mobs:spawn({
+		name = "animalworld:monkey",
+		nodes = {"group:banana"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000,  
+		min_height = 0,
+		max_height = 1000,
+	})
+	mobs:spawn({
 		name = "animalworld:mosquito",
 		nodes = {"group:swamp"},
 		min_light = 0,
@@ -259,7 +289,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mobs:spawn({
 		name = "animalworld:orangutan",
-		nodes = {"group:bamboo"},
+		nodes = {"group:bamboo","group:banana"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000,  
@@ -269,6 +299,24 @@ if minetest.get_modpath("animalworld") then
 	mobs:spawn({
 		name = "animalworld:panda",
 		nodes = {"group:bamboo"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000,  
+		min_height = 0,
+		max_height = 1000,
+	})
+	mobs:spawn({
+		name = "animalworld:parrot",
+		nodes = {"group:banana"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000,  
+		min_height = 0,
+		max_height = 1000,
+	})
+	mobs:spawn({
+		name = "animalworld:parrot_flying",
+		nodes = {"group:banana"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000,  
@@ -330,6 +378,15 @@ if minetest.get_modpath("animalworld") then
 	max_height = 1000,
 	})
 	mobs:spawn({
+		name = "animalworld:toucan",
+		nodes = {"group:banana"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000,  
+		min_height = 0,
+		max_height = 1000,
+	})
+	mobs:spawn({
 		name = "animalworld:vulture",
 		nodes = {"group:desert_surface"},
 		min_light = 0,
@@ -362,7 +419,7 @@ creatura.register_abm_spawn("animalia:bat", {
 	min_group = 3,
 	max_group = 5,
 	spawn_cap = 6,
-	nodes = {"group:cursed_ground", "group:cave_floor"}
+	nodes = {"group:cursed_ground", "group:cave_floor", "group:banana"}
 })
 creatura.register_abm_spawn("animalia:rat", {
 	chance = ambient_spawn_chance,
@@ -389,7 +446,7 @@ end
 if minetest.get_modpath("dmobs") then
 	mobs:spawn({name = "dmobs:gnorm", nodes = {"default:dirt_with_grass", "ethereal:bamboo_dirt","group:dirt"}, neighbor = {},
 	min_light = 10, max_light = 15, interval = 300, chance = 32000, active_object_count = 2, min_height = -100, max_height = 0})
-	mobs:spawn({name = "dmobs:elephant", nodes = {"group:savanna_dirt", "group:bamboo_ground"},
+	mobs:spawn({name = "dmobs:elephant", nodes = {"group:savanna_dirt", "group:bamboo_ground", "group:banana"},
 	min_light = 10, max_light = 15, interval = 300, chance = 10000, active_object_count = 2, min_height = 0, max_height = 2000})
 	mobs:spawn({
 		name = "dmobs:panda",
