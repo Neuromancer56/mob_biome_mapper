@@ -89,61 +89,78 @@ function getNodesByGroup(group)
 end
 
 local function groupsToNodes()
---******************COMMENT THIS OUT **********
---getNodesByGroup("tree")
---getNodesByGroup("flora")
---*********************************************************  
-addGroupToNode("caverealms", "stone_with_salt", "cave_floor")
-addGroupToNode("caverealms", "stone_with_moss", "cave_floor")
-addGroupToNode("caverealms", "stone_with_lichen", "cave_floor")
-addGroupToNode("default", "dry_dirt_with_dry_grass", "dirt")
-addGroupToNode("default", "dry_dirt_with_dry_grass", "savanna_dirt")
-addGroupToNode("default", "permafrost", "frozen_surface")
-addGroupToNode("default", "permafrost_with_moss", "frozen_surface")
-addGroupToNode("default", "permafrost_with_stone", "frozen_surface")
-addGroupToNode("default", "snowblock", "frozen_surface")
-addGroupToNode("default", "snow", "frozen_surface")
-addGroupToNode("ebiomes", "dirt_with_humid_savanna_grass", "dirt")
-addGroupToNode("ebiomes", "dirt_with_grass_arid", "dirt")
-addGroupToNode("ebiomes", "dirt_with_grass_arid", "savanna_dirt")
-addGroupToNode("ethereal", "gray_dirt", "dirt")
-addGroupToNode("ethereal", "dry_dirt", "dirt")
-addGroupToNode("ethereal", "prairie_dirt", "dirt")
-addGroupToNode("ethereal", "bamboo_dirt", "dirt")
-addGroupToNode("ethereal", "bamboo_dirt", "bamboo_ground")
-addGroupToNode("ethereal", "grove_dirt", "dirt")
-addGroupToNode("ethereal", "grove_dirt", "banana")
-addGroupToNode("ethereal", "mushroom_dirt", "dirt")
-addGroupToNode("ethereal", "fiery_dirt", "desert_surface")
-addGroupToNode("ethereal", "grove_dirt", "savanna_dirt")
-addGroupToNode("ethereal", "crystal_dirt", "frozen_surface")
-addGroupToNode("ethereal", "cold_dirt", "frozen_surface")
-addGroupToNode("everness", "dirt_with_crystal_grass", "frozen_surface")
-addGroupToNode("everness", "dirt_with_cursed_grass", "cursed_ground")
-addGroupToNode("everness", "dry_dirt_with_dry_grass", "savanna_dirt")
-addGroupToNode("everness", "forsaken_tundra_dirt_with_grass", "volcanic")
-addGroupToNode("everness", "forsaken_tundra_dirt", "volcanic")
-addGroupToNode("everness", "volcanic_sulfur", "volcanic")
-addGroupToNode("everness", "dirt_with_coral_grass", "coral")
--- addGroupToNode("everness", "bamboo", "bamboo")
--- addGroupToNode("everness", "bamboo_1", "bamboo")
--- addGroupToNode("everness", "bamboo_2", "bamboo")
--- addGroupToNode("everness", "bamboo_3", "bamboo")
-addGroupToNode("everness", "dirt_with_grass_1", "bamboo_ground")
-addGroupToNode("everness", "dirt_with_grass_extras_1", "bamboo")
-addGroupToNode("everness", "dirt_with_grass_extras_2", "bamboo")
-addGroupToNode("naturalbiomes", "alpine_litter", "dirt")
-addGroupToNode("naturalbiomes", "alderswamp_litter", "dirt")
-addGroupToNode("naturalbiomes", "alderswamp_litter", "swamp")	
-addGroupToNode("naturalbiomes", "heath_litter", "dirt")
-addGroupToNode("naturalbiomes", "heath_litter2", "dirt")
-addGroupToNode("naturalbiomes", "mediterran_litter", "dirt")
-addGroupToNode("naturalbiomes", "mediterran_litter", "mediterranean")
-addGroupToNode("naturalbiomes", "outback_litter", "desert_surface")
-addGroupToNode("sumpf", "sumpf", "swamp")
-addGroupToNode("swaz", "silt_with_grass", "swamp")
-addGroupToNode("swaz", "mud_with_moss", "swamp")
-addGroupToNode("swaz", "mud", "swamp")
+	--******************COMMENT THIS OUT **********
+	--getNodesByGroup("tree")
+	--getNodesByGroup("flora")
+	--*********************************************************  
+	if minetest.get_modpath("caverealms") then
+		addGroupToNode("caverealms", "stone_with_salt", "cave_floor")
+		addGroupToNode("caverealms", "stone_with_moss", "cave_floor")
+		addGroupToNode("caverealms", "stone_with_lichen", "cave_floor")
+	end
+	addGroupToNode("default", "dry_dirt_with_dry_grass", "dirt")
+	addGroupToNode("default", "dry_dirt_with_dry_grass", "savanna_dirt")
+	addGroupToNode("default", "permafrost", "frozen_surface")
+	addGroupToNode("default", "permafrost_with_moss", "frozen_surface")
+	addGroupToNode("default", "permafrost_with_stone", "frozen_surface")
+	addGroupToNode("default", "snowblock", "frozen_surface")
+	addGroupToNode("default", "snow", "frozen_surface")
+	if minetest.get_modpath("ebiomes") then
+		addGroupToNode("ebiomes", "dirt_with_humid_savanna_grass", "dirt")
+		addGroupToNode("ebiomes", "dirt_with_grass_arid", "dirt")
+		addGroupToNode("ebiomes", "dirt_with_grass_arid", "savanna_dirt")
+	end
+	if minetest.get_modpath("ethereal") then
+		addGroupToNode("ethereal", "gray_dirt", "dirt")
+		addGroupToNode("ethereal", "dry_dirt", "dirt")
+		addGroupToNode("ethereal", "prairie_dirt", "dirt")
+		addGroupToNode("ethereal", "bamboo_dirt", "dirt")
+		addGroupToNode("ethereal", "bamboo_dirt", "bamboo_ground")
+		addGroupToNode("ethereal", "grove_dirt", "dirt")
+		addGroupToNode("ethereal", "grove_dirt", "banana")
+		addGroupToNode("ethereal", "mushroom_dirt", "dirt")
+		addGroupToNode("ethereal", "fiery_dirt", "desert_surface")
+		addGroupToNode("ethereal", "grove_dirt", "savanna_dirt")
+		addGroupToNode("ethereal", "crystal_dirt", "frozen_surface")
+		addGroupToNode("ethereal", "cold_dirt", "frozen_surface")
+	end
+	if minetest.get_modpath("everness") then
+		addGroupToNode("everness", "dirt_with_crystal_grass", "frozen_surface")
+		addGroupToNode("everness", "dirt_with_cursed_grass", "cursed_ground")
+		addGroupToNode("everness", "dry_dirt_with_dry_grass", "savanna_dirt")
+		addGroupToNode("everness", "forsaken_tundra_dirt_with_grass", "volcanic")
+		addGroupToNode("everness", "forsaken_tundra_dirt", "volcanic")
+		addGroupToNode("everness", "volcanic_sulfur", "volcanic")
+		addGroupToNode("everness", "dirt_with_coral_grass", "coral")
+		-- addGroupToNode("everness", "bamboo", "bamboo")
+		-- addGroupToNode("everness", "bamboo_1", "bamboo")
+		-- addGroupToNode("everness", "bamboo_2", "bamboo")
+		-- addGroupToNode("everness", "bamboo_3", "bamboo")
+		addGroupToNode("everness", "dirt_with_grass_1", "bamboo_ground")
+		addGroupToNode("everness", "dirt_with_grass_extras_1", "bamboo")
+		addGroupToNode("everness", "dirt_with_grass_extras_2", "bamboo")
+	end
+	if minetest.get_modpath("variety") then
+		addGroupToNode("japaneseforest", "japanese_dirt_with_grass", "japanese_forest")
+	end
+	if minetest.get_modpath("naturalbiomes") then
+		addGroupToNode("naturalbiomes", "alpine_litter", "dirt")
+		addGroupToNode("naturalbiomes", "alderswamp_litter", "dirt")
+		addGroupToNode("naturalbiomes", "alderswamp_litter", "swamp")	
+		addGroupToNode("naturalbiomes", "heath_litter", "dirt")
+		addGroupToNode("naturalbiomes", "heath_litter2", "dirt")
+		addGroupToNode("naturalbiomes", "mediterran_litter", "dirt")
+		addGroupToNode("naturalbiomes", "mediterran_litter", "mediterranean")
+		addGroupToNode("naturalbiomes", "outback_litter", "desert_surface")
+	end
+	if minetest.get_modpath("sumpf") then
+		addGroupToNode("sumpf", "sumpf", "swamp")
+	end
+	if minetest.get_modpath("swaz") then
+		addGroupToNode("swaz", "silt_with_grass", "swamp")
+		addGroupToNode("swaz", "mud_with_moss", "swamp")
+		addGroupToNode("swaz", "mud", "swamp")
+	end
 end
 
 groupsToNodes()
@@ -232,26 +249,27 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:cursed_ground","group:cave_floor", "group:banana","group:mediterranean"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000,  
+		chance = 6000/spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 		day_toggle = false,
+		active_object_count = 3,
 	})
-	-- mobs:spawn({
-	-- 	name = "animalworld:bear",
-	-- 	nodes = {"group:leaves"},
-	-- 	min_light = 0,
-	-- 	interval = 60,
-	-- 	chance = 6000,  
-	-- 	min_height = 0,
-	-- 	max_height = 1000,
-	-- })
+	mobs:spawn({
+		name = "animalworld:bear",
+		nodes = {"group:japanese_forest"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000,  
+		min_height = 0,
+		max_height = 1000,
+	})
 	mobs:spawn({
 		name = "animalworld:beaver",
 		nodes = {"group:swamp"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000,  
+		chance = 6000/spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 	})
@@ -278,7 +296,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:swamp"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000,  
+		chance = 6000/spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 	})
@@ -287,9 +305,10 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:swamp"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000,  
+		chance = 6000/spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
+		active_object_count = 4,
 	})
 	mobs:spawn({
 		name = "animalworld:elephant",
@@ -305,9 +324,10 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:swamp", "group:mediterranean"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000,  
+		chance = 6000/spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
+		active_object_count = 3,
 	})
 	mobs:spawn({
 		name = "animalworld:giraffe",
@@ -328,6 +348,15 @@ if minetest.get_modpath("animalworld") then
 		max_height = 1000,
 	})
 	mobs:spawn({
+		name = "animalworld:hare",
+		nodes = {"group:japanese_forest"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000,  
+		min_height = 0,
+		max_height = 1000,
+	})
+	mobs:spawn({
 		name = "animalworld:hyena",
 		nodes = {"group:savanna_dirt"},
 		min_light = 0,
@@ -338,7 +367,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mobs:spawn({
 		name = "animalworld:ibex",
-		nodes = {"group:savanna_dirt"},
+		nodes = {"group:savanna_dirt","group:japanese_forest"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000,  
@@ -374,7 +403,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mobs:spawn({
 		name = "animalworld:monkey",
-		nodes = {"group:banana"},
+		nodes = {"group:banana","group:japanese_forest"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000,  
@@ -395,9 +424,10 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:swamp"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000,  
+		chance = 6000/spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
+		active_object_count = 2,
 	})
 	mobs:spawn({
 		name = "animalworld:orangutan",
@@ -413,7 +443,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:swamp"; "group:mediterranean"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000,  
+		chance = 6000/spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 	})
@@ -470,6 +500,7 @@ if minetest.get_modpath("animalworld") then
 		chance = 6000,  
 		min_height = 0,
 		max_height = 1000,
+		active_object_count = 3,
 	})
 	mobs:spawn({
 		name = "animalworld:spider",
@@ -490,6 +521,15 @@ if minetest.get_modpath("animalworld") then
 		max_height = 1000,
 	})
 	mobs:spawn({
+		name = "animalworld:stellerseagle",
+		nodes = {"group:japanese_forest"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000,  
+		min_height = 0,
+		max_height = 1000,
+	})
+	mobs:spawn({
 		name = "animalworld:tiger",
 		nodes = {"group:bamboo"},
 		min_light = 0,
@@ -503,9 +543,10 @@ if minetest.get_modpath("animalworld") then
 	nodes = {"group:swamp", "group:desert_surface"},
 	min_light = 0,
 	interval = 60,
-	chance = 6000,  
+	chance = 6000/spawn_chance_multiplier,  
 	min_height = 0,
 	max_height = 1000,
+	active_object_count = 3,
 	})
 	mobs:spawn({
 		name = "animalworld:toucan",
