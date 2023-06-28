@@ -98,6 +98,7 @@ local function groupsToNodes()
 		addGroupToNode("caverealms", "stone_with_moss", "cave_floor")
 		addGroupToNode("caverealms", "stone_with_lichen", "cave_floor")
 	end
+	addGroupToNode("default", "desert_sand", "desert_surface")
 	addGroupToNode("default", "dry_dirt_with_dry_grass", "dirt")
 	addGroupToNode("default", "dry_dirt_with_dry_grass", "savanna_dirt")
 	addGroupToNode("default", "permafrost", "frozen_surface")
@@ -165,7 +166,8 @@ end
 
 groupsToNodes()
 -- Check if a mod named "mobs" is enabled
-local spawn_chance_multiplier = 2
+local monster_spawn_chance_multiplier = 1
+local wildlife_spawn_chance_multiplier = 1
 
 local ambient_spawn_chance = tonumber(minetest.settings:get("animalia_ambient_chance")) or 6000
 if minetest.get_modpath("animalia") then
@@ -191,11 +193,11 @@ if minetest.get_modpath("animalia") then
 		nodes = {"group:swamp"}
 	})
 	creatura.register_abm_spawn("animalia:owl", {
-		chance = ambient_spawn_chance * 0.75,
+		chance = (ambient_spawn_chance * 0.75),
 		interval = 60,
 		min_light = 0,
 		min_height = -1,
-		max_height = 8,
+		max_height = 1024,
 		min_group = 1,
 		max_group = 2,
 		nodes = {"group:mediterranean"}
@@ -249,7 +251,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:cursed_ground","group:cave_floor", "group:banana","group:mediterranean"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000/spawn_chance_multiplier,  
+		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 		day_toggle = false,
@@ -260,7 +262,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:japanese_forest"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000,  
+		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 	})
@@ -269,7 +271,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:swamp"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000/spawn_chance_multiplier,  
+		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 	})
@@ -278,7 +280,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:leaves","group:mediterranean","group:savanna_dirt"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000,  
+		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 	})
@@ -287,7 +289,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:swamp", "group:desert_surface"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000,  
+		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 	})	
@@ -296,7 +298,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:swamp"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000/spawn_chance_multiplier,  
+		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 	})
@@ -305,7 +307,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:swamp"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000/spawn_chance_multiplier,  
+		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 		active_object_count = 4,
@@ -315,7 +317,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:savanna_dirt", "group:bamboo_ground", "group:banana"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000,  
+		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 	})
@@ -324,7 +326,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:swamp", "group:mediterranean"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000/spawn_chance_multiplier,  
+		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 		active_object_count = 3,
@@ -334,7 +336,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:savanna_dirt"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000,  
+		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 	})
@@ -343,7 +345,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:savanna_dirt"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000,  
+		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 	})
@@ -352,7 +354,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:japanese_forest"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000,  
+		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 	})
@@ -361,7 +363,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:savanna_dirt"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000,  
+		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 	})
@@ -370,7 +372,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:savanna_dirt","group:japanese_forest"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000,  
+		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 	})
@@ -379,7 +381,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:banana","group:desert_surface"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000,  
+		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 	})
@@ -388,7 +390,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:savanna_dirt"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000,  
+		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 	})
@@ -397,7 +399,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:savanna_dirt"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000,  
+		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 	})
@@ -406,7 +408,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:banana","group:japanese_forest"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000,  
+		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 	})
@@ -415,7 +417,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:banana","group:desert_surface"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000,  
+		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 	})
@@ -424,7 +426,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:swamp"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000/spawn_chance_multiplier,  
+		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 		active_object_count = 2,
@@ -434,7 +436,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:bamboo","group:banana"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000,  
+		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 	})
@@ -443,7 +445,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:swamp"; "group:mediterranean"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000/spawn_chance_multiplier,  
+		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 	})
@@ -452,7 +454,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:bamboo"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000,  
+		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 	})
@@ -461,7 +463,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:banana"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000,  
+		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 	})
@@ -470,7 +472,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:banana"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000,  
+		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 	})
@@ -479,7 +481,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:frozen_surface"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000,  
+		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 	})
@@ -488,7 +490,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:desert_surface"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000,  
+		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 	})
@@ -497,7 +499,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:desert_surface","group:mediterranean"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000,  
+		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 		active_object_count = 3,
@@ -507,7 +509,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:cursed_ground", "group:desert_surface"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000,  
+		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 	})
@@ -516,7 +518,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:cursed_ground", "group:desert_surface"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000,  
+		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 	})
@@ -525,7 +527,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:japanese_forest"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000,  
+		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 	})
@@ -534,7 +536,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:bamboo"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000,  
+		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 	})
@@ -543,7 +545,7 @@ if minetest.get_modpath("animalworld") then
 	nodes = {"group:swamp", "group:desert_surface"},
 	min_light = 0,
 	interval = 60,
-	chance = 6000/spawn_chance_multiplier,  
+	chance = 6000/wildlife_spawn_chance_multiplier,  
 	min_height = 0,
 	max_height = 1000,
 	active_object_count = 3,
@@ -553,7 +555,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:banana"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000,  
+		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 	})
@@ -562,7 +564,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:desert_surface", "group:mediterranean", "group:swamp"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000,  
+		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 	})
@@ -571,7 +573,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:desert_surface"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000,  
+		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 	})
@@ -580,7 +582,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:leaves","group:mediterranean"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000,  
+		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 	})
@@ -589,7 +591,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:leaves","group:mediterranean","group:savanna_dirt"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000,  
+		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 	})
@@ -598,7 +600,7 @@ if minetest.get_modpath("animalworld") then
 		nodes = {"group:savanna"},
 		min_light = 0,
 		interval = 60,
-		chance = 6000,  
+		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000
 	})
@@ -607,25 +609,25 @@ end
 
 if minetest.get_modpath("dmobs") then
 	mobs:spawn({name = "dmobs:gnorm", nodes = {"default:dirt_with_grass", "ethereal:bamboo_dirt","group:dirt"}, neighbor = {},
-	min_light = 10, max_light = 15, interval = 300, chance = 32000, active_object_count = 2, min_height = -100, max_height = 0})
+	min_light = 10, max_light = 15, interval = 300, chance = 32000/monster_spawn_chance_multiplier, active_object_count = 2, min_height = -100, max_height = 0})
 	mobs:spawn({name = "dmobs:elephant", nodes = {"group:savanna_dirt", "group:bamboo_ground", "group:banana"},
-	min_light = 10, max_light = 15, interval = 300, chance = 10000, active_object_count = 2, min_height = 0, max_height = 2000})
+	min_light = 10, max_light = 15, interval = 300, chance = 10000/wildlife_spawn_chance_multiplier, active_object_count = 2, min_height = 0, max_height = 2000})
 	mobs:spawn({
 		name = "dmobs:panda",
 		nodes = {"group:bamboo_ground"},
 		min_light = 7,
 		interval = 300,
-		chance = 8000,
+		chance = 8000/wildlife_spawn_chance_multiplier,
 		active_object_count = 2,
 		min_height = 0,
 		max_height = 2000
 	})
 	mobs:spawn({name = "dmobs:pig_evil", nodes = {"group:leave", "ethereal:bamboo_leaves", "group:leaves"}, neighbor = {},
-	min_light = 10, max_light = 15, interval = 300, chance = 54000/spawn_chance_multiplier, active_object_count = 2, min_height = 0, max_height = 2000})
+	min_light = 10, max_light = 15, interval = 300, chance = 54000/monster_spawn_chance_multiplier, active_object_count = 2, min_height = 0, max_height = 2000})
 	mobs:spawn({name = "dmobs:skeleton", nodes = {"group:stone","group:volcanic","group:cave_floor","group:cursed_ground"}, neighbor = {},
-	min_light = 0, max_light = 10, interval = 300, chance = 16000/spawn_chance_multiplier, active_object_count = 2, min_height = -31000, max_height = -1000})
+	min_light = 0, max_light = 10, interval = 300, chance = 16000/monster_spawn_chance_multiplier, active_object_count = 2, min_height = -31000, max_height = -1000})
 	mobs:spawn({name = "dmobs:tortoise", nodes = {"group:swamp"}, neighbor = {},
-	min_light = 0, max_light = 15, interval = 100, chance = 6000/spawn_chance_multiplier, active_object_count = 2, min_height = 0, max_height = 100})
+	min_light = 0, max_light = 15, interval = 100, chance = 6000/wildlife_spawn_chance_multiplier, active_object_count = 2, min_height = 0, max_height = 100})
 	mobs:spawn({
 		name = "dmobs:orc",
 		nodes = {
@@ -633,7 +635,7 @@ if minetest.get_modpath("dmobs") then
 		},
 		max_light = 7,
 		interval = 300,
-		chance = dmobs.dragons and 8000 or 6000,
+		chance = dmobs.dragons and 8000/monster_spawn_chance_multiplier or 6000/monster_spawn_chance_multiplier,
 		active_object_count = 2,
 		min_height = 0,
 		max_height = 2000
@@ -646,14 +648,14 @@ if minetest.get_modpath("dmobs") then
 		},
 		max_light = 10,
 		interval = 300,
-		chance = dmobs.dragons and 32000 or 16000,
+		chance = dmobs.dragons and 32000/monster_spawn_chance_multiplier or 16000/monster_spawn_chance_multiplier,
 		active_object_count = 2,
 		min_height = 0,
 		max_height = 2000
 	})
 	if dmobs.dragons then  --just divided chance by 4.
 		mobs:spawn({name = "dmobs:dragon1", nodes = {"group.desert_surface", "group:volcanic"}, neighbor = {},
-			min_light = 5, max_light = 15, interval = 300, chance = 6000, active_object_count = 2, min_height = 0, max_height = 30000})
+			min_light = 5, max_light = 15, interval = 300, chance = 6000/monster_spawn_chance_multiplier, active_object_count = 2, min_height = 0, max_height = 30000})
 			mobs:spawn({
 				name = "dmobs:dragon4",
 				nodes = {
@@ -678,7 +680,7 @@ if minetest.get_modpath("mobs_monster") then
 		nodes = {"group:dirt"},
 		min_light = 0,
 		max_light = 7,
-		chance = 6000,
+		chance = 6000/monster_spawn_chance_multiplier,
 		active_object_count = 2,
 		min_height = 0,
 		day_toggle = false,
@@ -690,7 +692,7 @@ if minetest.get_modpath("mobs_monster") then
 		name = "mobs_monster:dungeon_master",
 		nodes = {"group:volcanic", "group:cave_floor"},
 		max_light = 7,  --5
-		chance = 9000/spawn_chance_multiplier,
+		chance = 9000/monster_spawn_chance_multiplier,
 		active_object_count = 1,
 		max_height = 2000,
 	})
@@ -700,7 +702,7 @@ if minetest.get_modpath("mobs_monster") then
 	mobs:spawn({
 		name = "mobs_monster:lava_flan",
 		nodes = {"group:volcanic"},
-		chance = 7000,
+		chance = 7000/monster_spawn_chance_multiplier,
 		active_object_count = 1,
 		max_height = 2000,
 	})
@@ -711,7 +713,7 @@ if minetest.get_modpath("mobs_monster") then
 		name = "mobs_monster:mese_monster",
 		nodes = {"group:coral", "group:cave_floor"},
 		max_light = 9,  --7
-		chance = 5000/spawn_chance_multiplier,
+		chance = 5000/monster_spawn_chance_multiplier,
 		active_object_count = 1,
 		max_height = 2000,
 		day_toggle = false,
@@ -723,7 +725,7 @@ if minetest.get_modpath("mobs_monster") then
 		name = "mobs_monster:oerkki",
 		nodes = {"group:cursed_ground", "group:cave_floor"},
 		max_light = 9,  --7
-		chance = 7000/spawn_chance_multiplier,
+		chance = 7000/monster_spawn_chance_multiplier,
 		max_height = 2000,
 	})
 
@@ -732,7 +734,7 @@ if minetest.get_modpath("mobs_monster") then
 	mobs:spawn({
 		name = "mobs_monster:sand_monster",
 		nodes = {"group:desert_surface"},
-		chance = 7000/spawn_chance_multiplier,
+		chance = 7000/monster_spawn_chance_multiplier,
 		active_object_count = 2,
 		min_height = 0,
 	})
@@ -746,7 +748,7 @@ if minetest.get_modpath("mobs_monster") then
 		},
 		min_light = 0,
 		max_light = 8,
-		chance = 7000,
+		chance = 7000/monster_spawn_chance_multiplier,
 		active_object_count = 1,
 		min_height = 2000,
 		max_height = 31000,
@@ -758,7 +760,7 @@ if minetest.get_modpath("mobs_monster") then
 		nodes = {"default:stone_with_mese", "default:mese", "default:stone", "group:cave_floor"},
 		min_light = 0,
 		max_light = 9, --7
-		chance = 7000/spawn_chance_multiplier,
+		chance = 7000/monster_spawn_chance_multiplier,
 		active_object_count = 1,
 		min_height = -31000,
 		max_height = -40,
@@ -770,7 +772,7 @@ if minetest.get_modpath("mobs_monster") then
 		name = "mobs_monster:stone_monster",
 		nodes = {"default:stone", "default:desert_stone", "default:sandstone", "group:cave_floor"},
 		max_light = 9, --7
-		chance = 7000/spawn_chance_multiplier,
+		chance = 7000/monster_spawn_chance_multiplier,
 		max_height = 0,
 	})
 
@@ -780,7 +782,7 @@ if minetest.get_modpath("mobs_monster") then
 		name = "mobs_monster:tree_monster",
 		nodes = {"default:leaves", "default:jungleleaves"},
 		max_light = 7,
-		chance = 7000,
+		chance = 7000/monster_spawn_chance_multiplier,
 		min_height = 0,
 		day_toggle = false,
 	})
