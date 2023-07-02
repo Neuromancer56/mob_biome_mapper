@@ -92,6 +92,8 @@ local function groupsToNodes()
 	--******************COMMENT THIS OUT **********
 	--getNodesByGroup("tree")
 	--getNodesByGroup("flora")
+	getNodesByGroup("bamboo_ground")
+	minetest.log("ToChat:", "ranGroupToNodes:")
 	--*********************************************************  
 	if minetest.get_modpath("caverealms") then
 		addGroupToNode("caverealms", "stone_with_salt", "cave_floor")
@@ -138,11 +140,39 @@ local function groupsToNodes()
 		-- addGroupToNode("everness", "bamboo_2", "bamboo")
 		-- addGroupToNode("everness", "bamboo_3", "bamboo")
 		addGroupToNode("everness", "dirt_with_grass_1", "bamboo_ground")
-		addGroupToNode("everness", "dirt_with_grass_extras_1", "bamboo")
-		addGroupToNode("everness", "dirt_with_grass_extras_2", "bamboo")
+		addGroupToNode("everness", "dirt_with_grass_extras_1", "bamboo_ground")
+		addGroupToNode("everness", "dirt_with_grass_extras_2", "bamboo_ground")
 	end
-	if minetest.get_modpath("variety") then
-		addGroupToNode("japaneseforest", "japanese_dirt_with_grass", "japanese_forest")
+	if minetest.get_modpath("japanese_forest") then
+		addGroupToNode("japanese_forest", "japanese_dirt_with_grass", "japanese_forest")
+	end
+	if minetest.get_modpath("cherry") then
+		addGroupToNode("cherry", "cherry_dirt_with_grass", "japanese_forest")
+	end
+	if minetest.get_modpath("bambooforest") then
+		addGroupToNode("bambooforest", "dirt_with_bamboo", "bamboo_ground")
+	end
+	if minetest.get_modpath("frost_land") then
+		addGroupToNode("frost_land", "frost_land_grass", "frozen_surface")
+		addGroupToNode("frost_land", "frost_land_grass", "frozen_surface")
+	end
+	if minetest.get_modpath("terracotta") then
+		addGroupToNode("terracotta", "terracotta_1", "desert_surface")
+	end
+	if minetest.get_modpath("redwood") then
+		addGroupToNode("redwood", "redwood_dirt_with_grass", "redwood")
+	end
+	if minetest.get_modpath("meadow") then
+		addGroupToNode("meadow", "meadow_dirt_with_grass", "forest")
+	end
+	if minetest.get_modpath("dorwinion") then
+		addGroupToNode("dorwinion", "dorwinion_grass", "forest")
+	end
+	if minetest.get_modpath("nightshade") then
+		addGroupToNode("nightshade", "nightshade_dirt_with_grass", "forest")
+	end
+	if minetest.get_modpath("alurios_forest") then
+		addGroupToNode("alurios_forest", "alurios_forest_dirt_with_alurios_forest_grass", "forest")
 	end
 	if minetest.get_modpath("naturalbiomes") then
 		addGroupToNode("naturalbiomes", "alpine_litter", "dirt")
@@ -162,6 +192,9 @@ local function groupsToNodes()
 		addGroupToNode("swaz", "mud_with_moss", "swamp")
 		addGroupToNode("swaz", "mud", "swamp")
 	end
+	-- getNodesByGroup("bamboo_ground")
+	-- getNodesByGroup("swamp")
+	-- minetest.log("ToChat:", "ranGroupToNodes:")
 end
 
 groupsToNodes()
@@ -179,8 +212,10 @@ if minetest.get_modpath("animalia") then
 		max_height = 1000,
 		min_group = 3,
 		max_group = 5,
+		min_time = 19500,
+		max_time = 4000,
 		spawn_cap = 6,
-		nodes = {"group:cursed_ground", "group:cave_floor", "group:banana"}
+		nodes = {"group:cursed_ground", "group:cave_floor", "group:banana","group:redwood"}
 	})
 	creatura.register_abm_spawn("animalia:frog", {
 		chance = ambient_spawn_chance * 0.75,
@@ -240,15 +275,26 @@ if minetest.get_modpath("animalia") then
 		min_group = 1,
 		max_group = 3,
 		spawn_in_nodes = true,
-		nodes = {"group:leaves","group:mediterranean"}
+		nodes = {"group:leaves","group:mediterranean","group:forest"}
 	})
 end
 
 if minetest.get_modpath("animalworld") then
 
 	mobs:spawn({
+		name = "animalworld:anteater",
+		nodes = {"group:banana"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000/wildlife_spawn_chance_multiplier,  
+		min_height = 0,
+		max_height = 1000,
+		day_toggle = false,
+		active_object_count = 3,
+	})
+	mobs:spawn({
 		name = "animalworld:bat",
-		nodes = {"group:cursed_ground","group:cave_floor", "group:banana","group:mediterranean"},
+		nodes = {"group:cursed_ground","group:cave_floor", "group:banana","group:mediterranean","group:redwood"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
@@ -259,7 +305,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mobs:spawn({
 		name = "animalworld:bear",
-		nodes = {"group:japanese_forest"},
+		nodes = {"group:japanese_forest","group:redwood","group:forest"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
@@ -268,7 +314,16 @@ if minetest.get_modpath("animalworld") then
 	})
 	mobs:spawn({
 		name = "animalworld:beaver",
-		nodes = {"group:swamp"},
+		nodes = {"group:swamp", "group:forest"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000/wildlife_spawn_chance_multiplier,  
+		min_height = 0,
+		max_height = 1000,
+	})
+	mobs:spawn({
+		name = "animalworld:blackgrouse",
+		nodes = {"group:swamp", "group:forest"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
@@ -277,7 +332,16 @@ if minetest.get_modpath("animalworld") then
 	})
 	mobs:spawn({
 		name = "animalworld:boar",
-		nodes = {"group:leaves","group:mediterranean","group:savanna_dirt"},
+		nodes = {"group:forest","group:mediterranean","group:savanna_dirt"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000/wildlife_spawn_chance_multiplier,  
+		min_height = 0,
+		max_height = 1000,
+	})
+	mobs:spawn({
+		name = "animalworld:blackbird",
+		nodes = {"group:swamp"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
@@ -286,7 +350,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mobs:spawn({
 		name = "animalworld:clamydosaurus",
-		nodes = {"group:swamp", "group:desert_surface"},
+		nodes = {"group:swamp", "group:desert_surface","group:redwood"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
@@ -323,7 +387,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mobs:spawn({
 		name = "animalworld:frog",
-		nodes = {"group:swamp", "group:mediterranean"},
+		nodes = {"group:swamp", "group:mediterranean","group:redwood"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
@@ -351,7 +415,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mobs:spawn({
 		name = "animalworld:hare",
-		nodes = {"group:japanese_forest"},
+		nodes = {"group:japanese_forest","group:forest"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
@@ -378,7 +442,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mobs:spawn({
 		name = "animalworld:iguana",
-		nodes = {"group:banana","group:desert_surface"},
+		nodes = {"group:banana","group:desert_surface","group:redwood"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
@@ -423,7 +487,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mobs:spawn({
 		name = "animalworld:mosquito",
-		nodes = {"group:swamp"},
+		nodes = {"group:swamp","group:forest"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
@@ -433,7 +497,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mobs:spawn({
 		name = "animalworld:orangutan",
-		nodes = {"group:bamboo","group:banana"},
+		nodes = {"group:bamboo_ground","group:banana"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
@@ -451,7 +515,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mobs:spawn({
 		name = "animalworld:panda",
-		nodes = {"group:bamboo"},
+		nodes = {"group:bamboo_ground"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
@@ -478,7 +542,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mobs:spawn({
 		name = "animalworld:reindeer",
-		nodes = {"group:frozen_surface"},
+		nodes = {"group:frozen_surface","group:forest"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
@@ -524,7 +588,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mobs:spawn({
 		name = "animalworld:stellerseagle",
-		nodes = {"group:japanese_forest"},
+		nodes = {"group:japanese_forest","group:forest"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
@@ -533,7 +597,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mobs:spawn({
 		name = "animalworld:tiger",
-		nodes = {"group:bamboo"},
+		nodes = {"group:bamboo_ground"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
@@ -561,7 +625,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mobs:spawn({
 		name = "animalworld:viper",
-		nodes = {"group:desert_surface", "group:mediterranean", "group:swamp"},
+		nodes = {"group:desert_surface", "group:mediterranean", "group:swamp","group:redwood"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
@@ -579,7 +643,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mobs:spawn({
 		name = "animalworld:wolf",
-		nodes = {"group:leaves","group:mediterranean"},
+		nodes = {"group:leaves","group:mediterranean","group:forest"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
