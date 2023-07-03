@@ -143,6 +143,7 @@ local function groupsToNodes()
 		addGroupToNode("everness", "dirt_with_grass_extras_1", "bamboo_ground")
 		addGroupToNode("everness", "dirt_with_grass_extras_2", "bamboo_ground")
 	end
+	--begin variety modpack--
 	if minetest.get_modpath("japanese_forest") then
 		addGroupToNode("japanese_forest", "japanese_dirt_with_grass", "japanese_forest")
 	end
@@ -174,6 +175,7 @@ local function groupsToNodes()
 	if minetest.get_modpath("alurios_forest") then
 		addGroupToNode("alurios_forest", "alurios_forest_dirt_with_alurios_forest_grass", "forest")
 	end
+	--end variety modpack--
 	if minetest.get_modpath("naturalbiomes") then
 		addGroupToNode("naturalbiomes", "alpine_litter", "dirt")
 		addGroupToNode("naturalbiomes", "alderswamp_litter", "dirt")
