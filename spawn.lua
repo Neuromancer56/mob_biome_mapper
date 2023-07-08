@@ -92,9 +92,31 @@ local function groupsToNodes()
 	--******************COMMENT THIS OUT **********
 	--getNodesByGroup("tree")
 	--getNodesByGroup("flora")
-	getNodesByGroup("bamboo_ground")
-	minetest.log("ToChat:", "ranGroupToNodes:")
+	--minetest.log("ToChat:", "ranGroupToNodes:")
 	--*********************************************************  
+	if minetest.get_modpath("br_core") then
+		addGroupToNode("br_core", "carpet_0", "backroom")
+		addGroupToNode("br_core", "wallpaper_0", "backroom")
+		addGroupToNode("br_core", "white", "backroom")
+		addGroupToNode("br_core", "barrier", "backroom")
+		addGroupToNode("br_core", "fog_blue", "backroom")
+		addGroupToNode("br_core", "concrete_black", "backroom")
+		addGroupToNode("br_core", "concrete_dark_grey", "backroom")
+		addGroupToNode("br_core", "concrete_grey", "backroom")
+		addGroupToNode("br_core", "concrete_light_grey", "backroom")
+		addGroupToNode("br_core", "concrete_white", "backroom")
+		addGroupToNode("br_core", "concrete_red", "backroom")
+		addGroupToNode("br_core", "concrete_dark_red", "backroom")
+		addGroupToNode("br_core", "ceiling_light_0", "backroom")
+		addGroupToNode("br_core", "ceiling_light_0_off", "backroom")
+		addGroupToNode("br_core", "ceiling_light_1", "backroom")
+		addGroupToNode("br_core", "ceiling_light_1_off", "backroom")
+		addGroupToNode("br_core", "ceiling_light_2", "backroom")
+		addGroupToNode("br_core", "ceiling_light_2_off", "backroom")
+		addGroupToNode("br_core", "ceiling_light_3", "backroom")
+		addGroupToNode("br_core", "ceiling_light_3_off", "backroom")
+		addGroupToNode("br_core", "door_handle_0", "backroom")
+	end
 	if minetest.get_modpath("caverealms") then
 		addGroupToNode("caverealms", "stone_with_salt", "cave_floor")
 		addGroupToNode("caverealms", "stone_with_moss", "cave_floor")
@@ -196,6 +218,7 @@ local function groupsToNodes()
 	end
 	-- getNodesByGroup("bamboo_ground")
 	-- getNodesByGroup("swamp")
+	-- getNodesByGroup("backroom")
 	-- minetest.log("ToChat:", "ranGroupToNodes:")
 end
 
@@ -217,7 +240,7 @@ if minetest.get_modpath("animalia") then
 		min_time = 19500,
 		max_time = 4000,
 		spawn_cap = 6,
-		nodes = {"group:cursed_ground", "group:cave_floor", "group:banana","group:redwood"}
+		nodes = {"group:cursed_ground", "group:cave_floor", "group:banana","group:redwood","group:backroom"}
 	})
 	creatura.register_abm_spawn("animalia:frog", {
 		chance = ambient_spawn_chance * 0.75,
@@ -227,7 +250,7 @@ if minetest.get_modpath("animalia") then
 		max_height = 8,
 		min_group = 1,
 		max_group = 2,
-		nodes = {"group:swamp"}
+		nodes = {"group:swamp","group:backroom"}
 	})
 	creatura.register_abm_spawn("animalia:owl", {
 		chance = (ambient_spawn_chance * 0.75),
@@ -237,7 +260,7 @@ if minetest.get_modpath("animalia") then
 		max_height = 1024,
 		min_group = 1,
 		max_group = 2,
-		nodes = {"group:mediterranean"}
+		nodes = {"group:mediterranean","group:backroom"}
 	})
 	creatura.register_abm_spawn("animalia:rat", {
 		chance = ambient_spawn_chance,
@@ -247,7 +270,7 @@ if minetest.get_modpath("animalia") then
 		min_group = 1,
 		max_group = 3,
 		spawn_in_nodes = true,
-		nodes = {"group:cursed_ground","group:swamp"}
+		nodes = {"group:cursed_ground","group:swamp","group:backroom"}
 	})
 	creatura.register_abm_spawn("animalia:reindeer", {
 		chance = ambient_spawn_chance,
@@ -257,7 +280,7 @@ if minetest.get_modpath("animalia") then
 		min_group = 1,
 		max_group = 3,
 		spawn_in_nodes = true,
-		nodes = {"group:frozen_surface"}
+		nodes = {"group:frozen_surface","group:backroom"}
 	})
 	creatura.register_abm_spawn("animalia:turkey", {
 		chance = ambient_spawn_chance,
@@ -267,7 +290,7 @@ if minetest.get_modpath("animalia") then
 		min_group = 1,
 		max_group = 3,
 		spawn_in_nodes = true,
-		nodes = {"group:leaves"}
+		nodes = {"group:leaves","group:backroom"}
 	})
 	creatura.register_abm_spawn("animalia:wolf", {
 		chance = ambient_spawn_chance,
@@ -277,7 +300,7 @@ if minetest.get_modpath("animalia") then
 		min_group = 1,
 		max_group = 3,
 		spawn_in_nodes = true,
-		nodes = {"group:leaves","group:mediterranean","group:forest"}
+		nodes = {"group:leaves","group:mediterranean","group:forest","group:backroom"}
 	})
 end
 
@@ -285,7 +308,7 @@ if minetest.get_modpath("animalworld") then
 
 	mobs:spawn({
 		name = "animalworld:anteater",
-		nodes = {"group:banana"},
+		nodes = {"group:banana","group:backroom"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
@@ -296,7 +319,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mobs:spawn({
 		name = "animalworld:bat",
-		nodes = {"group:cursed_ground","group:cave_floor", "group:banana","group:mediterranean","group:redwood"},
+		nodes = {"group:cursed_ground","group:cave_floor", "group:banana","group:mediterranean","group:redwood","group:backroom"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
@@ -307,7 +330,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mobs:spawn({
 		name = "animalworld:bear",
-		nodes = {"group:japanese_forest","group:redwood","group:forest"},
+		nodes = {"group:japanese_forest","group:redwood","group:forest","group:backroom"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
@@ -316,7 +339,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mobs:spawn({
 		name = "animalworld:beaver",
-		nodes = {"group:swamp", "group:forest"},
+		nodes = {"group:swamp", "group:forest","group:backroom"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
@@ -325,7 +348,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mobs:spawn({
 		name = "animalworld:blackgrouse",
-		nodes = {"group:swamp", "group:forest"},
+		nodes = {"group:swamp", "group:forest","group:backroom"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
@@ -334,7 +357,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mobs:spawn({
 		name = "animalworld:boar",
-		nodes = {"group:forest","group:mediterranean","group:savanna_dirt"},
+		nodes = {"group:forest","group:mediterranean","group:savanna_dirt","group:backroom"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
