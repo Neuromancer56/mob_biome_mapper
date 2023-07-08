@@ -242,7 +242,7 @@ if minetest.get_modpath("animalia") then
 		interval = 30,
 		min_light = 0,
 		min_height = -31000,
-		max_height = 1000,
+		max_height = 31000,
 		min_group = 3,
 		max_group = 5,
 		min_time = 19500,
@@ -265,7 +265,7 @@ if minetest.get_modpath("animalia") then
 		interval = 60,
 		min_light = 0,
 		min_height = -1,
-		max_height = 1024,
+		max_height = 6024,
 		min_group = 1,
 		max_group = 2,
 		nodes = {"group:mediterranean","group:backroom"}
@@ -274,7 +274,7 @@ if minetest.get_modpath("animalia") then
 		chance = ambient_spawn_chance,
 		interval = 60,
 		min_height = -1,
-		max_height = 1024,
+		max_height = 31000,
 		min_group = 1,
 		max_group = 3,
 		spawn_in_nodes = true,
@@ -284,7 +284,7 @@ if minetest.get_modpath("animalia") then
 		chance = ambient_spawn_chance,
 		interval = 60,
 		min_height = -1,
-		max_height = 1024,
+		max_height = 31000,
 		min_group = 1,
 		max_group = 3,
 		spawn_in_nodes = true,
@@ -303,8 +303,8 @@ if minetest.get_modpath("animalia") then
 	creatura.register_abm_spawn("animalia:wolf", {
 		chance = ambient_spawn_chance,
 		interval = 60,
-		min_height = -1,
-		max_height = 1024,
+		min_height = -10,
+		max_height = 31000,
 		min_group = 1,
 		max_group = 3,
 		spawn_in_nodes = true,
@@ -343,7 +343,7 @@ if minetest.get_modpath("animalworld") then
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
-		max_height = 1000,
+		max_height = 6000,
 	})
 	mobs:spawn({
 		name = "animalworld:beaver",
@@ -791,7 +791,7 @@ if minetest.get_modpath("mobs_monster") then
 		max_light = 7,  --5
 		chance = 9000/monster_spawn_chance_multiplier,
 		active_object_count = 1,
-		max_height = 2000,
+		max_height = 31000,
 	})
 
 	-- Lava Flan
@@ -801,7 +801,7 @@ if minetest.get_modpath("mobs_monster") then
 		nodes = {"group:volcanic","group:backroom"},
 		chance = 7000/monster_spawn_chance_multiplier,
 		active_object_count = 1,
-		max_height = 2000,
+		max_height = 31000,
 	})
 
 	-- Mese Monster
@@ -812,7 +812,7 @@ if minetest.get_modpath("mobs_monster") then
 		max_light = 9,  --7
 		chance = 5000/monster_spawn_chance_multiplier,
 		active_object_count = 1,
-		max_height = 2000,
+		max_height = 31000,
 		day_toggle = false,
 	})
 
@@ -823,7 +823,7 @@ if minetest.get_modpath("mobs_monster") then
 		nodes = {"group:cursed_ground", "group:cave_floor","group:backroom"},
 		max_light = 9,  --7
 		chance = 7000/monster_spawn_chance_multiplier,
-		max_height = 2000,
+		max_height = 31000,
 	})
 
 	-- Sand Monster
