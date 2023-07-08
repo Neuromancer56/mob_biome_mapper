@@ -95,27 +95,35 @@ local function groupsToNodes()
 	--minetest.log("ToChat:", "ranGroupToNodes:")
 	--*********************************************************  
 	if minetest.get_modpath("br_core") then
+		br_core.node_colors = {
+			black =     { main="#334",    alt="#556",    outline="#556",    highlight="#444455", lowlight="#112"   , raw="#445"},
+			dark_grey = { main="#556",    alt="#a97",    outline="#778",    highlight="#666677", lowlight="#445"   , raw="#77777e"},
+			grey =      { main="#889",    alt="#fff",    outline="#99a",    highlight="#9999aa", lowlight="#668"   , raw="#838397"},
+			light_grey ={ main="#aab",    alt="#fff",    outline="#ccd",    highlight="#bbbbcc", lowlight="#88a"   , raw="#9b9ba4"},
+			white =     { main="#eee",    alt="#99a",    outline="#fff",    highlight="#ffffff", lowlight="#dde"   , raw="#f6eeee"},
+			red =       { main="#e15d55", alt="#fff",    outline="#cc8c7e", highlight="#e97b74", lowlight="#c35350", raw="#b5b5c0"},
+			dark_red =  { main="#641d2b", alt="#fff",    outline="#daa",    highlight="#742d3b", lowlight="#54171b", raw="#6d6d73"},
+			orange =    { main="#b85",    alt="#778",    outline="#a75",    highlight="#cc9966", lowlight="#a75"   , raw="#888899"},
+			rust =      { main="#756052", alt="#fff",    outline="#877263", highlight="#877767", lowlight="#655052", raw="#6d6d73"},
+			green =     { main="#4d7953", alt="#fff",    outline="#8c8b7d", highlight="#838962", lowlight="#4a7553", raw="#77777e"},
+			blue =      { main="#478",    alt="#fff",    outline="#799598", highlight="#558899", lowlight="#367"   , raw="#b5b5c0"},
+			yellow =    { main="#c5b794", alt="#d9d8c4", outline="#ddc",    highlight="#d5c7a4", lowlight="#b5a784", raw="#b5b5c0"},
+		}
 		addGroupToNode("br_core", "carpet_0", "backroom")
-		addGroupToNode("br_core", "wallpaper_0", "backroom")
-		addGroupToNode("br_core", "white", "backroom")
-		addGroupToNode("br_core", "barrier", "backroom")
-		addGroupToNode("br_core", "fog_blue", "backroom")
-		addGroupToNode("br_core", "concrete_black", "backroom")
-		addGroupToNode("br_core", "concrete_dark_grey", "backroom")
-		addGroupToNode("br_core", "concrete_grey", "backroom")
-		addGroupToNode("br_core", "concrete_light_grey", "backroom")
-		addGroupToNode("br_core", "concrete_white", "backroom")
-		addGroupToNode("br_core", "concrete_red", "backroom")
-		addGroupToNode("br_core", "concrete_dark_red", "backroom")
-		addGroupToNode("br_core", "ceiling_light_0", "backroom")
-		addGroupToNode("br_core", "ceiling_light_0_off", "backroom")
-		addGroupToNode("br_core", "ceiling_light_1", "backroom")
-		addGroupToNode("br_core", "ceiling_light_1_off", "backroom")
-		addGroupToNode("br_core", "ceiling_light_2", "backroom")
-		addGroupToNode("br_core", "ceiling_light_2_off", "backroom")
-		addGroupToNode("br_core", "ceiling_light_3", "backroom")
-		addGroupToNode("br_core", "ceiling_light_3_off", "backroom")
-		addGroupToNode("br_core", "door_handle_0", "backroom")
+		addGroupToNode("br_core", "grass", "backroom")
+		addGroupToNode("br_core", "catwalk_WE", "backroom")
+		addGroupToNode("br_core", "catwalk_stair", "backroom")
+		addGroupToNode("br_core", "catwalk", "backroom")
+		for variant, color in pairs(br_core.node_colors) do
+			addGroupToNode("br_core", "concrete_"..variant, "backroom")
+			addGroupToNode("br_core", "carpet_"..variant, "backroom")
+			addGroupToNode("br_core", "concrete_"..variant.."_ls", "backroom")
+			addGroupToNode("br_core", "concrete_dirty_"..variant, "backroom")
+			addGroupToNode("br_core", "concrete_ruined_"..variant, "backroom")
+		end
+		for i=0, 2 do
+			addGroupToNode("br_core", "pool_tiles_"..i, "backroom")
+		end
 	end
 	if minetest.get_modpath("caverealms") then
 		addGroupToNode("caverealms", "stone_with_salt", "cave_floor")
@@ -697,8 +705,8 @@ if minetest.get_modpath("animalworld") then
 end
 
 if minetest.get_modpath("dmobs") then
-	mobs:spawn({name = "dmobs:gnorm", nodes = {"default:dirt_with_grass", "ethereal:bamboo_dirt","group:dirt"}, neighbor = {},
-	min_light = 10, max_light = 15, interval = 300, chance = 32000/monster_spawn_chance_multiplier, active_object_count = 2, min_height = -100, max_height = 0})
+	mobs:spawn({name = "dmobs:gnorm", nodes = {"default:dirt_with_grass", "ethereal:bamboo_dirt","group:dirt","group:backroom"}, neighbor = {},
+	min_light = 10, max_light = 15, interval = 300, chance = 32000/monster_spawn_chance_multiplier, active_object_count = 2, min_height = -100, max_height = 1000})
 	mobs:spawn({name = "dmobs:elephant", nodes = {"group:savanna_dirt", "group:bamboo_ground", "group:banana"},
 	min_light = 10, max_light = 15, interval = 300, chance = 10000/wildlife_spawn_chance_multiplier, active_object_count = 2, min_height = 0, max_height = 2000})
 	mobs:spawn({
@@ -713,33 +721,33 @@ if minetest.get_modpath("dmobs") then
 	})
 	mobs:spawn({name = "dmobs:pig_evil", nodes = {"group:leave", "ethereal:bamboo_leaves", "group:leaves"}, neighbor = {},
 	min_light = 10, max_light = 15, interval = 300, chance = 54000/monster_spawn_chance_multiplier, active_object_count = 2, min_height = 0, max_height = 2000})
-	mobs:spawn({name = "dmobs:skeleton", nodes = {"group:stone","group:volcanic","group:cave_floor","group:cursed_ground"}, neighbor = {},
-	min_light = 0, max_light = 10, interval = 300, chance = 16000/monster_spawn_chance_multiplier, active_object_count = 2, min_height = -31000, max_height = -1000})
+	mobs:spawn({name = "dmobs:skeleton", nodes = {"group:stone","group:volcanic","group:cave_floor","group:cursed_ground","group:backroom"}, neighbor = {},
+	min_light = 0, max_light = 10, interval = 300, chance = 16000/monster_spawn_chance_multiplier, active_object_count = 2, min_height = -31000, max_height = -1})
 	mobs:spawn({name = "dmobs:tortoise", nodes = {"group:swamp"}, neighbor = {},
 	min_light = 0, max_light = 15, interval = 100, chance = 6000/wildlife_spawn_chance_multiplier, active_object_count = 2, min_height = 0, max_height = 100})
 	mobs:spawn({
 		name = "dmobs:orc",
 		nodes = {
-			"group:cursed_ground"
+			"group:cursed_ground","group:backroom"
 		},
 		max_light = 7,
 		interval = 300,
 		chance = dmobs.dragons and 8000/monster_spawn_chance_multiplier or 6000/monster_spawn_chance_multiplier,
 		active_object_count = 2,
-		min_height = 0,
+		min_height = -100,
 		max_height = 2000
 	})
 
 	mobs:spawn({
 		name = "dmobs:ogre",
 		nodes = {
-			"group:cursed_ground"
+			"group:cursed_ground","group:backroom"
 		},
 		max_light = 10,
 		interval = 300,
 		chance = dmobs.dragons and 32000/monster_spawn_chance_multiplier or 16000/monster_spawn_chance_multiplier,
 		active_object_count = 2,
-		min_height = 0,
+		min_height = -100,
 		max_height = 2000
 	})
 	if dmobs.dragons then  --just divided chance by 4.
@@ -779,7 +787,7 @@ if minetest.get_modpath("mobs_monster") then
 
 	mobs:spawn({
 		name = "mobs_monster:dungeon_master",
-		nodes = {"group:volcanic", "group:cave_floor"},
+		nodes = {"group:volcanic", "group:cave_floor","group:backroom"},
 		max_light = 7,  --5
 		chance = 9000/monster_spawn_chance_multiplier,
 		active_object_count = 1,
@@ -790,7 +798,7 @@ if minetest.get_modpath("mobs_monster") then
 
 	mobs:spawn({
 		name = "mobs_monster:lava_flan",
-		nodes = {"group:volcanic"},
+		nodes = {"group:volcanic","group:backroom"},
 		chance = 7000/monster_spawn_chance_multiplier,
 		active_object_count = 1,
 		max_height = 2000,
@@ -800,7 +808,7 @@ if minetest.get_modpath("mobs_monster") then
 
 	mobs:spawn({
 		name = "mobs_monster:mese_monster",
-		nodes = {"group:coral", "group:cave_floor"},
+		nodes = {"group:coral", "group:cave_floor","group:backroom"},
 		max_light = 9,  --7
 		chance = 5000/monster_spawn_chance_multiplier,
 		active_object_count = 1,
@@ -812,7 +820,7 @@ if minetest.get_modpath("mobs_monster") then
 
 	mobs:spawn({
 		name = "mobs_monster:oerkki",
-		nodes = {"group:cursed_ground", "group:cave_floor"},
+		nodes = {"group:cursed_ground", "group:cave_floor","group:backroom"},
 		max_light = 9,  --7
 		chance = 7000/monster_spawn_chance_multiplier,
 		max_height = 2000,
@@ -822,7 +830,7 @@ if minetest.get_modpath("mobs_monster") then
 
 	mobs:spawn({
 		name = "mobs_monster:sand_monster",
-		nodes = {"group:desert_surface"},
+		nodes = {"group:desert_surface","group:backroom"},
 		chance = 7000/monster_spawn_chance_multiplier,
 		active_object_count = 2,
 		min_height = 0,
@@ -833,20 +841,20 @@ if minetest.get_modpath("mobs_monster") then
 	mobs:spawn({
 		name = "mobs_monster:spider",
 		nodes = {
-			"default:dirt_with_rainforest_litter", "group.frozen_surface", "group:cursed_ground"
+			"default:dirt_with_rainforest_litter", "group.frozen_surface", "group:cursed_ground","group:backroom"
 		},
 		min_light = 0,
 		max_light = 8,
 		chance = 7000/monster_spawn_chance_multiplier,
 		active_object_count = 1,
-		min_height = 2000,
+		min_height = -40,
 		max_height = 31000,
 	})
 
 	-- Spider (below ground)
 	mobs:spawn({
 		name = "mobs_monster:spider",
-		nodes = {"default:stone_with_mese", "default:mese", "default:stone", "group:cave_floor"},
+		nodes = {"default:stone_with_mese", "default:mese", "default:stone", "group:cave_floor","group:backroom"},
 		min_light = 0,
 		max_light = 9, --7
 		chance = 7000/monster_spawn_chance_multiplier,
@@ -859,7 +867,7 @@ if minetest.get_modpath("mobs_monster") then
 
 	mobs:spawn({
 		name = "mobs_monster:stone_monster",
-		nodes = {"default:stone", "default:desert_stone", "default:sandstone", "group:cave_floor"},
+		nodes = {"default:stone", "default:desert_stone", "default:sandstone", "group:cave_floor","group:backroom"},
 		max_light = 9, --7
 		chance = 7000/monster_spawn_chance_multiplier,
 		max_height = 0,
