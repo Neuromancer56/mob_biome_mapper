@@ -89,11 +89,6 @@ function getNodesByGroup(group)
 end
 
 local function groupsToNodes()
-	--******************COMMENT THIS OUT **********
-	--getNodesByGroup("tree")
-	--getNodesByGroup("flora")
-	--minetest.log("ToChat:", "ranGroupToNodes:")
-	--*********************************************************  
 	if minetest.get_modpath("br_core") then
 		br_core.node_colors = {
 			black =     { main="#334",    alt="#556",    outline="#556",    highlight="#444455", lowlight="#112"   , raw="#445"},
@@ -173,6 +168,11 @@ local function groupsToNodes()
 		addGroupToNode("everness", "dirt_with_grass_extras_1", "bamboo_ground")
 		addGroupToNode("everness", "dirt_with_grass_extras_2", "bamboo_ground")
 	end
+	if minetest.get_modpath("terraria") then
+		addGroupToNode("terraria", "dirt_with_swamp_grass", "swamp")
+		addGroupToNode("terraria", "mud", "swamp")
+		addGroupToNode("terraria", "root_with_mud", "swamp")
+	end
 	--begin variety modpack--
 	if minetest.get_modpath("japanese_forest") then
 		addGroupToNode("japanese_forest", "japanese_dirt_with_grass", "japanese_forest")
@@ -239,7 +239,7 @@ local ambient_spawn_chance = tonumber(minetest.settings:get("animalia_ambient_ch
 if minetest.get_modpath("animalia") then
 	creatura.register_abm_spawn("animalia:bat", {
 		chance = ambient_spawn_chance,
-		interval = 30,
+		interval = 40,
 		min_light = 0,
 		min_height = -31000,
 		max_height = 31000,
@@ -251,11 +251,11 @@ if minetest.get_modpath("animalia") then
 		nodes = {"group:cursed_ground", "group:cave_floor", "group:banana","group:redwood","group:backroom"}
 	})
 	creatura.register_abm_spawn("animalia:frog", {
-		chance = ambient_spawn_chance * 0.75,
-		interval = 60,
+		chance = ambient_spawn_chance /2,
+		interval = 40,
 		min_light = 0,
 		min_height = -1,
-		max_height = 8,
+		max_height = 11,
 		min_group = 1,
 		max_group = 2,
 		nodes = {"group:swamp","group:backroom"}

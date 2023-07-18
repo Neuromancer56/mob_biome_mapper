@@ -13,3 +13,4 @@ swampz?
 animalworld?
 variety?
 br_core?
+terraria?
