@@ -751,7 +751,7 @@ if minetest.get_modpath("dmobs") then
 		max_height = 2000
 	})
 	if dmobs.dragons then  --just divided chance by 4.
-		mobs:spawn({name = "dmobs:dragon1", nodes = {"group.desert_surface", "group:volcanic"}, neighbor = {},
+		mobs:spawn({name = "dmobs:dragon1", nodes = {"group:desert_surface", "group:volcanic"}, neighbor = {},
 			min_light = 5, max_light = 15, interval = 300, chance = 6000/monster_spawn_chance_multiplier, active_object_count = 2, min_height = 0, max_height = 30000})
 			mobs:spawn({
 				name = "dmobs:dragon4",
@@ -767,6 +767,20 @@ if minetest.get_modpath("dmobs") then
 		
 	end
 end
+
+if minetest.get_modpath("mobs_ghost_redo") then
+	mobs:spawn({name = "mobs_ghost_redo:ghost",
+	nodes = {"group:backroom"},
+	max_light = 15,
+	min_light = 0,
+	interval = 30,
+	chance = 1000/monster_spawn_chance_multiplier,
+	active_object_count = 4,
+	min_height = -30912,
+	max_height = 31000
+})
+end
+
 
 if minetest.get_modpath("mobs_monster") then
     -- The "mobs_monster" mod is enabled, execute your code here
