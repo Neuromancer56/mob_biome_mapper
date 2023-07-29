@@ -168,10 +168,11 @@ local function groupsToNodes()
 		addGroupToNode("everness", "dirt_with_grass_extras_1", "bamboo_ground")
 		addGroupToNode("everness", "dirt_with_grass_extras_2", "bamboo_ground")
 	end
-	if minetest.get_modpath("terraria") then
-		addGroupToNode("terraria", "dirt_with_swamp_grass", "swamp")
-		addGroupToNode("terraria", "mud", "swamp")
-		addGroupToNode("terraria", "root_with_mud", "swamp")
+	if minetest.get_modpath("swamp") then
+		addGroupToNode("swamp", "dirt_with_swamp_grass", "swamp")
+		addGroupToNode("swamp", "mud", "swamp")
+		addGroupToNode("swamp", "muddy_mud", "swamp")
+		addGroupToNode("swamp", "root_with_mud", "swamp")
 	end
 	--begin variety modpack--
 	if minetest.get_modpath("japanese_forest") then
@@ -308,7 +309,7 @@ if minetest.get_modpath("animalia") then
 		min_group = 1,
 		max_group = 3,
 		spawn_in_nodes = true,
-		nodes = {"group:leaves","group:mediterranean","group:forest","group:backroom"}
+		nodes = {"group:mediterranean","group:forest","group:backroom"}
 	})
 end
 
@@ -676,7 +677,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mobs:spawn({
 		name = "animalworld:wolf",
-		nodes = {"group:leaves","group:mediterranean","group:forest"},
+		nodes = {"group:mediterranean","group:forest"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
@@ -685,7 +686,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mobs:spawn({
 		name = "animalworld:wildboar",
-		nodes = {"group:leaves","group:mediterranean","group:savanna_dirt"},
+		nodes = {"group:forest","group:mediterranean","group:savanna_dirt"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
@@ -891,7 +892,7 @@ if minetest.get_modpath("mobs_monster") then
 
 	mobs:spawn({
 		name = "mobs_monster:tree_monster",
-		nodes = {"default:leaves", "default:jungleleaves"},
+		nodes = {"default:forest", "default:jungleleaves"},
 		max_light = 7,
 		chance = 7000/monster_spawn_chance_multiplier,
 		min_height = 0,
