@@ -1,7 +1,7 @@
 
 --[[ Spawn Template, defaults to values shown if line not provided
 
-mobs:spawn({
+mob_spawn({
 
 	name = "",
 
@@ -57,181 +57,93 @@ mobs:spawn({
 })
 ]]--
 
-local function addGroupToNode(modname, nodename, groupname)
-
-    if minetest.get_modpath(modname) then
-        local node_def = minetest.registered_nodes[modname .. ":" .. nodename]
-
-        if node_def then
-            node_def.groups[groupname] = 1
-            minetest.override_item(modname .. ":" .. nodename, { groups = node_def.groups })
-			--*********Log info about groups node belongs to. COMMENT THIS OUT **********
-			-- minetest.log("nodeinfo:", "nodeinfo:" .. nodename)
-			-- for group, value in pairs(node_def.groups) do
-			-- -- Log each item using minetest.log()
-			-- minetest.log("groups:", "group: " .. group .. ", value: " .. value)
-			-- end
-			--*********************************************************  
-        end
-
+-- Define the function 'spawn' with a single argument 'spawnparms', which is a table
+local function mob_spawn(spawnparms)
+    -- Define default values for the parameters in case they are not provided
+    local name = spawnparms.name or ""
+    local nodes = spawnparms.nodes or {}
+    local min_light = spawnparms.min_light or 0
+	local max_light = spawnparms.min_light or 15
+    local interval = spawnparms.interval or 50
+    local chance = spawnparms.chance or (6000)
+    local min_height = spawnparms.min_height or -31000
+    local max_height = spawnparms.max_height or 31000
+    local day_toggle = spawnparms.day_toggle or nil
+    local active_object_count = spawnparms.active_object_count or 3
+	local cluster = spawnparms.cluster or 1
+	local near = spawnparms.neighbors or {"any"}
+	--local on_spawn = nil
+	
+	local min_time_of_day = 0
+	local max_time_of_day = 1
+	if (day_toggle == true) then
+		min_time_of_day = .25
+		max_time_of_day = .75
+	end
+	if (day_toggle == false) then
+		min_time_of_day = .75
+		max_time_of_day = .25
+	end
+    
+	if minetest.get_modpath("spawnit") then
+		spawnit.register({
+			entity_name = name,
+			groups = { mob = 1 },  -- or "npc" or "animal", or something custom
+			cluster = cluster, -- maximum amount to spawn at once (cluster is within a single mapblock)
+			chance = chance/60, -- there will be a 1 in 100 chance of trying to spawn the mob (or cluster) per second, ish
+			per_player = false, -- if true, there will be a 1 in 100 chance of spawning a mob every second per connected player
+		
+			-- TODO: allow and/or/not/parentheses for these things
+			-- WARNING: that might break something!
+			on =  nodes, -- any solid full node. or, list of nodes, groups, "walkable" for any solid node (incl. mesh/nodebox)
+			--within = { "not walkable" },  -- all of the mob must be within these nodes
+			near = near,  -- mob must be "touching" these. intersects "on".
+			min_y = min_height,
+			max_y = max_height,
+			--min_light = min_light,
+			--max_light = max_light,
+			min_time_of_day = min_time_of_day,  -- 0/1 is midnight, 0.25 is dawn-ish, 0.5 is noon, .75 is dusk-ish
+			max_time_of_day = max_time_of_day,  -- set min to 0, and max to 1, to indicate any time (default)
+			--spawn_in_protected = true,
+			--min_player_distance = 12,
+			--max_player_distance = nil,
+		
+			max_active = active_object_count,
+			max_in_area = active_object_count,
+			max_in_area_radius = 16,
+		
+			--collisionbox = nil, -- if not defined, this is inferred from the entity's definition
+		
+			--should_spawn = function()  end,
+			--check_pos = function(pos) end,  -- return true to allow spawning at that position, false to disallow
+			--after_spawn = function(pos, obj) end,  -- called after a mob has spawned
+		})
+	else
+		mobs:spawn({
+			name = name,
+			nodes = {nodes},
+			min_light = min_light,
+			max_light = max_light,
+			interval = interval,
+			chance = chance,
+			min_height = min_height,
+			max_height = max_height,
+			day_toggle = day_toggle,
+			active_object_count = active_object_count,
+		})
 	end
 end
 
-function getNodesByGroup(group)
-    --local nodes = {}
-    for name, def in pairs(minetest.registered_nodes) do
-        if def.groups and def.groups[group] then
-           -- table.insert(nodes, name)
-		   minetest.log("ToChat:", "group:" ..group .. " nodename:".. name)
-        end
-    end
-    return nodes
-end
+--[[mob_spawn({
+	name = "animalworld:beaver",
+	nodes = {"group:swamp", "group:forest","group:backroom"},
+	min_light = 0,
+	interval = 60,
+	chance = 120,
+	min_height = 0,
+	max_height = 1000,
+})]]
 
-local function groupsToNodes()
-	if minetest.get_modpath("br_core") then
-		br_core.node_colors = {
-			black =     { main="#334",    alt="#556",    outline="#556",    highlight="#444455", lowlight="#112"   , raw="#445"},
-			dark_grey = { main="#556",    alt="#a97",    outline="#778",    highlight="#666677", lowlight="#445"   , raw="#77777e"},
-			grey =      { main="#889",    alt="#fff",    outline="#99a",    highlight="#9999aa", lowlight="#668"   , raw="#838397"},
-			light_grey ={ main="#aab",    alt="#fff",    outline="#ccd",    highlight="#bbbbcc", lowlight="#88a"   , raw="#9b9ba4"},
-			white =     { main="#eee",    alt="#99a",    outline="#fff",    highlight="#ffffff", lowlight="#dde"   , raw="#f6eeee"},
-			red =       { main="#e15d55", alt="#fff",    outline="#cc8c7e", highlight="#e97b74", lowlight="#c35350", raw="#b5b5c0"},
-			dark_red =  { main="#641d2b", alt="#fff",    outline="#daa",    highlight="#742d3b", lowlight="#54171b", raw="#6d6d73"},
-			orange =    { main="#b85",    alt="#778",    outline="#a75",    highlight="#cc9966", lowlight="#a75"   , raw="#888899"},
-			rust =      { main="#756052", alt="#fff",    outline="#877263", highlight="#877767", lowlight="#655052", raw="#6d6d73"},
-			green =     { main="#4d7953", alt="#fff",    outline="#8c8b7d", highlight="#838962", lowlight="#4a7553", raw="#77777e"},
-			blue =      { main="#478",    alt="#fff",    outline="#799598", highlight="#558899", lowlight="#367"   , raw="#b5b5c0"},
-			yellow =    { main="#c5b794", alt="#d9d8c4", outline="#ddc",    highlight="#d5c7a4", lowlight="#b5a784", raw="#b5b5c0"},
-		}
-		addGroupToNode("br_core", "carpet_0", "backroom")
-		addGroupToNode("br_core", "grass", "backroom")
-		addGroupToNode("br_core", "catwalk_WE", "backroom")
-		addGroupToNode("br_core", "catwalk_stair", "backroom")
-		addGroupToNode("br_core", "catwalk", "backroom")
-		for variant, color in pairs(br_core.node_colors) do
-			addGroupToNode("br_core", "concrete_"..variant, "backroom")
-			addGroupToNode("br_core", "carpet_"..variant, "backroom")
-			addGroupToNode("br_core", "concrete_"..variant.."_ls", "backroom")
-			addGroupToNode("br_core", "concrete_dirty_"..variant, "backroom")
-			addGroupToNode("br_core", "concrete_ruined_"..variant, "backroom")
-		end
-		for i=0, 2 do
-			addGroupToNode("br_core", "pool_tiles_"..i, "backroom")
-		end
-	end
-	if minetest.get_modpath("caverealms") then
-		addGroupToNode("caverealms", "stone_with_salt", "cave_floor")
-		addGroupToNode("caverealms", "stone_with_moss", "cave_floor")
-		addGroupToNode("caverealms", "stone_with_lichen", "cave_floor")
-	end
-	addGroupToNode("default", "desert_sand", "desert_surface")
-	addGroupToNode("default", "dry_dirt_with_dry_grass", "dirt")
-	addGroupToNode("default", "dry_dirt_with_dry_grass", "savanna_dirt")
-	addGroupToNode("default", "permafrost", "frozen_surface")
-	addGroupToNode("default", "permafrost_with_moss", "frozen_surface")
-	addGroupToNode("default", "permafrost_with_stone", "frozen_surface")
-	addGroupToNode("default", "snowblock", "frozen_surface")
-	addGroupToNode("default", "snow", "frozen_surface")
-	if minetest.get_modpath("ebiomes") then
-		addGroupToNode("ebiomes", "dirt_with_humid_savanna_grass", "dirt")
-		addGroupToNode("ebiomes", "dirt_with_grass_arid", "dirt")
-		addGroupToNode("ebiomes", "dirt_with_grass_arid", "savanna_dirt")
-	end
-	if minetest.get_modpath("ethereal") then
-		addGroupToNode("ethereal", "gray_dirt", "dirt")
-		addGroupToNode("ethereal", "dry_dirt", "dirt")
-		addGroupToNode("ethereal", "prairie_dirt", "dirt")
-		addGroupToNode("ethereal", "bamboo_dirt", "dirt")
-		addGroupToNode("ethereal", "bamboo_dirt", "bamboo_ground")
-		addGroupToNode("ethereal", "grove_dirt", "dirt")
-		addGroupToNode("ethereal", "grove_dirt", "banana")
-		addGroupToNode("ethereal", "mushroom_dirt", "dirt")
-		addGroupToNode("ethereal", "fiery_dirt", "desert_surface")
-		addGroupToNode("ethereal", "grove_dirt", "savanna_dirt")
-		addGroupToNode("ethereal", "crystal_dirt", "frozen_surface")
-		addGroupToNode("ethereal", "cold_dirt", "frozen_surface")
-	end
-	if minetest.get_modpath("everness") then
-		addGroupToNode("everness", "dirt_with_crystal_grass", "frozen_surface")
-		addGroupToNode("everness", "dirt_with_cursed_grass", "cursed_ground")
-		addGroupToNode("everness", "dry_dirt_with_dry_grass", "savanna_dirt")
-		addGroupToNode("everness", "forsaken_tundra_dirt_with_grass", "volcanic")
-		addGroupToNode("everness", "forsaken_tundra_dirt", "volcanic")
-		addGroupToNode("everness", "volcanic_sulfur", "volcanic")
-		addGroupToNode("everness", "dirt_with_coral_grass", "coral")
-		-- addGroupToNode("everness", "bamboo", "bamboo")
-		-- addGroupToNode("everness", "bamboo_1", "bamboo")
-		-- addGroupToNode("everness", "bamboo_2", "bamboo")
-		-- addGroupToNode("everness", "bamboo_3", "bamboo")
-		addGroupToNode("everness", "dirt_with_grass_1", "bamboo_ground")
-		addGroupToNode("everness", "dirt_with_grass_extras_1", "bamboo_ground")
-		addGroupToNode("everness", "dirt_with_grass_extras_2", "bamboo_ground")
-	end
-	if minetest.get_modpath("swamp") then
-		addGroupToNode("swamp", "dirt_with_swamp_grass", "swamp")
-		addGroupToNode("swamp", "mud", "swamp")
-		addGroupToNode("swamp", "muddy_mud", "swamp")
-		addGroupToNode("swamp", "root_with_mud", "swamp")
-	end
-	--begin variety modpack--
-	if minetest.get_modpath("japanese_forest") then
-		addGroupToNode("japanese_forest", "japanese_dirt_with_grass", "japanese_forest")
-	end
-	if minetest.get_modpath("cherry") then
-		addGroupToNode("cherry", "cherry_dirt_with_grass", "japanese_forest")
-	end
-	if minetest.get_modpath("bambooforest") then
-		addGroupToNode("bambooforest", "dirt_with_bamboo", "bamboo_ground")
-	end
-	if minetest.get_modpath("frost_land") then
-		addGroupToNode("frost_land", "frost_land_grass", "frozen_surface")
-		addGroupToNode("frost_land", "frost_land_grass", "frozen_surface")
-	end
-	if minetest.get_modpath("terracotta") then
-		addGroupToNode("terracotta", "terracotta_1", "desert_surface")
-	end
-	if minetest.get_modpath("redwood") then
-		addGroupToNode("redwood", "redwood_dirt_with_grass", "redwood")
-	end
-	if minetest.get_modpath("meadow") then
-		addGroupToNode("meadow", "meadow_dirt_with_grass", "forest")
-	end
-	if minetest.get_modpath("dorwinion") then
-		addGroupToNode("dorwinion", "dorwinion_grass", "forest")
-	end
-	if minetest.get_modpath("nightshade") then
-		addGroupToNode("nightshade", "nightshade_dirt_with_grass", "forest")
-	end
-	if minetest.get_modpath("alurios_forest") then
-		addGroupToNode("alurios_forest", "alurios_forest_dirt_with_alurios_forest_grass", "forest")
-	end
-	--end variety modpack--
-	if minetest.get_modpath("naturalbiomes") then
-		addGroupToNode("naturalbiomes", "alpine_litter", "dirt")
-		addGroupToNode("naturalbiomes", "alderswamp_litter", "dirt")
-		addGroupToNode("naturalbiomes", "alderswamp_litter", "swamp")	
-		addGroupToNode("naturalbiomes", "heath_litter", "dirt")
-		addGroupToNode("naturalbiomes", "heath_litter2", "dirt")
-		addGroupToNode("naturalbiomes", "mediterran_litter", "dirt")
-		addGroupToNode("naturalbiomes", "mediterran_litter", "mediterranean")
-		addGroupToNode("naturalbiomes", "outback_litter", "desert_surface")
-	end
-	if minetest.get_modpath("sumpf") then
-		addGroupToNode("sumpf", "sumpf", "swamp")
-	end
-	if minetest.get_modpath("swaz") then
-		addGroupToNode("swaz", "silt_with_grass", "swamp")
-		addGroupToNode("swaz", "mud_with_moss", "swamp")
-		addGroupToNode("swaz", "mud", "swamp")
-	end
-	-- getNodesByGroup("bamboo_ground")
-	-- getNodesByGroup("swamp")
-	-- getNodesByGroup("backroom")
-	-- minetest.log("ToChat:", "ranGroupToNodes:")
-end
-
-groupsToNodes()
 -- Check if a mod named "mobs" is enabled
 local monster_spawn_chance_multiplier = 1
 local wildlife_spawn_chance_multiplier = 1
@@ -307,15 +219,18 @@ if minetest.get_modpath("animalia") then
 		min_height = -10,
 		max_height = 31000,
 		min_group = 1,
-		max_group = 3,
+		max_group = 3, 
 		spawn_in_nodes = true,
 		nodes = {"group:mediterranean","group:forest","group:backroom"}
 	})
 end
 
+
+
+
 if minetest.get_modpath("animalworld") then
 
-	mobs:spawn({
+	mob_spawn({
 		name = "animalworld:anteater",
 		nodes = {"group:banana","group:backroom"},
 		min_light = 0,
@@ -326,7 +241,7 @@ if minetest.get_modpath("animalworld") then
 		day_toggle = false,
 		active_object_count = 3,
 	})
-	mobs:spawn({
+	mob_spawn({
 		name = "animalworld:bat",
 		nodes = {"group:cursed_ground","group:cave_floor", "group:banana","group:mediterranean","group:redwood","group:backroom"},
 		min_light = 0,
@@ -337,7 +252,7 @@ if minetest.get_modpath("animalworld") then
 		day_toggle = false,
 		active_object_count = 3,
 	})
-	mobs:spawn({
+	mob_spawn({
 		name = "animalworld:bear",
 		nodes = {"group:japanese_forest","group:redwood","group:forest","group:backroom"},
 		min_light = 0,
@@ -346,7 +261,7 @@ if minetest.get_modpath("animalworld") then
 		min_height = 0,
 		max_height = 6000,
 	})
-	mobs:spawn({
+	mob_spawn({
 		name = "animalworld:beaver",
 		nodes = {"group:swamp", "group:forest","group:backroom"},
 		min_light = 0,
@@ -355,7 +270,7 @@ if minetest.get_modpath("animalworld") then
 		min_height = 0,
 		max_height = 1000,
 	})
-	mobs:spawn({
+	mob_spawn({
 		name = "animalworld:blackgrouse",
 		nodes = {"group:swamp", "group:forest","group:backroom"},
 		min_light = 0,
@@ -364,7 +279,7 @@ if minetest.get_modpath("animalworld") then
 		min_height = 0,
 		max_height = 1000,
 	})
-	mobs:spawn({
+	mob_spawn({
 		name = "animalworld:boar",
 		nodes = {"group:forest","group:mediterranean","group:savanna_dirt","group:backroom"},
 		min_light = 0,
@@ -373,7 +288,7 @@ if minetest.get_modpath("animalworld") then
 		min_height = 0,
 		max_height = 1000,
 	})
-	mobs:spawn({
+	mob_spawn({
 		name = "animalworld:blackbird",
 		nodes = {"group:swamp"},
 		min_light = 0,
@@ -382,7 +297,7 @@ if minetest.get_modpath("animalworld") then
 		min_height = 0,
 		max_height = 1000,
 	})
-	mobs:spawn({
+	mob_spawn({
 		name = "animalworld:clamydosaurus",
 		nodes = {"group:swamp", "group:desert_surface","group:redwood"},
 		min_light = 0,
@@ -391,7 +306,7 @@ if minetest.get_modpath("animalworld") then
 		min_height = 0,
 		max_height = 1000,
 	})	
-	mobs:spawn({
+	mob_spawn({
 		name = "animalworld:crocodile",
 		nodes = {"group:swamp"},
 		min_light = 0,
@@ -400,7 +315,7 @@ if minetest.get_modpath("animalworld") then
 		min_height = 0,
 		max_height = 1000,
 	})
-	mobs:spawn({
+	mob_spawn({
 		name = "animalworld:dragonfly",
 		nodes = {"group:swamp"},
 		min_light = 0,
@@ -410,7 +325,7 @@ if minetest.get_modpath("animalworld") then
 		max_height = 1000,
 		active_object_count = 4,
 	})
-	mobs:spawn({
+	mob_spawn({
 		name = "animalworld:elephant",
 		nodes = {"group:savanna_dirt", "group:bamboo_ground", "group:banana"},
 		min_light = 0,
@@ -419,7 +334,7 @@ if minetest.get_modpath("animalworld") then
 		min_height = 0,
 		max_height = 1000,
 	})
-	mobs:spawn({
+	mob_spawn({
 		name = "animalworld:frog",
 		nodes = {"group:swamp", "group:mediterranean","group:redwood"},
 		min_light = 0,
@@ -429,7 +344,7 @@ if minetest.get_modpath("animalworld") then
 		max_height = 1000,
 		active_object_count = 3,
 	})
-	mobs:spawn({
+	mob_spawn({
 		name = "animalworld:giraffe",
 		nodes = {"group:savanna_dirt"},
 		min_light = 0,
@@ -438,7 +353,7 @@ if minetest.get_modpath("animalworld") then
 		min_height = 0,
 		max_height = 1000,
 	})
-	mobs:spawn({
+	mob_spawn({
 		name = "animalworld:gnu",
 		nodes = {"group:savanna_dirt"},
 		min_light = 0,
@@ -447,7 +362,7 @@ if minetest.get_modpath("animalworld") then
 		min_height = 0,
 		max_height = 1000,
 	})
-	mobs:spawn({
+	mob_spawn({
 		name = "animalworld:hare",
 		nodes = {"group:japanese_forest","group:forest"},
 		min_light = 0,
@@ -456,7 +371,7 @@ if minetest.get_modpath("animalworld") then
 		min_height = 0,
 		max_height = 1000,
 	})
-	mobs:spawn({
+	mob_spawn({
 		name = "animalworld:hyena",
 		nodes = {"group:savanna_dirt"},
 		min_light = 0,
@@ -465,7 +380,7 @@ if minetest.get_modpath("animalworld") then
 		min_height = 0,
 		max_height = 1000,
 	})
-	mobs:spawn({
+	mob_spawn({
 		name = "animalworld:ibex",
 		nodes = {"group:savanna_dirt","group:japanese_forest"},
 		min_light = 0,
@@ -474,7 +389,7 @@ if minetest.get_modpath("animalworld") then
 		min_height = 0,
 		max_height = 1000,
 	})
-	mobs:spawn({
+	mob_spawn({
 		name = "animalworld:iguana",
 		nodes = {"group:banana","group:desert_surface","group:redwood"},
 		min_light = 0,
@@ -483,7 +398,7 @@ if minetest.get_modpath("animalworld") then
 		min_height = 0,
 		max_height = 1000,
 	})
-	mobs:spawn({
+	mob_spawn({
 		name = "animalworld:kangaroo",
 		nodes = {"group:savanna_dirt"},
 		min_light = 0,
@@ -492,7 +407,7 @@ if minetest.get_modpath("animalworld") then
 		min_height = 0,
 		max_height = 1000,
 	})
-	mobs:spawn({
+	mob_spawn({
 		name = "animalworld:koala",
 		nodes = {"group:savanna_dirt"},
 		min_light = 0,
@@ -501,7 +416,7 @@ if minetest.get_modpath("animalworld") then
 		min_height = 0,
 		max_height = 1000,
 	})
-	mobs:spawn({
+	mob_spawn({
 		name = "animalworld:monkey",
 		nodes = {"group:banana","group:japanese_forest"},
 		min_light = 0,
@@ -510,7 +425,7 @@ if minetest.get_modpath("animalworld") then
 		min_height = 0,
 		max_height = 1000,
 	})
-	mobs:spawn({
+	mob_spawn({
 		name = "animalworld:monitor",
 		nodes = {"group:banana","group:desert_surface"},
 		min_light = 0,
@@ -519,7 +434,7 @@ if minetest.get_modpath("animalworld") then
 		min_height = 0,
 		max_height = 1000,
 	})
-	mobs:spawn({
+	mob_spawn({
 		name = "animalworld:mosquito",
 		nodes = {"group:swamp","group:forest"},
 		min_light = 0,
@@ -529,7 +444,7 @@ if minetest.get_modpath("animalworld") then
 		max_height = 1000,
 		active_object_count = 2,
 	})
-	mobs:spawn({
+	mob_spawn({
 		name = "animalworld:orangutan",
 		nodes = {"group:bamboo_ground","group:banana"},
 		min_light = 0,
@@ -538,7 +453,7 @@ if minetest.get_modpath("animalworld") then
 		min_height = 0,
 		max_height = 1000,
 	})
-	mobs:spawn({
+	mob_spawn({
 		name = "animalworld:otter",
 		nodes = {"group:swamp"; "group:mediterranean"},
 		min_light = 0,
@@ -547,7 +462,7 @@ if minetest.get_modpath("animalworld") then
 		min_height = 0,
 		max_height = 1000,
 	})
-	mobs:spawn({
+	mob_spawn({
 		name = "animalworld:panda",
 		nodes = {"group:bamboo_ground"},
 		min_light = 0,
@@ -556,7 +471,7 @@ if minetest.get_modpath("animalworld") then
 		min_height = 0,
 		max_height = 1000,
 	})
-	mobs:spawn({
+	mob_spawn({
 		name = "animalworld:parrot",
 		nodes = {"group:banana"},
 		min_light = 0,
@@ -565,7 +480,7 @@ if minetest.get_modpath("animalworld") then
 		min_height = 0,
 		max_height = 1000,
 	})
-	mobs:spawn({
+	--[[mob_spawn({
 		name = "animalworld:parrot_flying",
 		nodes = {"group:banana"},
 		min_light = 0,
@@ -573,8 +488,8 @@ if minetest.get_modpath("animalworld") then
 		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
-	})
-	mobs:spawn({
+	})]]
+	mob_spawn({
 		name = "animalworld:reindeer",
 		nodes = {"group:frozen_surface","group:forest"},
 		min_light = 0,
@@ -583,7 +498,7 @@ if minetest.get_modpath("animalworld") then
 		min_height = 0,
 		max_height = 1000,
 	})
-	mobs:spawn({
+	mob_spawn({
 		name = "animalworld:roadrunner",
 		nodes = {"group:desert_surface"},
 		min_light = 0,
@@ -592,7 +507,7 @@ if minetest.get_modpath("animalworld") then
 		min_height = 0,
 		max_height = 1000,
 	})
-	mobs:spawn({
+	mob_spawn({
 		name = "animalworld:scorpion",
 		nodes = {"group:desert_surface","group:mediterranean"},
 		min_light = 0,
@@ -602,7 +517,7 @@ if minetest.get_modpath("animalworld") then
 		max_height = 1000,
 		active_object_count = 3,
 	})
-	mobs:spawn({
+	mob_spawn({
 		name = "animalworld:spider",
 		nodes = {"group:cursed_ground", "group:desert_surface"},
 		min_light = 0,
@@ -611,7 +526,7 @@ if minetest.get_modpath("animalworld") then
 		min_height = 0,
 		max_height = 1000,
 	})
-	mobs:spawn({
+	mob_spawn({
 		name = "animalworld:spidermale",
 		nodes = {"group:cursed_ground", "group:desert_surface"},
 		min_light = 0,
@@ -620,7 +535,7 @@ if minetest.get_modpath("animalworld") then
 		min_height = 0,
 		max_height = 1000,
 	})
-	mobs:spawn({
+	mob_spawn({
 		name = "animalworld:stellerseagle",
 		nodes = {"group:japanese_forest","group:forest"},
 		min_light = 0,
@@ -629,7 +544,7 @@ if minetest.get_modpath("animalworld") then
 		min_height = 0,
 		max_height = 1000,
 	})
-	mobs:spawn({
+	mob_spawn({
 		name = "animalworld:tiger",
 		nodes = {"group:bamboo_ground"},
 		min_light = 0,
@@ -638,7 +553,7 @@ if minetest.get_modpath("animalworld") then
 		min_height = 0,
 		max_height = 1000,
 	})
-	mobs:spawn({
+	mob_spawn({
 	name = "animalworld:tortoise",
 	nodes = {"group:swamp", "group:desert_surface"},
 	min_light = 0,
@@ -648,7 +563,7 @@ if minetest.get_modpath("animalworld") then
 	max_height = 1000,
 	active_object_count = 3,
 	})
-	mobs:spawn({
+	mob_spawn({
 		name = "animalworld:toucan",
 		nodes = {"group:banana"},
 		min_light = 0,
@@ -657,7 +572,7 @@ if minetest.get_modpath("animalworld") then
 		min_height = 0,
 		max_height = 1000,
 	})
-	mobs:spawn({
+	mob_spawn({
 		name = "animalworld:viper",
 		nodes = {"group:desert_surface", "group:mediterranean", "group:swamp","group:redwood"},
 		min_light = 0,
@@ -666,7 +581,7 @@ if minetest.get_modpath("animalworld") then
 		min_height = 0,
 		max_height = 1000,
 	})
-	mobs:spawn({
+	mob_spawn({
 		name = "animalworld:vulture",
 		nodes = {"group:desert_surface"},
 		min_light = 0,
@@ -675,7 +590,7 @@ if minetest.get_modpath("animalworld") then
 		min_height = 0,
 		max_height = 1000,
 	})
-	mobs:spawn({
+	mob_spawn({
 		name = "animalworld:wolf",
 		nodes = {"group:mediterranean","group:forest"},
 		min_light = 0,
@@ -684,7 +599,7 @@ if minetest.get_modpath("animalworld") then
 		min_height = 0,
 		max_height = 1000,
 	})
-	mobs:spawn({
+	mob_spawn({
 		name = "animalworld:wildboar",
 		nodes = {"group:forest","group:mediterranean","group:savanna_dirt"},
 		min_light = 0,
@@ -693,7 +608,7 @@ if minetest.get_modpath("animalworld") then
 		min_height = 0,
 		max_height = 1000,
 	})
-	mobs:spawn({
+	mob_spawn({
 		name = "animalworld:zebra",
 		nodes = {"group:savanna"},
 		min_light = 0,
@@ -706,11 +621,11 @@ if minetest.get_modpath("animalworld") then
 end
 
 if minetest.get_modpath("dmobs") then
-	mobs:spawn({name = "dmobs:gnorm", nodes = {"default:dirt_with_grass", "ethereal:bamboo_dirt","group:dirt","group:backroom"}, neighbor = {},
+	mob_spawn({name = "dmobs:gnorm", nodes = {"default:dirt_with_grass", "ethereal:bamboo_dirt","group:dirt","group:backroom"}, neighbor = {},
 	min_light = 10, max_light = 15, interval = 300, chance = 32000/monster_spawn_chance_multiplier, active_object_count = 2, min_height = -100, max_height = 1000})
-	mobs:spawn({name = "dmobs:elephant", nodes = {"group:savanna_dirt", "group:bamboo_ground", "group:banana"},
+	mob_spawn({name = "dmobs:elephant", nodes = {"group:savanna_dirt", "group:bamboo_ground", "group:banana"},
 	min_light = 10, max_light = 15, interval = 300, chance = 10000/wildlife_spawn_chance_multiplier, active_object_count = 2, min_height = 0, max_height = 2000})
-	mobs:spawn({
+	mob_spawn({
 		name = "dmobs:panda",
 		nodes = {"group:bamboo_ground"},
 		min_light = 7,
@@ -720,13 +635,13 @@ if minetest.get_modpath("dmobs") then
 		min_height = 0,
 		max_height = 2000
 	})
-	mobs:spawn({name = "dmobs:pig_evil", nodes = {"group:leave", "ethereal:bamboo_leaves", "group:leaves"}, neighbor = {},
+	mob_spawn({name = "dmobs:pig_evil", nodes = {"group:leave", "ethereal:bamboo_leaves", "group:leaves"}, neighbor = {},
 	min_light = 10, max_light = 15, interval = 300, chance = 54000/monster_spawn_chance_multiplier, active_object_count = 2, min_height = 0, max_height = 2000})
-	mobs:spawn({name = "dmobs:skeleton", nodes = {"group:stone","group:volcanic","group:cave_floor","group:cursed_ground","group:backroom"}, neighbor = {},
+	mob_spawn({name = "dmobs:skeleton", nodes = {"group:stone","group:volcanic","group:cave_floor","group:cursed_ground","group:backroom"}, neighbor = {},
 	min_light = 0, max_light = 10, interval = 300, chance = 16000/monster_spawn_chance_multiplier, active_object_count = 2, min_height = -31000, max_height = -1})
-	mobs:spawn({name = "dmobs:tortoise", nodes = {"group:swamp"}, neighbor = {},
+	mob_spawn({name = "dmobs:tortoise", nodes = {"group:swamp"}, neighbor = {},
 	min_light = 0, max_light = 15, interval = 100, chance = 6000/wildlife_spawn_chance_multiplier, active_object_count = 2, min_height = 0, max_height = 100})
-	mobs:spawn({
+	mob_spawn({
 		name = "dmobs:orc",
 		nodes = {
 			"group:cursed_ground","group:backroom"
@@ -739,7 +654,7 @@ if minetest.get_modpath("dmobs") then
 		max_height = 2000
 	})
 
-	mobs:spawn({
+	mob_spawn({
 		name = "dmobs:ogre",
 		nodes = {
 			"group:cursed_ground","group:backroom"
@@ -752,9 +667,9 @@ if minetest.get_modpath("dmobs") then
 		max_height = 2000
 	})
 	if dmobs.dragons then  --just divided chance by 4.
-		mobs:spawn({name = "dmobs:dragon1", nodes = {"group:desert_surface", "group:volcanic"}, neighbor = {},
+		mob_spawn({name = "dmobs:dragon1", nodes = {"group:desert_surface", "group:volcanic"}, neighbor = {},
 			min_light = 5, max_light = 15, interval = 300, chance = 6000/monster_spawn_chance_multiplier, active_object_count = 2, min_height = 0, max_height = 30000})
-			mobs:spawn({
+			mob_spawn({
 				name = "dmobs:dragon4",
 				nodes = {
 					"group:frozen_surface"
@@ -770,7 +685,7 @@ if minetest.get_modpath("dmobs") then
 end
 
 if minetest.get_modpath("mobs_ghost_redo") then
-	mobs:spawn({name = "mobs_ghost_redo:ghost",
+	mob_spawn({name = "mobs_ghost_redo:ghost",
 	nodes = {"group:backroom"},
 	max_light = 15,
 	min_light = 0,
@@ -787,7 +702,7 @@ if minetest.get_modpath("mobs_monster") then
     -- The "mobs_monster" mod is enabled, execute your code here
 
 	-- Dirt Monster
-	mobs:spawn({
+	mob_spawn({
 		name = "mobs_monster:dirt_monster",
 		nodes = {"group:dirt"},
 		min_light = 0,
@@ -800,7 +715,7 @@ if minetest.get_modpath("mobs_monster") then
 	-- minetest.log("ToChat:",	"Ran Mapper code." )   -- COMMENT THIS OUT **********
 	-- Dungeon Master
 
-	mobs:spawn({
+	mob_spawn({
 		name = "mobs_monster:dungeon_master",
 		nodes = {"group:volcanic", "group:cave_floor","group:backroom"},
 		max_light = 7,  --5
@@ -811,7 +726,7 @@ if minetest.get_modpath("mobs_monster") then
 
 	-- Lava Flan
 
-	mobs:spawn({
+	mob_spawn({
 		name = "mobs_monster:lava_flan",
 		nodes = {"group:volcanic","group:backroom"},
 		chance = 7000/monster_spawn_chance_multiplier,
@@ -821,7 +736,7 @@ if minetest.get_modpath("mobs_monster") then
 
 	-- Mese Monster
 
-	mobs:spawn({
+	mob_spawn({
 		name = "mobs_monster:mese_monster",
 		nodes = {"group:coral", "group:cave_floor","group:backroom"},
 		max_light = 9,  --7
@@ -833,7 +748,7 @@ if minetest.get_modpath("mobs_monster") then
 
 	-- Oerkki
 
-	mobs:spawn({
+	mob_spawn({
 		name = "mobs_monster:oerkki",
 		nodes = {"group:cursed_ground", "group:cave_floor","group:backroom"},
 		max_light = 9,  --7
@@ -843,7 +758,7 @@ if minetest.get_modpath("mobs_monster") then
 
 	-- Sand Monster
 
-	mobs:spawn({
+	mob_spawn({
 		name = "mobs_monster:sand_monster",
 		nodes = {"group:desert_surface","group:backroom"},
 		chance = 7000/monster_spawn_chance_multiplier,
@@ -853,7 +768,7 @@ if minetest.get_modpath("mobs_monster") then
 
 	-- Spider (above ground)
 
-	mobs:spawn({
+	mob_spawn({
 		name = "mobs_monster:spider",
 		nodes = {
 			"default:dirt_with_rainforest_litter", "group.frozen_surface", "group:cursed_ground","group:backroom"
@@ -867,7 +782,7 @@ if minetest.get_modpath("mobs_monster") then
 	})
 
 	-- Spider (below ground)
-	mobs:spawn({
+	mob_spawn({
 		name = "mobs_monster:spider",
 		nodes = {"default:stone_with_mese", "default:mese", "default:stone", "group:cave_floor","group:backroom"},
 		min_light = 0,
@@ -880,7 +795,7 @@ if minetest.get_modpath("mobs_monster") then
 
 	-- Stone Monster
 
-	mobs:spawn({
+	mob_spawn({
 		name = "mobs_monster:stone_monster",
 		nodes = {"default:stone", "default:desert_stone", "default:sandstone", "group:cave_floor","group:backroom"},
 		max_light = 9, --7
@@ -890,7 +805,7 @@ if minetest.get_modpath("mobs_monster") then
 
 	-- Tree Monster
 
-	mobs:spawn({
+	mob_spawn({
 		name = "mobs_monster:tree_monster",
 		nodes = {"default:forest", "default:jungleleaves"},
 		max_light = 7,
