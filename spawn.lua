@@ -91,7 +91,7 @@ local function mob_spawn(spawnparms)
 			groups = { mob = 1 },  -- or "npc" or "animal", or something custom
 			cluster = cluster, -- maximum amount to spawn at once (cluster is within a single mapblock)
 			chance = chance/60, -- there will be a 1 in 100 chance of trying to spawn the mob (or cluster) per second, ish
-			per_player = false, -- if true, there will be a 1 in 100 chance of spawning a mob every second per connected player
+			per_player = true, -- if true, there will be a 1 in 100 chance of spawning a mob every second per connected player
 		
 			-- TODO: allow and/or/not/parentheses for these things
 			-- WARNING: that might break something!
@@ -108,8 +108,8 @@ local function mob_spawn(spawnparms)
 			--min_player_distance = 12,
 			--max_player_distance = nil,
 		
-			max_active = active_object_count,
-			max_in_area = active_object_count,
+			max_active = active_object_count * 30,
+			max_in_area = active_object_count * 3,
 			max_in_area_radius = 16,
 		
 			--collisionbox = nil, -- if not defined, this is inferred from the entity's definition
