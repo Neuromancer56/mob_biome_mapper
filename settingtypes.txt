@@ -1,5 +1,5 @@
-#    Setting Example desc
-setting_example (Setting Example) bool false
+# Increase chance that a monster will spawn by mulitplying by this
+monster_spawn_chance_multiplier (Monster spawn chance multiplier. Larger# = more spawn) float 1
 
-
-
+# Increase chance that wildlife will spawn by mulitplying by this
+wildlife_spawn_chance_multiplier (Wildlife spawn chance multiplier. Larger# = more spawn) float 1

@@ -57,6 +57,14 @@ mob_spawn({
 })
 ]]--
 
+--local monster_spawn_chance_multiplier = 1
+--local wildlife_spawn_chance_multiplier = 1
+
+--mob_biome_mapper_settings = {
+    monster_spawn_chance_multiplier = tonumber(minetest.settings:get("monster_spawn_chance_multiplier")) or 1
+    wildlife_spawn_chance_multiplier = tonumber(minetest.settings:get("wildlife_spawn_chance_multiplier")) or 1
+--}
+
 -- Define the function 'spawn' with a single argument 'spawnparms', which is a table
 local function mob_spawn(spawnparms)
     -- Define default values for the parameters in case they are not provided
@@ -144,14 +152,12 @@ end
 	max_height = 1000,
 })]]
 
--- Check if a mod named "mobs" is enabled
-local monster_spawn_chance_multiplier = 1
-local wildlife_spawn_chance_multiplier = 1
+
 
 local ambient_spawn_chance = tonumber(minetest.settings:get("animalia_ambient_chance")) or 6000
 if minetest.get_modpath("animalia") then
 	creatura.register_abm_spawn("animalia:bat", {
-		chance = ambient_spawn_chance,
+		chance = ambient_spawn_chance/wildlife_spawn_chance_multiplier,
 		interval = 40,
 		min_light = 0,
 		min_height = -31000,
@@ -164,7 +170,7 @@ if minetest.get_modpath("animalia") then
 		nodes = {"group:cursed_ground", "group:cave_floor", "group:banana","group:redwood","group:backroom"}
 	})
 	creatura.register_abm_spawn("animalia:frog", {
-		chance = ambient_spawn_chance /2,
+		chance = ambient_spawn_chance /(2*wildlife_spawn_chance_multiplier),
 		interval = 40,
 		min_light = 0,
 		min_height = -1,
@@ -174,7 +180,7 @@ if minetest.get_modpath("animalia") then
 		nodes = {"group:swamp","group:backroom"}
 	})
 	creatura.register_abm_spawn("animalia:owl", {
-		chance = (ambient_spawn_chance * 0.75),
+		chance = (ambient_spawn_chance * 0.75)/wildlife_spawn_chance_multiplier,
 		interval = 60,
 		min_light = 0,
 		min_height = -1,
@@ -184,7 +190,7 @@ if minetest.get_modpath("animalia") then
 		nodes = {"group:mediterranean","group:backroom"}
 	})
 	creatura.register_abm_spawn("animalia:rat", {
-		chance = ambient_spawn_chance,
+		chance = ambient_spawn_chance/wildlife_spawn_chance_multiplier,
 		interval = 60,
 		min_height = -1,
 		max_height = 31000,
@@ -194,7 +200,7 @@ if minetest.get_modpath("animalia") then
 		nodes = {"group:cursed_ground","group:swamp","group:backroom"}
 	})
 	creatura.register_abm_spawn("animalia:reindeer", {
-		chance = ambient_spawn_chance,
+		chance = ambient_spawn_chance/wildlife_spawn_chance_multiplier,
 		interval = 60,
 		min_height = -1,
 		max_height = 31000,
@@ -204,7 +210,7 @@ if minetest.get_modpath("animalia") then
 		nodes = {"group:frozen_surface","group:backroom"}
 	})
 	creatura.register_abm_spawn("animalia:turkey", {
-		chance = ambient_spawn_chance,
+		chance = ambient_spawn_chance/wildlife_spawn_chance_multiplier,
 		interval = 60,
 		min_height = -1,
 		max_height = 1024,
@@ -214,7 +220,7 @@ if minetest.get_modpath("animalia") then
 		nodes = {"group:leaves","group:backroom"}
 	})
 	creatura.register_abm_spawn("animalia:wolf", {
-		chance = ambient_spawn_chance,
+		chance = ambient_spawn_chance/wildlife_spawn_chance_multiplier,
 		interval = 60,
 		min_height = -10,
 		max_height = 31000,
