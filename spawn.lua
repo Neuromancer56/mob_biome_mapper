@@ -129,7 +129,7 @@ local function mob_spawn(spawnparms)
 	else
 		mobs:spawn({
 			name = name,
-			nodes = {nodes},
+			nodes = nodes,
 			min_light = min_light,
 			max_light = max_light,
 			interval = interval,
