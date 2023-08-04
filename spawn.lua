@@ -57,6 +57,21 @@ mob_spawn({
 })
 ]]--
 
+--[[local function logTable(tableToLog)
+    minetest.log("loggedTable", "Logging table contents:")
+    
+    -- Iterate over each key-value pair in the table
+    for key, value in pairs(tableToLog) do
+        -- Convert the value to a string for logging
+        local valueString = tostring(value)
+        
+        -- Log the key-value pair
+        minetest.log("loggedTable", key .. ": " .. valueString)
+    end
+    
+    minetest.log("loggedTable", "End of table logging.")
+end
+]]
 --local monster_spawn_chance_multiplier = 1
 --local wildlife_spawn_chance_multiplier = 1
 
@@ -64,6 +79,81 @@ mob_spawn({
     monster_spawn_chance_multiplier = tonumber(minetest.settings:get("monster_spawn_chance_multiplier")) or 1
     wildlife_spawn_chance_multiplier = tonumber(minetest.settings:get("wildlife_spawn_chance_multiplier")) or 1
 --}
+
+--spawn creatura mobs using spawnit if enabled otherwise creature spawn.
+local function creatura_register_spawn(name, spawnparms)
+	 -- Define default values for the parameters in case they are not provided
+	 local name = name or ""
+	 local nodes = spawnparms.nodes or {}
+	 local min_light = spawnparms.min_light or 0
+	 local max_light = spawnparms.max_light or 15
+	 local interval = spawnparms.interval or 50
+	 local chance = spawnparms.chance or (6000)
+	 local min_height = spawnparms.min_height or -31000
+	 local max_height = spawnparms.max_height or 31000
+	 local min_time = spawnparms.min_time or 0
+	 local max_time = spawnparms.max_time or 24000
+	 local active_object_count = spawnparms.spawn_cap or 6
+	 local min_group = spawnparms.min_group or 1
+	 local max_group = spawnparms.max_group or 1
+	 --local near = spawnparms.neighbors or {"any"}
+	
+	 local min_time_of_day = min_time/24000
+	 local max_time_of_day = max_time/24000
+	 
+
+	 if minetest.get_modpath("spawnit") then
+		 spawnit.register({
+			 entity_name = name,
+			 groups = { mob = 1 },  -- or "npc" or "animal", or something custom
+			 cluster = (min_group+max_group)/2, -- maximum amount to spawn at once (cluster is within a single mapblock)
+			 chance = chance/60, -- there will be a 1 in 100 chance of trying to spawn the mob (or cluster) per second, ish
+			 per_player = true, -- if true, there will be a 1 in 100 chance of spawning a mob every second per connected player
+		 
+			 -- TODO: allow and/or/not/parentheses for these things
+			 -- WARNING: that might break something!
+			 on =  nodes, -- any solid full node. or, list of nodes, groups, "walkable" for any solid node (incl. mesh/nodebox)
+			 --within = { "not walkable" },  -- all of the mob must be within these nodes
+			-- near = near,  -- mob must be "touching" these. intersects "on".
+			 min_y = min_height,
+			 max_y = max_height,
+			 min_node_light = min_light,
+			 max_node_light = max_light,
+			 min_natural_light = min_light,
+			 max_natural_light = max_light,
+			 min_time_of_day = min_time_of_day,  -- 0/1 is midnight, 0.25 is dawn-ish, 0.5 is noon, .75 is dusk-ish
+			 max_time_of_day = max_time_of_day,  -- set min to 0, and max to 1, to indicate any time (default)
+			 --spawn_in_protected = true,
+			 --min_player_distance = 12,
+			 --max_player_distance = nil,
+		 
+			 max_active = active_object_count * 30,
+			 max_in_area = active_object_count * 3,
+			 max_in_area_radius = 16,
+		 
+			 --collisionbox = nil, -- if not defined, this is inferred from the entity's definition
+		 
+			 --should_spawn = function()  end,
+			 --check_pos = function(pos) end,  -- return true to allow spawning at that position, false to disallow
+			 --after_spawn = function(pos, obj) end,  -- called after a mob has spawned
+		 })
+	 else
+	creatura.register_abm_spawn(name, {
+		chance = chance,
+		interval = interval,
+		min_light = min_light,
+		max_light = max_light,
+		min_height = min_height,
+		max_height = max_height,
+		min_group = min_group,
+		max_group = max_group,
+		min_time = min_time,
+		max_time = max_time,
+		spawn_cap = active_object_count,
+		nodes = nodes
+	})
+	end
+end
 
 -- Define the function 'spawn' with a single argument 'spawnparms', which is a table
 local function mob_spawn(spawnparms)
@@ -108,8 +198,10 @@ local function mob_spawn(spawnparms)
 			near = near,  -- mob must be "touching" these. intersects "on".
 			min_y = min_height,
 			max_y = max_height,
-			--min_light = min_light,
-			--max_light = max_light,
+			min_node_light = min_light,
+			max_node_light = max_light,
+			min_natural_light = min_light,
+			max_natural_light = max_light,
 			min_time_of_day = min_time_of_day,  -- 0/1 is midnight, 0.25 is dawn-ish, 0.5 is noon, .75 is dusk-ish
 			max_time_of_day = max_time_of_day,  -- set min to 0, and max to 1, to indicate any time (default)
 			--spawn_in_protected = true,
@@ -155,8 +247,9 @@ end
 
 
 local ambient_spawn_chance = tonumber(minetest.settings:get("animalia_ambient_chance")) or 6000
+minetest.log("x", "amb_sp_ch:" .. ambient_spawn_chance)
 if minetest.get_modpath("animalia") then
-	creatura.register_abm_spawn("animalia:bat", {
+	creatura_register_spawn("animalia:bat", {
 		chance = ambient_spawn_chance/wildlife_spawn_chance_multiplier,
 		interval = 40,
 		min_light = 0,
@@ -169,17 +262,18 @@ if minetest.get_modpath("animalia") then
 		spawn_cap = 6,
 		nodes = {"group:cursed_ground", "group:cave_floor", "group:banana","group:redwood","group:backroom"}
 	})
-	creatura.register_abm_spawn("animalia:frog", {
-		chance = ambient_spawn_chance /(2*wildlife_spawn_chance_multiplier),
+--[[	creatura_register_spawn("animalia:frog", {
+		chance = ambient_spawn_chance /(20*wildlife_spawn_chance_multiplier),
 		interval = 40,
-		min_light = 0,
+		--min_light = 0,
 		min_height = -1,
-		max_height = 11,
+		max_height = 1111,
 		min_group = 1,
-		max_group = 2,
-		nodes = {"group:swamp","group:backroom"}
-	})
-	creatura.register_abm_spawn("animalia:owl", {
+		max_group = 3,
+		spawn_in_nodes = true,
+		nodes = {"group:swamp","group:backroom", "group:desert_surface"}
+	})]]
+	creatura_register_spawn("animalia:owl", {
 		chance = (ambient_spawn_chance * 0.75)/wildlife_spawn_chance_multiplier,
 		interval = 60,
 		min_light = 0,
@@ -189,8 +283,8 @@ if minetest.get_modpath("animalia") then
 		max_group = 2,
 		nodes = {"group:mediterranean","group:backroom"}
 	})
-	creatura.register_abm_spawn("animalia:rat", {
-		chance = ambient_spawn_chance/wildlife_spawn_chance_multiplier,
+	creatura_register_spawn("animalia:rat", {
+		chance = ambient_spawn_chance/(wildlife_spawn_chance_multiplier),
 		interval = 60,
 		min_height = -1,
 		max_height = 31000,
@@ -199,7 +293,17 @@ if minetest.get_modpath("animalia") then
 		spawn_in_nodes = true,
 		nodes = {"group:cursed_ground","group:swamp","group:backroom"}
 	})
-	creatura.register_abm_spawn("animalia:reindeer", {
+	creatura_register_spawn("animalia:frog", {
+		chance = ambient_spawn_chance/(wildlife_spawn_chance_multiplier),
+		interval = 60,
+		min_height = -1,
+		max_height = 17,
+		min_group = 1,
+		max_group = 3,
+		spawn_in_nodes = true,
+		nodes = {"group:cursed_ground","group:swamp","group:backroom"}
+	})
+	creatura_register_spawn("animalia:reindeer", {
 		chance = ambient_spawn_chance/wildlife_spawn_chance_multiplier,
 		interval = 60,
 		min_height = -1,
@@ -209,7 +313,7 @@ if minetest.get_modpath("animalia") then
 		spawn_in_nodes = true,
 		nodes = {"group:frozen_surface","group:backroom"}
 	})
-	creatura.register_abm_spawn("animalia:turkey", {
+	creatura_register_spawn("animalia:turkey", {
 		chance = ambient_spawn_chance/wildlife_spawn_chance_multiplier,
 		interval = 60,
 		min_height = -1,
@@ -219,7 +323,7 @@ if minetest.get_modpath("animalia") then
 		spawn_in_nodes = true,
 		nodes = {"group:leaves","group:backroom"}
 	})
-	creatura.register_abm_spawn("animalia:wolf", {
+	creatura_register_spawn("animalia:wolf", {
 		chance = ambient_spawn_chance/wildlife_spawn_chance_multiplier,
 		interval = 60,
 		min_height = -10,
