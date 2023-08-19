@@ -8,11 +8,11 @@ local function addGroupToNode(modname, nodename, groupname)
             node_def.groups[groupname] = 1
             minetest.override_item(modname .. ":" .. nodename, { groups = node_def.groups })
 			--*********Log info about groups node belongs to. COMMENT THIS OUT **********
-			-- minetest.log("nodeinfo:", "nodeinfo:" .. nodename)
-			-- for group, value in pairs(node_def.groups) do
-			-- -- Log each item using minetest.log()
-			-- minetest.log("groups:", "group: " .. group .. ", value: " .. value)
-			-- end
+			 --minetest.log("nodeinfo:", "nodeinfo:" .. nodename)
+			 for group, value in pairs(node_def.groups) do
+			 -- Log each item using minetest.log()
+			 --minetest.log("groups:", "group: " .. group .. ", value: " .. value)
+			 end
 			--*********************************************************  
         end
 
@@ -24,7 +24,7 @@ function getNodesByGroup(group)
     for name, def in pairs(minetest.registered_nodes) do
         if def.groups and def.groups[group] then
            -- table.insert(nodes, name)
-		   minetest.log("ToChat:", "group:" ..group .. " nodename:".. name)
+		  -- minetest.log("ToChat:", "group:" ..group .. " nodename:".. name)
         end
     end
     return nodes
@@ -73,6 +73,7 @@ local function groupsToNodes()
 	addGroupToNode("default", "permafrost", "frozen_surface")
 	addGroupToNode("default", "permafrost_with_moss", "frozen_surface")
 	addGroupToNode("default", "permafrost_with_stone", "frozen_surface")
+	addGroupToNode("default", "dirt_with_rainforest_litter", "rainforest")
 	addGroupToNode("default", "snowblock", "frozen_surface")
 	addGroupToNode("default", "snow", "frozen_surface")
 	if minetest.get_modpath("ebiomes") then
@@ -136,36 +137,25 @@ local function groupsToNodes()
 	end
 
 	--begin variety modpack--
-	if minetest.get_modpath("japanese_forest") then
-		addGroupToNode("japanese_forest", "japanese_dirt_with_grass", "japanese_forest")
-	end
-	if minetest.get_modpath("cherry") then
-		addGroupToNode("cherry", "cherry_dirt_with_grass", "japanese_forest")
-	end
-	if minetest.get_modpath("bambooforest") then
-		addGroupToNode("bambooforest", "dirt_with_bamboo", "bamboo_ground")
-	end
-	if minetest.get_modpath("frost_land") then
-		addGroupToNode("frost_land", "frost_land_grass", "frozen_surface")
-		addGroupToNode("frost_land", "frost_land_grass", "frozen_surface")
-	end
-	if minetest.get_modpath("terracotta") then
-		addGroupToNode("terracotta", "terracotta_1", "desert_surface")
-	end
-	if minetest.get_modpath("redwood") then
-		addGroupToNode("redwood", "redwood_dirt_with_grass", "redwood")
-	end
-	if minetest.get_modpath("meadow") then
-		addGroupToNode("meadow", "meadow_dirt_with_grass", "forest")
-	end
-	if minetest.get_modpath("dorwinion") then
-		addGroupToNode("dorwinion", "dorwinion_grass", "forest")
-	end
-	if minetest.get_modpath("nightshade") then
-		addGroupToNode("nightshade", "nightshade_dirt_with_grass", "forest")
-	end
-	if minetest.get_modpath("alurios_forest") then
-		addGroupToNode("alurios_forest", "alurios_forest_dirt_with_alurios_forest_grass", "forest")
+	if minetest.get_modpath("variety") then
+		addGroupToNode("variety", "japanese_dirt_with_grass", "japanese_forest")
+		addGroupToNode("variety", "cherry_dirt_with_grass", "japanese_forest")
+		addGroupToNode("variety", "dirt_with_bamboo", "bamboo_ground")
+		addGroupToNode("variety", "darkforest_dirt_with_grass", "forest")
+		--Need to add the following biomes
+		--cypress uses japanese_dirt_with_grass
+		--grasslands  could be more than one biome
+		--mountain
+		--tropical_rainforest  need to add animals
+		addGroupToNode("variety", "tropical_rainforest_dirt_with_grass", "rainforest")
+		addGroupToNode("variety", "frost_land_grass", "frozen_surface")
+		addGroupToNode("variety", "frost_land_grass", "frozen_surface")
+		--addGroupToNode("terracotta", "terracotta_1", "desert_surface")
+		addGroupToNode("variety", "redwood_dirt_with_grass", "redwood")
+		addGroupToNode("variety", "meadow_dirt_with_grass", "forest")
+		addGroupToNode("variety", "dorwinion_grass", "forest")
+		--addGroupToNode("nightshade", "nightshade_dirt_with_grass", "forest")
+		--addGroupToNode("alurios_forest", "alurios_forest_dirt_with_alurios_forest_grass", "forest")
 	end
 	--end variety modpack--
 
