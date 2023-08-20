@@ -138,6 +138,7 @@ local function groupsToNodes()
 
 	--begin variety modpack--
 	if minetest.get_modpath("variety") then
+		addGroupToNode("variety", "autumn_forest_grass", "forest")
 		addGroupToNode("variety", "japanese_dirt_with_grass", "japanese_forest")
 		addGroupToNode("variety", "cherry_dirt_with_grass", "japanese_forest")
 		addGroupToNode("variety", "dirt_with_bamboo", "bamboo_ground")
@@ -146,14 +147,14 @@ local function groupsToNodes()
 		--cypress uses japanese_dirt_with_grass
 		--grasslands  could be more than one biome
 		--mountain
-		--tropical_rainforest  need to add animals
 		addGroupToNode("variety", "tropical_rainforest_dirt_with_grass", "rainforest")
 		addGroupToNode("variety", "frost_land_grass", "frozen_surface")
-		addGroupToNode("variety", "frost_land_grass", "frozen_surface")
+		--addGroupToNode("variety", "frost_land_grass", "frozen_surface")
 		--addGroupToNode("terracotta", "terracotta_1", "desert_surface")
 		addGroupToNode("variety", "redwood_dirt_with_grass", "redwood")
 		addGroupToNode("variety", "meadow_dirt_with_grass", "forest")
 		addGroupToNode("variety", "dorwinion_grass", "forest")
+
 		--addGroupToNode("nightshade", "nightshade_dirt_with_grass", "forest")
 		--addGroupToNode("alurios_forest", "alurios_forest_dirt_with_alurios_forest_grass", "forest")
 	end

@@ -184,6 +184,22 @@ local function mob_spawn(spawnparms)
 	end
     
 	if minetest.get_modpath("spawnit") then
+		--[[minetest.log("x","name: "..name)
+		minetest.log("x","cluster: "..cluster)
+		minetest.log("x","chance: "..chance/60)
+		logTable(nodes)
+		logTable(near)
+		minetest.log("x","min_height: "..min_height)
+		minetest.log("x","max_height: "..max_height)
+		minetest.log("x","min_light: "..min_light)
+		minetest.log("x","max_light: "..max_light)
+		minetest.log("x","min_time_of_day: "..min_time_of_day)
+		minetest.log("x","max_time_of_day: "..max_time_of_day)
+
+		--minetest.log("x","name: "..day_toggle)
+		minetest.log("x","active_object_count: "..active_object_count*30)
+		minetest.log("x","max_in_area: "..active_object_count*3)
+		minetest.log("x","max_in_area_radius: "..16)]]
 		spawnit.register({
 			entity_name = name,
 			groups = { mob = 1 },  -- or "npc" or "animal", or something custom
