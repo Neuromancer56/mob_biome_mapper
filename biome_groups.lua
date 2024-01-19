@@ -67,6 +67,8 @@ local function groupsToNodes()
 		addGroupToNode("caverealms", "stone_with_moss", "cave_floor")
 		addGroupToNode("caverealms", "stone_with_lichen", "cave_floor")
 	end
+	addGroupToNode("default", "desert_stone", "desert_cave")
+	addGroupToNode("default", "sandstone", "desert_cave")
 	addGroupToNode("default", "desert_sand", "desert_surface")
 	addGroupToNode("default", "dry_dirt_with_dry_grass", "dirt")
 	addGroupToNode("default", "dry_dirt_with_dry_grass", "savanna_dirt")
