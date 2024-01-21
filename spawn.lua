@@ -392,11 +392,11 @@ if minetest.get_modpath("animalworld") then
 	})
 	mob_spawn({
 		name = "animalworld:bear",
-		nodes = {"group:japanese_forest","group:redwood","group:forest","group:backroom"},
+		nodes = {"group:japanese_forest","group:redwood","group:forest","group:backroom","default:stone"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
-		min_height = 0,
+		min_height = -100,
 		max_height = 6000,
 	})
 	mob_spawn({

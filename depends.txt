@@ -3,6 +3,7 @@ creatura?
 spawnit?
 animalia?
 animalworld?
+australia?
 br_core?
 caverealms?
 naturalbiomes?
