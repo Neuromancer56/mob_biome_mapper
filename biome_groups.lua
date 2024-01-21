@@ -31,6 +31,11 @@ function getNodesByGroup(group)
 end
 
 local function groupsToNodes()
+	if minetest.get_modpath("australia") then
+		addGroupToNode("australia", "red_sand", "desert_surface")
+		addGroupToNode("australia", "red_gravel", "desert_surface")
+		addGroupToNode("australia", "red_gravel", "dirt_with_dry_grass")
+	end
 	if minetest.get_modpath("br_core") then
 		br_core.node_colors = {
 			black =     { main="#334",    alt="#556",    outline="#556",    highlight="#444455", lowlight="#112"   , raw="#445"},

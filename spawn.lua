@@ -593,13 +593,24 @@ if minetest.get_modpath("animalworld") then
 	})
 	mob_spawn({
 		name = "animalworld:otter",
-		nodes = {"group:swamp"; "group:mediterranean"},
+		nodes = {"group:swamp", "group:mediterranean"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
 	})
+	if minetest.get_modpath("australia") then
+		mob_spawn({
+		name = "animalworld:owl",
+		nodes = {"group:leaves"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000/wildlife_spawn_chance_multiplier,  
+		min_height = 0,
+		max_height = 1000,
+	})
+	end
 	mob_spawn({
 		name = "animalworld:panda",
 		nodes = {"group:bamboo_ground"},
@@ -608,6 +619,7 @@ if minetest.get_modpath("animalworld") then
 		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = 0,
 		max_height = 1000,
+		day_toggle = false,
 	})
 	mob_spawn({
 		name = "animalworld:parrot",
