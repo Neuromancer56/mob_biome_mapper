@@ -446,11 +446,11 @@ if minetest.get_modpath("animalworld") then
 	})	
 	mob_spawn({
 		name = "animalworld:crocodile",
-		nodes = {"group:swamp"},
+		nodes = {"group:swamp", "group:australia_ocean"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
-		min_height = 0,
+		min_height = -10,
 		max_height = 1000,
 	})
 	mob_spawn({

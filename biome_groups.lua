@@ -34,7 +34,8 @@ local function groupsToNodes()
 	if minetest.get_modpath("australia") then
 		addGroupToNode("australia", "red_sand", "desert_surface")
 		addGroupToNode("australia", "red_gravel", "desert_surface")
-		addGroupToNode("australia", "red_gravel", "dirt_with_dry_grass")
+		addGroupToNode("australia", "dirt_with_dry_grass", "desert_surface")
+		addGroupToNode("australia", "stone_kelp_brown", "australia_ocean")
 	end
 	if minetest.get_modpath("br_core") then
 		br_core.node_colors = {
