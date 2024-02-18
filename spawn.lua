@@ -381,7 +381,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mob_spawn({
 		name = "animalworld:bat",
-		nodes = {"group:cursed_ground","group:cave_floor", "group:banana","group:mediterranean","group:redwood","group:backroom","group:rainforest", "group:desert_cave"},
+		nodes = {"group:cursed_ground","group:cave_floor", "group:banana","group:mediterranean","group:redwood","group:backroom","group:rainforest", "group:desert_cave", "group:hero_mine"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
@@ -641,7 +641,7 @@ if minetest.get_modpath("animalworld") then
 	})]]
 	mob_spawn({
 		name = "animalworld:rat",
-		nodes = {"group:desert_cave"},
+		nodes = {"group:desert_cave","group:hero_mine"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
@@ -669,7 +669,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mob_spawn({
 		name = "animalworld:scorpion",
-		nodes = {"group:desert_surface","group:mediterranean", "group:desert_cave"},
+		nodes = {"group:desert_surface","group:mediterranean", "group:desert_cave", "group:hero_mine"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
@@ -679,7 +679,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mob_spawn({
 		name = "animalworld:spider",
-		nodes = {"group:cursed_ground", "group:desert_surface", "group:rainforest", "group:desert_cave"},
+		nodes = {"group:cursed_ground", "group:desert_surface", "group:rainforest", "group:desert_cave", "group:hero_mine"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
@@ -688,7 +688,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mob_spawn({
 		name = "animalworld:spidermale",
-		nodes = {"group:cursed_ground", "group:desert_surface", "group:rainforest", "group:desert_cave"},
+		nodes = {"group:cursed_ground", "group:desert_surface", "group:rainforest", "group:desert_cave", "group:hero_mine"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
@@ -734,7 +734,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mob_spawn({
 		name = "animalworld:viper",
-		nodes = {"group:desert_surface", "group:mediterranean", "group:swamp","group:redwood","group:rainforest", "group:desert_cave"},
+		nodes = {"group:desert_surface", "group:mediterranean", "group:swamp","group:redwood","group:rainforest", "group:desert_cave", "group:hero_mine"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
