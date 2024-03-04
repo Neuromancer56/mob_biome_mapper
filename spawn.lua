@@ -744,6 +744,7 @@ if minetest.get_modpath("animalworld") then
 		chance = 2000/wildlife_spawn_chance_multiplier,  
 		min_height = -5000,
 		max_height = 1000,
+		active_object_count = 30,
 	})
 	mob_spawn({
 		name = "animalworld:stellerseagle",
@@ -799,6 +800,7 @@ if minetest.get_modpath("animalworld") then
 		chance = 2000/wildlife_spawn_chance_multiplier,  
 		min_height = -5000,
 		max_height = 1000,
+		active_object_count = 30,
 	})
 	mob_spawn({
 		name = "animalworld:vulture",
