@@ -122,6 +122,8 @@ local function groupsToNodes()
 	end
 	if minetest.get_modpath("hero_mines") then
 		addGroupToNode("default", "stone", "hero_mine")
+		addGroupToNode("default", "desert_stone", "hero_mine")
+		addGroupToNode("default", "sandstone", "hero_mine")
 	end
 	if minetest.get_modpath("naturalbiomes") then
 		addGroupToNode("naturalbiomes", "alpine_litter", "dirt")

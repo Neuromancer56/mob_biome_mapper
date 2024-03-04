@@ -381,7 +381,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mob_spawn({
 		name = "animalworld:bat",
-		nodes = {"group:cursed_ground","group:cave_floor", "group:banana","group:mediterranean","group:redwood","group:backroom","group:rainforest", "group:desert_cave", "group:hero_mine"},
+		nodes = {"group:cursed_ground","group:cave_floor", "group:banana","group:mediterranean","group:redwood","group:backroom","group:rainforest", "group:desert_cave"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
@@ -389,6 +389,17 @@ if minetest.get_modpath("animalworld") then
 		max_height = 1000,
 		day_toggle = false,
 		active_object_count = 3,
+	})
+		mob_spawn({
+		name = "animalworld:bat",
+		nodes = {"group:hero_mine"},
+		min_light = 0,
+		interval = 15,
+		chance = 2000/wildlife_spawn_chance_multiplier,  
+		min_height = -5000,
+		max_height = 1000,
+		day_toggle = false,
+		active_object_count = 30,
 	})
 	mob_spawn({
 		name = "animalworld:bear",
@@ -641,13 +652,23 @@ if minetest.get_modpath("animalworld") then
 	})]]
 	mob_spawn({
 		name = "animalworld:rat",
-		nodes = {"group:desert_cave","group:hero_mine"},
+		nodes = {"group:hero_mine"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
 		min_height = -5000,
 		max_height = 1000,
 		active_object_count = 3,
+	})
+	mob_spawn({
+		name = "animalworld:rat",
+		nodes = {"group:hero_mine"},
+		min_light = 0,
+		interval = 15,
+		chance = 2000/wildlife_spawn_chance_multiplier,  
+		min_height = -5000,
+		max_height = 1000,
+		active_object_count = 30,
 	})
 	mob_spawn({
 		name = "animalworld:reindeer",
@@ -669,7 +690,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mob_spawn({
 		name = "animalworld:scorpion",
-		nodes = {"group:desert_surface","group:mediterranean", "group:desert_cave", "group:hero_mine"},
+		nodes = {"group:desert_surface","group:mediterranean", "group:desert_cave"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
@@ -678,8 +699,37 @@ if minetest.get_modpath("animalworld") then
 		active_object_count = 3,
 	})
 	mob_spawn({
+		name = "animalworld:scorpion",
+		nodes = {"group:hero_mine"},
+		min_light = 0,
+		interval = 15,
+		chance = 2000/wildlife_spawn_chance_multiplier,  
+		min_height = -5000,
+		max_height = 1000,
+		active_object_count = 30,
+	})
+	mob_spawn({
 		name = "animalworld:spider",
-		nodes = {"group:cursed_ground", "group:desert_surface", "group:rainforest", "group:desert_cave", "group:hero_mine"},
+		nodes = {"group:cursed_ground", "group:desert_surface", "group:rainforest", "group:desert_cave"},
+		min_light = 0,
+		interval = 60,
+		chance = 6000/wildlife_spawn_chance_multiplier,  
+		min_height = -5000,
+		max_height = 1000,
+	})
+	mob_spawn({
+		name = "animalworld:spider",
+		nodes = {"group:hero_mine"},
+		min_light = 0,
+		interval = 15,
+		chance = 2000/wildlife_spawn_chance_multiplier,  
+		min_height = -5000,
+		max_height = 1000,
+		active_object_count = 30,
+	})
+	mob_spawn({
+		name = "animalworld:spidermale",
+		nodes = {"group:cursed_ground", "group:desert_surface", "group:rainforest", "group:desert_cave"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
@@ -688,10 +738,10 @@ if minetest.get_modpath("animalworld") then
 	})
 	mob_spawn({
 		name = "animalworld:spidermale",
-		nodes = {"group:cursed_ground", "group:desert_surface", "group:rainforest", "group:desert_cave", "group:hero_mine"},
+		nodes = {"group:hero_mine"},
 		min_light = 0,
-		interval = 60,
-		chance = 6000/wildlife_spawn_chance_multiplier,  
+		interval = 15,
+		chance = 2000/wildlife_spawn_chance_multiplier,  
 		min_height = -5000,
 		max_height = 1000,
 	})
@@ -734,10 +784,19 @@ if minetest.get_modpath("animalworld") then
 	})
 	mob_spawn({
 		name = "animalworld:viper",
-		nodes = {"group:desert_surface", "group:mediterranean", "group:swamp","group:redwood","group:rainforest", "group:desert_cave", "group:hero_mine"},
+		nodes = {"group:desert_surface", "group:mediterranean", "group:swamp","group:redwood","group:rainforest", "group:desert_cave"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
+		min_height = -5000,
+		max_height = 1000,
+	})
+	mob_spawn({
+		name = "animalworld:viper",
+		nodes = {"group:hero_mine"},
+		min_light = 0,
+		interval = 15,
+		chance = 2000/wildlife_spawn_chance_multiplier,  
 		min_height = -5000,
 		max_height = 1000,
 	})
