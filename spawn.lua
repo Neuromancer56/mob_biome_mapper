@@ -392,7 +392,7 @@ if minetest.get_modpath("animalworld") then
 	})
 		mob_spawn({
 		name = "animalworld:bat",
-		nodes = {"group:hero_mine"},
+		nodes = {"group:hero_mine", "group:boulder_dig"},
 		min_light = 0,
 		interval = 15,
 		chance = 2000/wildlife_spawn_chance_multiplier,  
@@ -652,7 +652,7 @@ if minetest.get_modpath("animalworld") then
 	})]]
 	mob_spawn({
 		name = "animalworld:rat",
-		nodes = {"group:hero_mine"},
+		nodes = {"group:hero_mine", "group:boulder_dig"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
@@ -662,7 +662,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mob_spawn({
 		name = "animalworld:rat",
-		nodes = {"group:hero_mine"},
+		nodes = {"group:hero_mine", "group:boulder_dig"},
 		min_light = 0,
 		interval = 15,
 		chance = 2000/wildlife_spawn_chance_multiplier,  
@@ -700,7 +700,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mob_spawn({
 		name = "animalworld:scorpion",
-		nodes = {"group:hero_mine"},
+		nodes = {"group:hero_mine", "group:boulder_dig"},
 		min_light = 0,
 		interval = 15,
 		chance = 2000/wildlife_spawn_chance_multiplier,  
@@ -719,7 +719,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mob_spawn({
 		name = "animalworld:spider",
-		nodes = {"group:hero_mine"},
+		nodes = {"group:hero_mine", "group:boulder_dig"},
 		min_light = 0,
 		interval = 15,
 		chance = 2000/wildlife_spawn_chance_multiplier,  
@@ -738,7 +738,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mob_spawn({
 		name = "animalworld:spidermale",
-		nodes = {"group:hero_mine"},
+		nodes = {"group:hero_mine", "group:boulder_dig"},
 		min_light = 0,
 		interval = 15,
 		chance = 2000/wildlife_spawn_chance_multiplier,  
@@ -794,7 +794,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mob_spawn({
 		name = "animalworld:viper",
-		nodes = {"group:hero_mine"},
+		nodes = {"group:hero_mine", "group:boulder_dig"},
 		min_light = 0,
 		interval = 15,
 		chance = 2000/wildlife_spawn_chance_multiplier,  
