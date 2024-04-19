@@ -273,7 +273,30 @@ end
 })]]
 
 
+--[[  
+--below worked
+if minetest.get_modpath("animalworld") then
+	local bat_def = minetest.registered_entities["animalworld:bat"]
+	assert(bat_def, "animalworld:bat not found")
+	-- Override some properties of the bat entity
+			bat_def.passive = false
+			bat_def.type = "monster"
+			bat_def.runaway = false
+			bat_def.runaway_from = nil
+end
 
+		mob_spawn({
+		name = "animalworld:bat",
+		nodes = {"group:hero_mine", "group:boulder_dig"},
+		min_light = 0,
+		interval = 15,
+		chance = 2000/wildlife_spawn_chance_multiplier,  
+		min_height = -5000,
+		max_height = 1000,
+		day_toggle = false,
+		active_object_count = 30,
+	})
+]]
 local ambient_spawn_chance = tonumber(minetest.settings:get("animalia_ambient_chance")) or 6000
 --minetest.log("x", "amb_sp_ch:" .. ambient_spawn_chance)
 if minetest.get_modpath("animalia") then
@@ -938,7 +961,16 @@ if minetest.get_modpath("mobs_monster") then
 
 	mob_spawn({
 		name = "mobs_monster:dungeon_master",
-		nodes = {"group:volcanic", "group:cave_floor","group:backroom"},
+		nodes = {"group:cave_floor"},
+		max_light = 5,  --5
+		chance = 9000/monster_spawn_chance_multiplier,
+		active_object_count = 1,
+		max_height = -500,
+	})
+	
+		mob_spawn({
+		name = "mobs_monster:dungeon_master",
+		nodes = {"group:volcanic","group:backroom"},
 		max_light = 7,  --5
 		chance = 9000/monster_spawn_chance_multiplier,
 		active_object_count = 1,
@@ -959,11 +991,21 @@ if minetest.get_modpath("mobs_monster") then
 
 	mob_spawn({
 		name = "mobs_monster:mese_monster",
-		nodes = {"group:coral", "group:cave_floor","group:backroom"},
+		nodes = {"group:coral", "group:backroom"},
 		max_light = 9,  --7
 		chance = 5000/monster_spawn_chance_multiplier,
 		active_object_count = 1,
 		max_height = 31000,
+		day_toggle = false,
+	})
+	
+	mob_spawn({
+		name = "mobs_monster:mese_monster",
+		nodes = { "group:cave_floor"},
+		max_light = 7,  --7
+		chance = 5000/monster_spawn_chance_multiplier,
+		active_object_count = 1,
+		max_height = -500,
 		day_toggle = false,
 	})
 
@@ -971,7 +1013,7 @@ if minetest.get_modpath("mobs_monster") then
 
 	mob_spawn({
 		name = "mobs_monster:oerkki",
-		nodes = {"group:cursed_ground", "group:cave_floor","group:backroom"},
+		nodes = {"group:cursed_ground","group:backroom"},
 		max_light = 9,  --7
 		chance = 7000/monster_spawn_chance_multiplier,
 		max_height = 31000,
