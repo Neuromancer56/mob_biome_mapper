@@ -38,6 +38,9 @@ local function groupsToNodes()
 		addGroupToNode("australia", "stone_kelp_brown", "australia_ocean")
 		addGroupToNode("default", "sand", "australia_ocean")
 	end
+	if minetest.get_modpath("bamboo_biome") then
+		addGroupToNode("bamboo_biome", "dirt_with_bamboo_grass", "bamboo_ground")
+	end
 	if minetest.get_modpath("boulder_dig") then
 		addGroupToNode("default", "dirt", "boulder_dig")
 		addGroupToNode("default", "dry_dirt", "boulder_dig")
@@ -78,11 +81,15 @@ local function groupsToNodes()
 		addGroupToNode("caverealms", "stone_with_moss", "cave_floor")
 		addGroupToNode("caverealms", "stone_with_lichen", "cave_floor")
 	end
+	if minetest.get_modpath("cherry_biome") then
+		addGroupToNode("cherry_biome", "dirt_with_cherry_grass", "japanese_forest")
+	end
+	
 	addGroupToNode("default", "desert_stone", "desert_cave")
 	addGroupToNode("default", "sandstone", "desert_cave")
 	addGroupToNode("default", "desert_sand", "desert_surface")
 	addGroupToNode("default", "dry_dirt_with_dry_grass", "dirt")
-	addGroupToNode("default", "dry_dirt_with_dry_grass", "savanna_dirt")
+	addGroupToNode("default", "dry_dirt_with_dry_grass", "savanna_dirt_default")
 	addGroupToNode("default", "permafrost", "frozen_surface")
 	addGroupToNode("default", "permafrost_with_moss", "frozen_surface")
 	addGroupToNode("default", "permafrost_with_stone", "frozen_surface")

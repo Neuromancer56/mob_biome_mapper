@@ -453,7 +453,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mob_spawn({
 		name = "animalworld:boar",
-		nodes = {"group:forest","group:mediterranean","group:savanna_dirt","group:backroom"},
+		nodes = {"group:savanna_dirt_default", "group:forest","group:mediterranean","group:savanna_dirt","group:backroom"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
@@ -518,7 +518,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mob_spawn({
 		name = "animalworld:giraffe",
-		nodes = {"group:savanna_dirt"},
+		nodes = {"group:savanna_dirt_default", "group:savanna_dirt"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
@@ -527,7 +527,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mob_spawn({
 		name = "animalworld:gnu",
-		nodes = {"group:savanna_dirt"},
+		nodes = {"group:savanna_dirt_default", "group:savanna_dirt"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
@@ -545,7 +545,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mob_spawn({
 		name = "animalworld:hyena",
-		nodes = {"group:savanna_dirt"},
+		nodes = {"group:savanna_dirt_default", "group:savanna_dirt"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
@@ -554,7 +554,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mob_spawn({
 		name = "animalworld:ibex",
-		nodes = {"group:savanna_dirt","group:japanese_forest"},
+		nodes = {"group:savanna_dirt_default", "group:savanna_dirt","group:japanese_forest"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
@@ -572,7 +572,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mob_spawn({
 		name = "animalworld:kangaroo",
-		nodes = {"group:savanna_dirt"},
+		nodes = {"group:savanna_dirt_default", "group:savanna_dirt"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
@@ -581,7 +581,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mob_spawn({
 		name = "animalworld:koala",
-		nodes = {"group:savanna_dirt"},
+		nodes = {"group:savanna_dirt_default", "group:savanna_dirt"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
@@ -845,7 +845,7 @@ if minetest.get_modpath("animalworld") then
 	})
 	mob_spawn({
 		name = "animalworld:wildboar",
-		nodes = {"group:forest","group:mediterranean","group:savanna_dirt"},
+		nodes = {"group:savanna_dirt_default", "group:forest","group:mediterranean","group:savanna_dirt"},
 		min_light = 0,
 		interval = 60,
 		chance = 6000/wildlife_spawn_chance_multiplier,  
