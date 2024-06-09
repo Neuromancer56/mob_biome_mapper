@@ -80,6 +80,11 @@ local function groupsToNodes()
 		addGroupToNode("caverealms", "stone_with_salt", "cave_floor")
 		addGroupToNode("caverealms", "stone_with_moss", "cave_floor")
 		addGroupToNode("caverealms", "stone_with_lichen", "cave_floor")
+		addGroupToNode("caverealms", "glow_obsidian", "cave_floor")
+		addGroupToNode("caverealms", "glow_obsidian_2", "cave_floor")
+		addGroupToNode("caverealms", "thin_ice", "cave_floor")	
+		addGroupToNode("caverealms", "stone_with_algae,", "cave_floor")	
+		
 	end
 	if minetest.get_modpath("cherry_biome") then
 		addGroupToNode("cherry_biome", "dirt_with_cherry_grass", "japanese_forest")

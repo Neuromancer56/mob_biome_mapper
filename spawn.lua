@@ -962,7 +962,7 @@ if minetest.get_modpath("mobs_monster") then
 	mob_spawn({
 		name = "mobs_monster:dungeon_master",
 		nodes = {"group:cave_floor"},
-		max_light = 5,  --5
+		max_light = 7,  --5
 		chance = 9000/monster_spawn_chance_multiplier,
 		active_object_count = 1,
 		max_height = -500,
@@ -1019,6 +1019,14 @@ if minetest.get_modpath("mobs_monster") then
 		max_height = 31000,
 	})
 
+	mob_spawn({
+		name = "mobs_monster:oerkki",
+		nodes = { "group:cave_floor"},
+		max_light = 7,  --7
+		chance = 5000/monster_spawn_chance_multiplier,
+		active_object_count = 1,
+		max_height = -500,
+	})
 	-- Sand Monster
 
 	mob_spawn({
